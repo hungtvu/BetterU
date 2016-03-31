@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
-		0A79C7761CADB85400DE9CD8 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7751CADB85400DE9CD8 /* FirstViewController.swift */; };
-		0A79C7781CADB85400DE9CD8 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7771CADB85400DE9CD8 /* SecondViewController.swift */; };
-		0A79C77B1CADB85400DE9CD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C7791CADB85400DE9CD8 /* Main.storyboard */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
 		0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */; };
 		0A79C78B1CADB85400DE9CD8 /* BetterUTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C78A1CADB85400DE9CD8 /* BetterUTests.swift */; };
 		0A79C7961CADB85400DE9CD8 /* BetterUUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7951CADB85400DE9CD8 /* BetterUUITests.swift */; };
+		0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */; };
+		0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */; };
+		0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */; };
+		0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C7A91CADD59200DE9CD8 /* Main.storyboard */; };
+		0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */; };
+		0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,9 +40,6 @@
 /* Begin PBXFileReference section */
 		0A79C7701CADB85300DE9CD8 /* BetterU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0A79C7751CADB85400DE9CD8 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		0A79C7771CADB85400DE9CD8 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		0A79C77A1CADB85400DE9CD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A79C77F1CADB85400DE9CD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A79C7811CADB85400DE9CD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +49,12 @@
 		0A79C7911CADB85400DE9CD8 /* BetterUUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetterUUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A79C7951CADB85400DE9CD8 /* BetterUUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterUUITests.swift; sourceTree = "<group>"; };
 		0A79C7971CADB85400DE9CD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		0A79C7A91CADD59200DE9CD8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +106,12 @@
 			isa = PBXGroup;
 			children = (
 				0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */,
-				0A79C7751CADB85400DE9CD8 /* FirstViewController.swift */,
-				0A79C7771CADB85400DE9CD8 /* SecondViewController.swift */,
-				0A79C7791CADB85400DE9CD8 /* Main.storyboard */,
+				0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */,
+				0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */,
+				0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */,
+				0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */,
+				0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */,
+				0A79C7A91CADD59200DE9CD8 /* Main.storyboard */,
 				0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */,
 				0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */,
 				0A79C7811CADB85400DE9CD8 /* Info.plist */,
@@ -232,9 +241,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
 				0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */,
 				0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */,
-				0A79C77B1CADB85400DE9CD8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +268,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A79C7781CADB85400DE9CD8 /* SecondViewController.swift in Sources */,
+				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
+				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
+				0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
-				0A79C7761CADB85400DE9CD8 /* FirstViewController.swift in Sources */,
+				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
+				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +309,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0A79C7791CADB85400DE9CD8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0A79C77A1CADB85400DE9CD8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -403,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BetterU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.betteru.BetterU;
@@ -414,6 +419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BetterU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.betteru.BetterU;
@@ -486,6 +492,7 @@
 				0A79C79C1CADB85400DE9CD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A79C79D1CADB85400DE9CD8 /* Build configuration list for PBXNativeTarget "BetterUTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +501,7 @@
 				0A79C79F1CADB85400DE9CD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A79C7A01CADB85400DE9CD8 /* Build configuration list for PBXNativeTarget "BetterUUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +510,7 @@
 				0A79C7A21CADB85400DE9CD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
