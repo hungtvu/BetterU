@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A4A64A51CAE582500598EA0 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4A64A41CAE582500598EA0 /* HealthKit.framework */; };
+		0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */; };
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
 		0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */; };
@@ -18,6 +20,8 @@
 		0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C7A91CADD59200DE9CD8 /* Main.storyboard */; };
 		0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */; };
 		0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */; };
+		0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */; };
+		0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A4A64A41CAE582500598EA0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		0A4A64A61CAE582500598EA0 /* BetterU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BetterU.entitlements; sourceTree = "<group>"; };
+		0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
 		0A79C7701CADB85300DE9CD8 /* BetterU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +62,8 @@
 		0A79C7A91CADD59200DE9CD8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4A64A51CAE582500598EA0 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +95,7 @@
 		0A79C7671CADB85300DE9CD8 = {
 			isa = PBXGroup;
 			children = (
+				0A4A64A41CAE582500598EA0 /* HealthKit.framework */,
 				0A79C7721CADB85400DE9CD8 /* BetterU */,
 				0A79C7891CADB85400DE9CD8 /* BetterUTests */,
 				0A79C7941CADB85400DE9CD8 /* BetterUUITests */,
@@ -107,14 +118,15 @@
 			children = (
 				0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */,
 				0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */,
-				0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */,
-				0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */,
-				0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */,
 				0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */,
+				0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */,
+				0AD384D41CAE4DF10098E5B1 /* Custom Tab Bar Controller */,
+				0AD384D31CAE4DD80098E5B1 /* Home Tab */,
 				0A79C7A91CADD59200DE9CD8 /* Main.storyboard */,
 				0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */,
 				0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */,
 				0A79C7811CADB85400DE9CD8 /* Info.plist */,
+				0A4A64A61CAE582500598EA0 /* BetterU.entitlements */,
 			);
 			path = BetterU;
 			sourceTree = "<group>";
@@ -135,6 +147,25 @@
 				0A79C7971CADB85400DE9CD8 /* Info.plist */,
 			);
 			path = BetterUUITests;
+			sourceTree = "<group>";
+		};
+		0AD384D31CAE4DD80098E5B1 /* Home Tab */ = {
+			isa = PBXGroup;
+			children = (
+				0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */,
+				0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */,
+			);
+			name = "Home Tab";
+			sourceTree = "<group>";
+		};
+		0AD384D41CAE4DF10098E5B1 /* Custom Tab Bar Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */,
+				0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */,
+				0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */,
+			);
+			name = "Custom Tab Bar Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +236,14 @@
 				TargetAttributes = {
 					0A79C76F1CADB85300DE9CD8 = {
 						CreatedOnToolsVersion = 7.3;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.WAC = {
+								enabled = 0;
+							};
+						};
 					};
 					0A79C7851CADB85400DE9CD8 = {
 						CreatedOnToolsVersion = 7.3;
@@ -269,10 +308,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
+				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
 				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
 				0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
+				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
+				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
 				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BetterU/BetterU.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BetterU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -419,6 +462,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BetterU/BetterU.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BetterU/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
