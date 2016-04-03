@@ -8,43 +8,22 @@
 
 import UIKit
 import HealthKit
+import CoreData
 
 class HomeTableViewController: UITableViewController {
     
-    var thumbnailImages: [UIImage] = []
-    var rowTitle: [String] = []
-    var rowDetails: [Double] = []
-    var stepsCount: Double = 0.0
-    var metricStringArray: [String] = []
     var weightInLbs: Double = 800.0
     var tableViewRowHeight: CGFloat = 117.0
+    var totalCaloriesBurned: Double = 0.0
+    var totalMilesWalked: Double = 0.0
+    var stepsCount: Int = 0
+    
+    var context: NSManagedObjectContext!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        
         self.title = "Home"
-        
-        // Add images into the UIImage array
-        thumbnailImages.append(UIImage(named: "CaloriesBurnedIcon")!)
-        thumbnailImages.append(UIImage(named: "StepsIcon")!)
-        thumbnailImages.append(UIImage(named: "runningManIcon")!)
-        thumbnailImages.append(UIImage(named: "weightIcon")!)
-        thumbnailImages.append(UIImage(named: "bananaIcon")!)
-        
-        // Add title for each row into the String arrays
-        rowTitle.append("Calories Burned")
-        rowTitle.append("Steps Taken")
-        rowTitle.append("Miles Walked")
-        rowTitle.append("Weight")
-        rowTitle.append("Caloric Intake")
-        
-        // Add metrics for each row in the table
-        metricStringArray.append("Cal.")
-        metricStringArray.append("Steps")
-        metricStringArray.append("Miles")
-        metricStringArray.append("lbs")
-        metricStringArray.append("In")
-        
         
         HealthKitHelper().recentSteps() { steps, error in
             
@@ -52,7 +31,7 @@ class HomeTableViewController: UITableViewController {
             let milesFromSteps: Double = steps/2112
             
             // Calculate the amount of calories burned per mile
-            // By multiplying the user's weight by 0.57, we can get that. 
+            // By multiplying the user's weight by 0.57, we can get that.
             // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
             let caloriesBurnedPerMile = 0.57 * self.weightInLbs
             
@@ -62,17 +41,21 @@ class HomeTableViewController: UITableViewController {
             // Calculating calories burned by multiplying the total steps to calories burned per steps
             let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
             
-            self.rowDetails.append(round(totalCaloriesBurnedFromSteps)) // Calories Burned
-            self.rowDetails.append(steps) // Steps taken
-            
-            self.rowDetails.append(round(milesFromSteps * 100)/100) // Miles taken
-            
-            self.rowDetails.append(self.weightInLbs) // Weight
-            self.rowDetails.append(0) // Caloric Intake
-
+            // Grabbing the necessary values and assigning it to a variable
+            self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
+            self.totalMilesWalked = round(milesFromSteps * 100)/100
+            self.stepsCount = Int(steps)
         }
-        
-        
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+     
+            dispatch_async(dispatch_get_main_queue(),
+            {
+                self.tableView.reloadData()
+            })
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,7 +72,7 @@ class HomeTableViewController: UITableViewController {
 
     // This method tells you how many rows there are in each section
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return thumbnailImages.count
+        return 5
     }
     
     // Asks the table view delegate to return the height of a given row.
@@ -98,19 +81,83 @@ class HomeTableViewController: UITableViewController {
         return tableViewRowHeight
     }
     
+    var GlobalUserInitiatedQueue: dispatch_queue_t {
+        return dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)
+    }
+    
+    // This method asks the tableView to populate the prototype cells with the necessary information
+    // The cells are all custom cells. We did it this way because some value items had different properties
+    // such as, the steps taken row only required an integer instead of a float. 
+    // Furthermore, making each cell custom from each other prevents unnecessary crash in the code. Before, we
+    // used arrays of strings and double under the HealthKitHelper method, the app would crash due to it not
+    // populating the indices of the array in time. When that happens, we will get an index out of bounds error.
+    // Making each cell custom, we don't have to worry about populating data through the use of arrays.
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Progress")! as! HomeTableViewCell
-        
-        // Grab the row count from the indexPath in the cell
         let row: Int = indexPath.row
-    
-        cell.thumbnailImage!.image = thumbnailImages[row]
-        cell.titleLabel!.text = rowTitle[row]
-        cell.valueLabel!.text = String(rowDetails[row])
-        cell.metricLabel!.text = metricStringArray[row]
         
-        return cell
+        // Populating the calories burned row
+        if row == 0
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Calories")! as! HomeTableViewCell
+        
+            // Grab the row count from the indexPath in the cell
+            cell.thumbnailImage!.image = UIImage(named: "CaloriesBurnedIcon")
+            cell.valueLabel!.text = String(totalCaloriesBurned)
+            cell.metricLabel!.text = "Cal."
+            
+            return cell
+        }
+            
+        // Populating the steps taken row
+        else if row == 1
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Steps")! as! StepsTableViewCell
+            
+            cell.thumbnailImage!.image = UIImage(named: "StepsIcon")
+            cell.valueLabel!.text = String(stepsCount)
+            cell.metricLabel!.text = "Steps"
+            
+            return cell
+        }
+        
+        // Populating te miles walked row
+        else if row == 2
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Miles")! as! MilesTableViewCell
+            
+            cell.thumbnailImage!.image = UIImage(named: "runningManIcon")
+            cell.valueLabel!.text = String(totalMilesWalked)
+            cell.metricLabel!.text = "Miles"
+            
+            return cell
+        }
+        
+        // Populating the weight row
+        else if row == 3
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Weight")! as! WeightTableViewCell
+            
+            cell.thumbnailImage!.image = UIImage(named: "weightIcon")
+            cell.valueLabel!.text = String(800)
+            cell.metricLabel!.text = "lbs"
+            
+            return cell
+        }
+        
+        // Populating the caloric intake row
+        else
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("CaloricIntake")! as! CaloricIntakeTableViewCell
+            
+            cell.thumbnailImage!.image = UIImage(named: "bananaIcon")
+            cell.valueLabel!.text = String(0.0)
+            cell.metricLabel!.text = "In"
+            
+            return cell
+        }
     }
+    
+    
    
 }

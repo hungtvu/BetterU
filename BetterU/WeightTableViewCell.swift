@@ -1,14 +1,14 @@
 //
-//  HomeTableViewCell.swift
+//  WeightTableViewCell.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/1/16.
+//  Created by Hung Vu on 4/2/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class WeightTableViewCell: UITableViewCell {
 
     @IBOutlet var thumbnailImage: UIImageView!
     @IBOutlet var valueLabel: UILabel!

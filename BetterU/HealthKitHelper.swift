@@ -36,6 +36,7 @@ class HealthKitHelper
             healthKitStore.requestAuthorizationToShareTypes(nil, readTypes: steps as? Set<HKObjectType>) { (success, error) -> Void in
                 isEnabled = success
             }
+      
         }
         
         else
@@ -49,6 +50,7 @@ class HealthKitHelper
     // This method fetches daily step counts from health kit
     func recentSteps(completion: (Double, NSError?) -> ())
     {
+        
         // The type of data we are getting
         let stepCountType = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
         

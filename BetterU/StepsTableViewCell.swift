@@ -1,14 +1,14 @@
 //
-//  HomeTableViewCell.swift
+//  StepsTableViewCell.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/1/16.
+//  Created by Hung Vu on 4/2/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class StepsTableViewCell: UITableViewCell {
 
     @IBOutlet var thumbnailImage: UIImageView!
     @IBOutlet var valueLabel: UILabel!
@@ -18,10 +18,10 @@ class HomeTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 

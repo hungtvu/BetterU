@@ -1,15 +1,17 @@
+
 //
-//  HomeTableViewCell.swift
+//  MilesTableViewCell.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/1/16.
+//  Created by Hung Vu on 4/2/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell {
+class MilesTableViewCell: UITableViewCell {
 
+    
     @IBOutlet var thumbnailImage: UIImageView!
     @IBOutlet var valueLabel: UILabel!
     @IBOutlet var metricLabel: UILabel!
