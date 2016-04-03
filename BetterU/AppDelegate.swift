@@ -13,15 +13,73 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    var userAccountInfo: NSMutableDictionary = NSMutableDictionary()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        /*
+         All application-specific and user data must be written to files that reside in the iOS device's
+         Documents directory. Nothing can be written into application's main bundle (project folder) because
+         it is locked for writing after your app is published.
+         
+         The contents of the iOS device's Documents directory are backed up by iTunes during backup of an iOS device.
+         Therefore, the user can recover the data written by your app from an earlier device backup.
+         
+         The Documents directory path on an iOS device is different from the one used for iOS Simulator.
+         
+         To obtain the Documents directory path, you use the NSSearchPathForDirectoriesInDomains function.
+         However, this function was created originally for Mac OS X, where multiple such directories could exist.
+         Therefore, it returns an array of paths rather than a single path.
+         
+         For iOS, the resulting array's first element (index=0) contains the path to the Documents directory.
+         */
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentDirectoryPath = paths[0] as String
+        
+        // Add the plist filename to the documents directory path to obtain an absolute path to the plist filename
+        let plistFilePathInDocumentDirectory = documentDirectoryPath + "/UserAccountInfo.plist"
+        
+        let dictFromFile: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInDocumentDirectory)
+        
+        if let dictFromFileInDocumentDirectory = dictFromFile
+        {
+            // MyFavoriteMovies.plist exists
+            userAccountInfo = dictFromFileInDocumentDirectory
+        }
+        else
+        {
+            // MyIngredients.plist does not exist in the directory
+            // Obtain the path to the plist file
+            let plistFilePathInMainBundle = NSBundle.mainBundle().pathForResource("UserAccountInfo", ofType: "plist")
+            
+            let dictionaryFromFileInMainBundle: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInMainBundle!)
+            
+            userAccountInfo = dictionaryFromFileInMainBundle!
+        }
+
         return true
     }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
+        /*
+         "UIApplicationWillResignActiveNotification is posted when the app is no longer active and loses focus.
+         An app is active when it is receiving events. An active app can be said to have focus.
+         It gains focus after being launched, loses focus when an overlay window pops up or when the device is
+         locked, and gains focus when the device is unlocked." [Apple]
+         */
+        
+        // Define the file path to the MyFavoriteMovies.plist
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentDirectoryPath = paths[0] as String
+        
+        // Add plist file name to the documents directory path
+        let plistFileFromDocumentDirectory = documentDirectoryPath + "/UserAccountInfo.plist"
+        
+        // Write NSMutableDictionary to the destination file
+        userAccountInfo.writeToFile(plistFileFromDocumentDirectory, atomically: true)
+        
     }
 
     func applicationDidEnterBackground(application: UIApplication) {

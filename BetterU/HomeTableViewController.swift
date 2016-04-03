@@ -12,7 +12,7 @@ import CoreData
 
 class HomeTableViewController: UITableViewController {
     
-    var weightInLbs: Double = 800.0
+    var weightInLbs: Int = 800
     var tableViewRowHeight: CGFloat = 117.0
     var totalCaloriesBurned: Double = 0.0
     var totalMilesWalked: Double = 0.0
@@ -20,10 +20,17 @@ class HomeTableViewController: UITableViewController {
     
     var context: NSManagedObjectContext!
     
+    
+    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
+    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         self.title = "Home"
+        
+        weightInLbs = applicationDelegate.userAccountInfo["User Weight"] as! Int
+        print(applicationDelegate.userAccountInfo)
         
         HealthKitHelper().recentSteps() { steps, error in
             
@@ -33,7 +40,7 @@ class HomeTableViewController: UITableViewController {
             // Calculate the amount of calories burned per mile
             // By multiplying the user's weight by 0.57, we can get that.
             // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
-            let caloriesBurnedPerMile = 0.57 * self.weightInLbs
+            let caloriesBurnedPerMile = 0.57 * Double(self.weightInLbs)
             
             // Divide the number of calories that are burned per mile by number of steps to walk a mile
             let caloriesPerStep = caloriesBurnedPerMile/2112
@@ -46,6 +53,8 @@ class HomeTableViewController: UITableViewController {
             self.totalMilesWalked = round(milesFromSteps * 100)/100
             self.stepsCount = Int(steps)
         }
+        
+       
 
     }
     
@@ -139,7 +148,7 @@ class HomeTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("Weight")! as! WeightTableViewCell
             
             cell.thumbnailImage!.image = UIImage(named: "weightIcon")
-            cell.valueLabel!.text = String(800)
+            cell.valueLabel!.text = String(weightInLbs)
             cell.metricLabel!.text = "lbs"
             
             return cell

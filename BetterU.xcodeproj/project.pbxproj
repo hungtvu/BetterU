@@ -27,6 +27,7 @@
 		0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */; };
 		0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5551CB0954D005AA390 /* WeightTableViewCell.swift */; };
 		0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5571CB0955B005AA390 /* CaloricIntakeTableViewCell.swift */; };
+		0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */; };
 		0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */; };
 		0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */; };
 		0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */; };
@@ -78,6 +79,7 @@
 		0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MilesTableViewCell.swift; sourceTree = "<group>"; };
 		0AA2E5551CB0954D005AA390 /* WeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightTableViewCell.swift; sourceTree = "<group>"; };
 		0AA2E5571CB0955B005AA390 /* CaloricIntakeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloricIntakeTableViewCell.swift; sourceTree = "<group>"; };
+		0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserAccountInfo.plist; path = ../UserAccountInfo.plist; sourceTree = "<group>"; };
 		0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				0A79C7A91CADD59200DE9CD8 /* Main.storyboard */,
 				0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */,
 				0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */,
+				0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */,
 				0A79C7811CADB85400DE9CD8 /* Info.plist */,
 				0A4A64A61CAE582500598EA0 /* BetterU.entitlements */,
 				0AA2E54A1CB064D9005AA390 /* Podfile */,
@@ -340,6 +343,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */,
 				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
 				0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */,
 				0AA2E54B1CB064D9005AA390 /* Podfile in Resources */,
