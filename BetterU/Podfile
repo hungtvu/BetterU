@@ -4,4 +4,5 @@ xcodeproj '/Users/Kevin/Dropbox/Spring 2016/BetterU/BetterU.xcodeproj'
 
 target 'BetterU' do
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'VideoSplashKit'
 end
