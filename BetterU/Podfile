@@ -1,8 +1,0 @@
-platform :ios, '9.3'
-use_frameworks!
-xcodeproj '/Users/Kevin/Dropbox/Spring 2016/BetterU/BetterU.xcodeproj'
-
-target 'BetterU' do
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-pod 'VideoSplashKit'
-end

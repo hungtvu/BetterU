@@ -26,9 +26,25 @@ class SignInViewController: UIViewController {
     // Initialize variables to store JSON data
     var username: String = ""
     var password: String = ""
+    var weight: Int = 0
+    var firstName: String = ""
+    var lastName: String = ""
+    var email: String = ""
+    var age: Int = 0
+    var height: Int = 0
+    var gender: String = ""
+    var levelExp: Int = 0
+    
+    // Dictionary KV pairs for the JSON data variables
     var usernameAndPasswordDict = [String: String]()
     var userWeightDict = [String: Int]()
-    var weight: Int = 0
+    var username_Dict_firstName = [String: String]()
+    var username_Dict_lastName = [String: String]()
+    var username_Dict_email = [String: String]()
+    var username_Dict_age = [String: Int]()
+    var username_Dict_height = [String: Int]()
+    var username_Dict_gender = [String: String]()
+    var username_Dict_levelExp = [String: Int]()
     
     var isLoggedIn = false
     
@@ -131,12 +147,28 @@ class SignInViewController: UIViewController {
                     username = jsonDataDictInfo["username"] as! String
                     password = jsonDataDictInfo["password"] as! String
                     weight = jsonDataDictInfo["weight"] as! Int
+                    firstName = jsonDataDictInfo["firstName"] as! String
+                    lastName = jsonDataDictInfo["lastName"] as! String
+                    email = jsonDataDictInfo["email"] as! String
+                    age = jsonDataDictInfo["age"] as! Int
+                    gender = jsonDataDictInfo["gender"] as! String
+                    height = jsonDataDictInfo["height"] as! Int
+                    levelExp = jsonDataDictInfo["points"] as! Int
                     
                     // Password is value, username is key
                     usernameAndPasswordDict[username] = password
                     
                     // Weight is value, username is key
                     userWeightDict[username] = weight
+                    
+                    // dict[KEY] = VALUE
+                    username_Dict_email[username] = email
+                    username_Dict_firstName[username] = firstName
+                    username_Dict_lastName[username] = lastName
+                    username_Dict_age[username] = age
+                    username_Dict_height[username] = height
+                    username_Dict_gender[username] = gender
+                    username_Dict_levelExp[username] = levelExp
                     
                     i += 1
                     
@@ -183,11 +215,54 @@ class SignInViewController: UIViewController {
                     weight = weightValue
                 }
                 
-               
+                
+                if let emailValue = username_Dict_email[usernameEntered!]
+                {
+                    email = emailValue
+                }
+                
+                if let firstNameValue = username_Dict_firstName[usernameEntered!]
+                {
+                    firstName = firstNameValue
+                }
+                
+                if let lastNameValue = username_Dict_lastName[usernameEntered!]
+                {
+                    lastName = lastNameValue
+                }
+                
+                if let ageValue = username_Dict_age[usernameEntered!]
+                {
+                    age = ageValue
+                }
+                
+                if let heightValue = username_Dict_height[usernameEntered!]
+                {
+                    height = heightValue
+                }
+                
+                if let levelExpValue = username_Dict_levelExp[usernameEntered!]
+                {
+                    levelExp = levelExpValue
+                }
+                
+                if let genderValue = username_Dict_gender[usernameEntered!]
+                {
+                    gender = genderValue
+                }
+                
+                
                 // Create a new ingredient title name with a new title in the plist
                 applicationDelegate.userAccountInfo.setObject(weight, forKey: "User Weight")
                 applicationDelegate.userAccountInfo.setObject(usernameEntered!, forKey: "Username")
                 applicationDelegate.userAccountInfo.setObject(passwordEntered!, forKey: "Password")
+                applicationDelegate.userAccountInfo.setObject(email, forKey: "Email")
+                applicationDelegate.userAccountInfo.setObject(lastName, forKey: "Last Name")
+                applicationDelegate.userAccountInfo.setObject(firstName, forKey: "First Name")
+                applicationDelegate.userAccountInfo.setObject(age, forKey: "Age")
+                applicationDelegate.userAccountInfo.setObject(gender, forKey: "Gender")
+                applicationDelegate.userAccountInfo.setObject(levelExp, forKey: "Exp")
+                applicationDelegate.userAccountInfo.setObject(height, forKey: "Height")
                 
                 
                 isLoggedIn = true
@@ -230,39 +305,6 @@ class SignInViewController: UIViewController {
         self.presentViewController(alertController, animated: true, completion: nil)
 
     }
-    
-    
-    /*
-     -------------------------
-     MARK: - Prepare for Segue
-     -------------------------
-     */
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-//    {
-//        if segue.identifier == "homeView" {
-//            
-//            let tabBarController = segue.destinationViewController as! CustomTabBarController
-//            
-//            // Grabs the story board
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        
-//            // In order to segue between view controllers that have no connection, we must use the unique Storyboard ID
-//            // We must then go through the navigation controller first before reaching the actual view controller
-//            let navigationController = storyboard.instantiateViewControllerWithIdentifier("Home") as! UINavigationController
-//            
-//            //let navigationController = tabBarController.viewControllers![0] as! UINavigationController
-//        
-//            // Use the navigation controller to reach the table view controller
-//            let homeTableViewController = navigationController.viewControllers.first as! HomeTableViewController
-//            
-//            // Passing information downstream
-//            homeTableViewController.weightInLbs = weight
-//            
-//            //self.presentViewController(navigationController, animated: true, completion: nil)
-//            
-//        }
-//        
-//    }
     
     /*
      ---------------------------------
