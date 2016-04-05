@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */; };
+		0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */; };
+		0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */; };
 		0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */; };
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
@@ -58,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
+		0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		0A4A64A41CAE582500598EA0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		0A4A64A61CAE582500598EA0 /* BetterU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BetterU.entitlements; sourceTree = "<group>"; };
 		0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 			children = (
 				0AA2E55F1CB3172F005AA390 /* ProfileViewController.swift */,
 				0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */,
+				0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */,
+				0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */,
 			);
 			name = "Profile Tab";
 			sourceTree = "<group>";
@@ -451,11 +457,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */,
 				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
 				0AA2E5501CB06D2A005AA390 /* UserObject.swift in Sources */,
 				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
 				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
 				0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */,
+				0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */,
 				1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */,
 				0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */,
 				0AA2E5601CB3172F005AA390 /* ProfileViewController.swift in Sources */,
