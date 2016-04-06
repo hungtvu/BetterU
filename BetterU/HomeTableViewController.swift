@@ -115,6 +115,8 @@ class HomeTableViewController: UITableViewController {
             cell.valueLabel!.text = String(totalCaloriesBurned)
             cell.metricLabel!.text = "Cal."
             
+            cell.setNeedsLayout()
+            
             return cell
         }
             
@@ -127,6 +129,8 @@ class HomeTableViewController: UITableViewController {
             cell.valueLabel!.text = String(stepsCount)
             cell.metricLabel!.text = "Steps"
             
+            cell.setNeedsLayout()
+            
             return cell
         }
         
@@ -138,6 +142,8 @@ class HomeTableViewController: UITableViewController {
             cell.thumbnailImage!.image = UIImage(named: "runningManIcon")
             cell.valueLabel!.text = String(totalMilesWalked)
             cell.metricLabel!.text = "Miles"
+            
+            cell.setNeedsLayout()
             
             return cell
         }

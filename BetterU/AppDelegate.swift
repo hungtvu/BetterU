@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     var userAccountInfo: NSMutableDictionary = NSMutableDictionary()
+    var recipesDict: NSMutableDictionary = NSMutableDictionary()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /*
@@ -42,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let dictFromFileInDocumentDirectory = dictFromFile
         {
-            // MyFavoriteMovies.plist exists
+            // useraccountinfo plist exists
             userAccountInfo = dictFromFileInDocumentDirectory
         }
         else
@@ -55,6 +56,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             userAccountInfo = dictionaryFromFileInMainBundle!
         }
+        
+        // Add the plist filename to the documents directory path to obtain an absolute path to the plist filename
+        let recipesPlistFilePathInDocumentDirectory = documentDirectoryPath + "/Recipes.plist"
+        
+        let recipesDictFromFile: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: recipesPlistFilePathInDocumentDirectory)
+        
+        if let dictFromFileInDocumentDirectory = recipesDictFromFile
+        {
+            // recipes plist exists
+            recipesDict = dictFromFileInDocumentDirectory
+        }
+        else
+        {
+            // does not exist in the directory
+            // Obtain the path to the plist file
+            let plistFilePathInMainBundle = NSBundle.mainBundle().pathForResource("Recipes", ofType: "plist")
+            
+            let dictionaryFromFileInMainBundle: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInMainBundle!)
+            
+            recipesDict = dictionaryFromFileInMainBundle!
+        }
+
 
         return true
     }
@@ -84,6 +107,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Write NSMutableDictionary to the destination file
         userAccountInfo.writeToFile(plistFileFromDocumentDirectory, atomically: true)
+        
+        // Add plist file name to the documents directory path
+        let recipesPlistFileFromDocumentDirectory = documentDirectoryPath + "/Recipes.plist"
+        
+        // Write NSMutableDictionary to the destination file
+        recipesDict.writeToFile(recipesPlistFileFromDocumentDirectory, atomically: true)
         
     }
 

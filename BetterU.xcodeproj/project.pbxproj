@@ -10,6 +10,7 @@
 		0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */; };
 		0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */; };
 		0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */; };
+		0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63191CB38C0B00694CFC /* JournalViewController.swift */; };
 		0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */; };
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
@@ -32,6 +33,11 @@
 		0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */; };
 		0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */; };
 		0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */; };
+		0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */; };
+		0ADBAF881CB43AFE008D4C72 /* RecommendMealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF871CB43AFE008D4C72 /* RecommendMealViewController.swift */; };
+		0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */; };
+		0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */; };
+		0AEA2EEC1CB48D7D0058CCAD /* Recipes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */; };
 		1F782EC81CB313650073AA90 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 1F782EC71CB313650073AA90 /* Podfile */; };
 		1F782ECD1CB3136E0073AA90 /* Pods_BetterU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782EC91CB3136E0073AA90 /* Pods_BetterU.framework */; };
 		1F782ECE1CB3136E0073AA90 /* SwiftChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECA1CB3136E0073AA90 /* SwiftChart.framework */; };
@@ -62,6 +68,7 @@
 		0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		0A0A63191CB38C0B00694CFC /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
 		0A4A64A41CAE582500598EA0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		0A4A64A61CAE582500598EA0 /* BetterU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BetterU.entitlements; sourceTree = "<group>"; };
 		0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
@@ -93,6 +100,11 @@
 		0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealPlanViewController.swift; sourceTree = "<group>"; };
+		0ADBAF871CB43AFE008D4C72 /* RecommendMealViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendMealViewController.swift; sourceTree = "<group>"; };
+		0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
+		0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorViewController.swift; sourceTree = "<group>"; };
+		0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Recipes.plist; path = ../Recipes.plist; sourceTree = "<group>"; };
 		1F782EC71CB313650073AA90 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		1F782EC91CB3136E0073AA90 /* Pods_BetterU.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_BetterU.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/Pods_BetterU.framework"; sourceTree = "<group>"; };
 		1F782ECA1CB3136E0073AA90 /* SwiftChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftChart.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/SwiftChart.framework"; sourceTree = "<group>"; };
@@ -147,6 +159,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0A0A63181CB38BEF00694CFC /* Journal Tab */ = {
+			isa = PBXGroup;
+			children = (
+				0A0A63191CB38C0B00694CFC /* JournalViewController.swift */,
+				0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */,
+				0ADBAF871CB43AFE008D4C72 /* RecommendMealViewController.swift */,
+				0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */,
+				0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */,
+			);
+			name = "Journal Tab";
+			sourceTree = "<group>";
+		};
 		0A79C7671CADB85300DE9CD8 = {
 			isa = PBXGroup;
 			children = (
@@ -176,16 +200,18 @@
 			children = (
 				1F782ED61CB314750073AA90 /* background.mp4 */,
 				0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */,
+				1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */,
 				0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */,
 				0AD384D41CAE4DF10098E5B1 /* Custom Tab Bar Controller */,
 				0AA2E5471CB06253005AA390 /* Managers */,
 				0AD384D31CAE4DD80098E5B1 /* Home Tab */,
 				0AA2E55E1CB3170D005AA390 /* Profile Tab */,
+				0A0A63181CB38BEF00694CFC /* Journal Tab */,
 				0A79C7A91CADD59200DE9CD8 /* Main.storyboard */,
-				1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */,
 				0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */,
 				0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */,
 				0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */,
+				0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */,
 				0A79C7811CADB85400DE9CD8 /* Info.plist */,
 				0A4A64A61CAE582500598EA0 /* BetterU.entitlements */,
 			);
@@ -381,6 +407,7 @@
 			files = (
 				1F782ED71CB314830073AA90 /* background.mp4 in Resources */,
 				1F782EC81CB313650073AA90 /* Podfile in Resources */,
+				0AEA2EEC1CB48D7D0058CCAD /* Recipes.plist in Resources */,
 				0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */,
 				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
 				0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */,
@@ -468,14 +495,19 @@
 				0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */,
 				0AA2E5601CB3172F005AA390 /* ProfileViewController.swift in Sources */,
 				0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */,
+				0ADBAF881CB43AFE008D4C72 /* RecommendMealViewController.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
+				0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */,
 				0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */,
+				0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */,
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
+				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
 				0AA2E5491CB062CD005AA390 /* RestApiManager.swift in Sources */,
+				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,
 				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
