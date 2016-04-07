@@ -1,23 +1,31 @@
 PODS:
+  - KDCircularProgress (1.4.0)
   - SwiftChart (0.2.1)
   - SwiftyJSON (2.3.2)
   - VideoSplashKit (1.1.0)
 
 DEPENDENCIES:
+  - KDCircularProgress (from `https://github.com/kaandedeoglu/KDCircularProgress.git`)
   - SwiftChart
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - VideoSplashKit
 
 EXTERNAL SOURCES:
+  KDCircularProgress:
+    :git: https://github.com/kaandedeoglu/KDCircularProgress.git
   SwiftyJSON:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  KDCircularProgress:
+    :commit: d96c0a95a3a3bb3779fed0a2563bd8a6a6e19f8f
+    :git: https://github.com/kaandedeoglu/KDCircularProgress.git
   SwiftyJSON:
     :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
+  KDCircularProgress: f5770bbd83da909bf6cd96c2dea0b8bae45ec774
   SwiftChart: b76d4607022107a46473aa29a93c867872253d68
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VideoSplashKit: 0aa63d0bb37c5bd357de3e6a2a13dea5acad4d66

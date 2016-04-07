@@ -7,6 +7,7 @@ target 'BetterU' do
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'VideoSplashKit'
 pod 'SwiftChart'
+pod ‘KDCircularProgress’, :git=> ‘https://github.com/kaandedeoglu/KDCircularProgress.git'
 end
 
 target 'BetterUTests' do

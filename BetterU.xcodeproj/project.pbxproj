@@ -46,6 +46,7 @@
 		1F782ED01CB3136E0073AA90 /* VideoSplashKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECC1CB3136E0073AA90 /* VideoSplashKit.framework */; };
 		1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */; };
 		1F782ED71CB314830073AA90 /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1F782ED61CB314750073AA90 /* background.mp4 */; };
+		5781C09F1CB6DF9500530DB1 /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5781C09E1CB6DF9500530DB1 /* WeightViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
 		1F782ED61CB314750073AA90 /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
 		345E07733A7F82D722B7E856 /* Pods-BetterU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.release.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.release.xcconfig"; sourceTree = "<group>"; };
+		5781C09E1CB6DF9500530DB1 /* WeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
 		8A69104A9B51D3BADDE63808 /* Pods_BetterU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E339B620CBD0AE1DFDBFB75 /* Pods-BetterU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,6 +266,7 @@
 		0AD384D31CAE4DD80098E5B1 /* Home Tab */ = {
 			isa = PBXGroup;
 			children = (
+				5781C09D1CB6DF5C00530DB1 /* WeightScreen */,
 				0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */,
 				0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */,
 				0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */,
@@ -291,6 +294,14 @@
 				345E07733A7F82D722B7E856 /* Pods-BetterU.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5781C09D1CB6DF5C00530DB1 /* WeightScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5781C09E1CB6DF9500530DB1 /* WeightViewController.swift */,
+			);
+			name = WeightScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -505,6 +516,7 @@
 				0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */,
 				0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */,
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
+				5781C09F1CB6DF9500530DB1 /* WeightViewController.swift in Sources */,
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
