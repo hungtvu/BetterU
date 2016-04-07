@@ -30,11 +30,18 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var recipeNameArray = [String]()
     var recipeRatingsArray = [Int]()
     var imageSize90Array = [String]()
+    var imageSizeLargeArray = [String]()
+    var totalTimeArray = [String]()
+    var numberOfSeringsArray = [Int]()
     
     var caloriesFromRecipes = [Int]()
     var recipeName_dict_calories = [String: Int]()
     var recipeName_dict_images = [String: String]()
     var recipeName_dict_rating = [String: Int]()
+    var recipeName_dict_imageSizeLarge = [String: String]()
+    var recipeName_dict_totalTime = [String: String]()
+    var recipeName_dict_numOfServings = [String: Int]()
+    var recipeName_dict_nutritionFacts = [String: NSArray]()
     
     // Initializing the dictionaries for the difficulties of each recipe based on caloric intake
     var recipeName_dict_max250Cal = [String: Int]()
@@ -43,6 +50,8 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var recipeName_dict_max1000Cal = [String: Int]()
     
     var hasDataBeenFetched = false
+    
+    var nutritionFacts = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +82,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         var dictionaryOfRecipes = [String: AnyObject]()
         
         // Instantiate an API URL to return the JSON data
-        let apiURL = "http://api.yummly.com/v1/api/recipes?_app_id=\(yummylyAppID)&_app_key=\(yummlyAPIKey)&requirePictures=true&maxResult=10&start=10\(exclusionString)"
+        let apiURL = "http://api.yummly.com/v1/api/recipes?_app_id=\(yummylyAppID)&_app_key=\(yummlyAPIKey)&requirePictures=true&maxResult=40&start=10\(exclusionString)"
         
         // Convert URL to NSURL
         let url = NSURL(string: apiURL)
@@ -142,6 +151,8 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                     j = j + 1
                 }
                 
+               // print(exclusionString)
+               // print(recipesDict)
                 
                 
                
@@ -164,6 +175,10 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         var apiURL = ""
         var url = NSURL()
         var jsonData = NSData?()
+        
+        var imagesArrayFromDict = NSArray()
+        var recipeImageDict = Dictionary<String, AnyObject>()
+        var recipeImageURL = ""
         
         var i = 0
         while (i < recipeID.count) {
@@ -201,12 +216,27 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                     // Typecast the returned NSDictionary as Dictionary<String, AnyObject>
                     recipeDictFromID = jsonDataDictionary as! Dictionary<String, AnyObject>
                     
-                    //print(recipeDictFromID)
-                    let nutritionFacts = recipeDictFromID["nutritionEstimates"] as! NSArray
+                    nutritionFacts = recipeDictFromID["nutritionEstimates"] as! NSArray
                     caloriesFromRecipes.append(setRecipeCalories(nutritionFacts))
                     
                     let calories = setRecipeCalories(nutritionFacts)
                     recipeName_dict_calories[recipeNameArray[i]] = calories
+                    
+                    imagesArrayFromDict = recipeDictFromID["images"] as! NSArray
+                    recipeImageDict = imagesArrayFromDict[0] as! Dictionary<String, AnyObject>
+                    recipeImageURL = recipeImageDict["hostedLargeUrl"] as! String
+                    recipeName_dict_imageSizeLarge[recipeNameArray[i]] = recipeImageURL
+     
+                    recipeName_dict_totalTime[recipeNameArray[i]] = recipeDictFromID["totalTime"] as? String
+                    recipeName_dict_numOfServings[recipeNameArray[i]] = recipeDictFromID["numberOfServings"] as? Int
+                    
+                    if nutritionFacts.count == 0
+                    {
+                        nutritionFacts = ["Sorry, we do not have sufficient nutritional facts"]
+                    }
+                    
+                    recipeName_dict_nutritionFacts[recipeNameArray[i]] = nutritionFacts
+                    
                     
                 }catch let error as NSError
                 {
@@ -222,6 +252,8 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         
             i = i + 1
         }
+        
+       
         
         var k = 0
         while (k < recipeCount)
@@ -307,7 +339,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             
             // Grab the row count from the indexPath in the cell
             cell.textLabel!.text = "Medium"
-            cell.detailTextLabel!.text = "Maximum 500 calorie meals"
+            cell.detailTextLabel!.text = "Between 250 and 500 calorie meals"
             
             return cell
         }
@@ -318,7 +350,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             
             // Grab the row count from the indexPath in the cell
             cell.textLabel!.text = "Hard"
-            cell.detailTextLabel!.text = "Maximum 750 calorie meals"
+            cell.detailTextLabel!.text = "Between 500 to 750 calorie meals"
             
             return cell
         }
@@ -329,7 +361,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             
             // Grab the row count from the indexPath in the cell
             cell.textLabel!.text = "Very Hard"
-            cell.detailTextLabel!.text = "Maximum 1000 calorie meals"
+            cell.detailTextLabel!.text = "Greater than 750 calorie meals"
             
             return cell
         }
@@ -347,6 +379,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         return 4
     }
     
+    // Dispatch queue for grand central dispatch
     var GlobalUserInitiatedQueue: dispatch_queue_t {
         return dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)
     }
@@ -407,6 +440,8 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         var keyArray = [String]()
         var recipeRatingsArr = [Int]()
         var imageSize90Arr = [String]()
+        var correctedCaloriesArray = [Int]()
+        var recipeName_dict_nutritionalFactsArray = [String: NSArray]()
         
         for (key, _) in recipeName_dict_maxCal
         {
@@ -426,8 +461,43 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                 recipeRatingsArr.append(ratingValue)
                 self.applicationDelegate.recipesDict.setValue(recipeRatingsArr, forKey: "Rating")
             }
+            
+            // Grab large image size
+            if let largeImageValue = self.recipeName_dict_imageSizeLarge[key]
+            {
+                imageSizeLargeArray.append(largeImageValue)
+                self.applicationDelegate.recipesDict.setValue(imageSizeLargeArray, forKey: "Large Image")
+            }
+            
+            // Grab caloric amount
+            if let caloriesValue = self.recipeName_dict_calories[key]
+            {
+                correctedCaloriesArray.append(caloriesValue)
+                self.applicationDelegate.recipesDict.setValue(correctedCaloriesArray, forKey: "Calories")
+            }
+            
+            // Grab total time
+            if let totalTimevalue = self.recipeName_dict_totalTime[key]
+            {
+                totalTimeArray.append(totalTimevalue)
+                self.applicationDelegate.recipesDict.setValue(totalTimeArray, forKey: "Total Time")
+            }
+            
+            // Grab serving size
+            if let numOfServingsValue = self.recipeName_dict_numOfServings[key]
+            {
+                numberOfSeringsArray.append(numOfServingsValue)
+                self.applicationDelegate.recipesDict.setValue(numberOfSeringsArray, forKey: "Serving Size")
+            }
+            
+            if let nutritionalFactsArrayValue = self.recipeName_dict_nutritionFacts[key]
+            {
+                recipeName_dict_nutritionalFactsArray[key] = nutritionalFactsArrayValue
+                applicationDelegate.recipesDict.setValue(recipeName_dict_nutritionalFactsArray, forKey: "Nutrition Facts")
+            }
+            
         }
-        
+       
     }
     
     //--------------------
@@ -494,4 +564,41 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             
         }
     }
+    
+    /*
+     ---------------------------------
+     MARK: - Keyboard Handling Methods
+     ---------------------------------
+     */
+    
+    // This method is invoked when the user taps the Done key on the keyboard
+    @IBAction func keyboardDone(sender: UITextField) {
+        
+        // Once the text field is no longer the first responder, the keyboard is removed
+        sender.resignFirstResponder()
+    }
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        /*
+         "A UITouch object represents the presence or movement of a finger on the screen for a particular event." [Apple]
+         We store the UITouch object's unique ID into the local variable touch.
+         */
+        if let touch = touches.first {
+            /*
+             When the user taps within a text field, that text field becomes the first responder.
+             When a text field becomes the first responder, the system automatically displays the keyboard.
+             */
+            
+            // If preferenceTextField is first responder and the user did not touch the preferenceTextField
+            if preferenceTextField.isFirstResponder() && (touch.view != preferenceTextField) {
+                
+                // Make preferenceTextField to be no longer the first responder.
+                preferenceTextField.resignFirstResponder()
+            }
+        }
+        super.touchesBegan(touches, withEvent:event)
+    }
+
 }

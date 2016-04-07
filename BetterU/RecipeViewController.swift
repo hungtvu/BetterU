@@ -21,19 +21,56 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
     var recipeNameArray = [String]()
     var recipeRatingsArray = [Int]()
     var imageSize90Array = [String]()
+    var largeImageArray = [String]()
+    var caloriesArray = [Int]()
+    var totalTimeArray = [String]()
+    var numberOfServingsArray = [Int]()
+    var nutritionalFacts = NSDictionary()
     
     let tableViewRowHeight: CGFloat = 85.0
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    var recipeNameToPass = ""
+    var recipeImageUrlToPass = ""
+    var caloriesToPass = 0
+    var totalTimeToPass = ""
+    var numberOfServingsToPass = 0
+    var totalFatWithUnitToPass = ""
+    var totalSaturatedFatWithUnitToPass = ""
+    var totalPolyunsaturatedFatWithUnitToPass = ""
+    var totalMonounsaturatedFatWithUnitToPass = ""
+    
+    var totalFatWithUnitArray = [String]()
+    var saturatedFatUnitArray = [String]()
+    var polyunsaturatedFatArray = [String]()
+    var monounsaturatedFatWithUnitArray = [String]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createSearchResultsController()
-        recipeNameArray = applicationDelegate.recipesDict["Recipe Name"] as! [String]
-        recipeRatingsArray = applicationDelegate.recipesDict["Rating"] as! [Int]
         
+        // Just to make sure it doesn't crash when the user did not find anything in the data
+        if (applicationDelegate.recipesDict.count > 0)
+        {
+            recipeNameArray = applicationDelegate.recipesDict["Recipe Name"] as! [String]
+            recipeRatingsArray = applicationDelegate.recipesDict["Rating"] as! [Int]
+            largeImageArray = applicationDelegate.recipesDict["Large Image"] as! [String]
+            caloriesArray = applicationDelegate.recipesDict["Calories"] as! [Int]
+            totalTimeArray = applicationDelegate.recipesDict["Total Time"] as! [String]
+            numberOfServingsArray = applicationDelegate.recipesDict["Serving Size"] as! [Int]
+            nutritionalFacts = applicationDelegate.recipesDict["Nutrition Facts"] as! NSDictionary
+        }
+        
+        totalFatWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        saturatedFatUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        polyunsaturatedFatArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        monounsaturatedFatWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        
+        grabNutritionalFacts(nutritionalFacts)
         
         // Create a custom back button on the navigation bar
         // This will let us pop the current view controller to the one before the previous view
@@ -46,6 +83,112 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         let myCustomBackButtonItem:UIBarButtonItem = UIBarButtonItem(customView: myBackButton)
         self.navigationItem.leftBarButtonItem = myCustomBackButtonItem
       
+    }
+    
+    func grabNutritionalFacts(nutritionalDictionary: NSDictionary)
+    {
+        var i = 0
+        var j = 0
+        
+        var nutritionalFactsFromRecipeNameArray = NSArray()
+        var attributeDictionary = NSDictionary()
+        
+        var attributeNameFromDict = ""
+        
+        var fat = 0.0
+        var saturatedFat = 0.0
+        var polyunsaturatedFat = 0.0
+        var monounsaturatedFat = 0.0
+        var cholesterol = 0.0
+        var sodium = 0.0
+        var potassium = 0.0
+        var carbs = 0.0
+        var fiber = 0.0
+        var sugar = 0.0
+        var protein = 0.0
+        
+        
+        while (i < nutritionalDictionary.count)
+        {
+            nutritionalFactsFromRecipeNameArray = (nutritionalDictionary[recipeNameArray[i]] as! NSArray)
+            
+            while (j < nutritionalFactsFromRecipeNameArray.count)
+            {
+                attributeDictionary = nutritionalFactsFromRecipeNameArray[j] as! NSDictionary
+                
+                attributeNameFromDict = attributeDictionary["attribute"] as! String
+                
+                // Total Fat
+                if attributeNameFromDict == "FAT"
+                {
+                    fat = attributeDictionary["value"] as! Double
+                    totalFatWithUnitArray[i] = String(fat) + "g"
+                }
+                
+                // Total saturated Fat
+                if attributeNameFromDict == "FASAT"
+                {
+                    //totalSaturatedFatArray.append(attributeDictionary["value"] as! Double)
+                    saturatedFat = attributeDictionary["value"] as! Double
+                    saturatedFatUnitArray[i] = String(saturatedFat) + "g"
+                }
+                
+                // polyunsaturated fat
+                if attributeNameFromDict == "FAPU"
+                {
+                    polyunsaturatedFat = attributeDictionary["value"] as! Double
+                    polyunsaturatedFatArray[i] = String(polyunsaturatedFat) + "g"
+                }
+                
+                // monounsaturated Fat
+                if attributeNameFromDict == "FAMS"
+                {
+                    monounsaturatedFat = attributeDictionary["value"] as! Double
+                    monounsaturatedFatWithUnitArray[i] = String(monounsaturatedFat) + "g"
+                }
+                
+                // Cholesterol
+                if attributeNameFromDict == "CHOLE"
+                {
+                    cholesterol = attributeDictionary["value"] as! Double
+                }
+                
+                // Sodium
+                if attributeNameFromDict == "NA"
+                {
+                    sodium = attributeDictionary["value"] as! Double
+                }
+                
+                // Potassium
+                if attributeNameFromDict == "K"
+                {
+                    potassium = attributeDictionary["value"] as! Double
+                }
+                
+                // Carbohydrate
+                if attributeNameFromDict == "CHOCDF"
+                {
+                    carbs = attributeDictionary["value"] as! Double
+                }
+                
+                // Fiber
+                if attributeNameFromDict == "FIBTG"
+                {
+                    fiber = attributeDictionary["value"] as! Double
+                }
+                
+                // Sugar
+                if attributeNameFromDict == "SUGAR"
+                {
+                    sugar = attributeDictionary["value"] as! Double
+                }
+                
+                j = j + 1
+            }
+            
+            i = i + 1
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -61,8 +204,10 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
     // Calls the popToViewController() method to pop the current view and segues into the previous view
     func popBackTwoViews(sender: UIBarButtonItem)
     {
-        let recommendMealViewController = self.navigationController?.viewControllers[1] as! RecommendMealViewController
-        self.navigationController?.popToViewController(recommendMealViewController, animated: true)
+        //let recommendMealViewController = self.navigationController?.viewControllers[1] as! RecommendMealViewController
+        //self.navigationController?.popToViewController(recommendMealViewController, animated: true)
+        
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     @IBAction func barcodeButtonTapped(sender: UIButton)
@@ -173,6 +318,12 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         return tableViewRowHeight
     }
     
+    /*
+     ---------------------------------
+     MARK: - TableViewDelegate Methods
+     ---------------------------------
+     */
+    
     // Asks the data source for a cell to insert in a particular location of the table view.
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -224,14 +375,28 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         return cell
     }
     
-    // Informs the table view delegate that the specified row is selected.
+    /*
+     -------------------------------------------------------------------
+     Informs the table view delegate that the specified row is selected.
+     -------------------------------------------------------------------
+     */
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         let row: Int = indexPath.row    // Identify the row number
         
+        recipeNameToPass = recipeNameArray[row]
+        recipeImageUrlToPass = largeImageArray[row]
+        caloriesToPass = caloriesArray[row]
+        totalTimeToPass = totalTimeArray[row]
+        numberOfServingsToPass = numberOfServingsArray[row]
         
+        totalFatWithUnitToPass = totalFatWithUnitArray[row]
+        totalSaturatedFatWithUnitToPass = saturatedFatUnitArray[row]
+        totalPolyunsaturatedFatWithUnitToPass = polyunsaturatedFatArray[row]
+        totalMonounsaturatedFatWithUnitToPass = monounsaturatedFatWithUnitArray[row]
         
-        self.performSegueWithIdentifier("recipeView", sender: self)
+        self.performSegueWithIdentifier("recipeInfoView", sender: self)
     }
     
     var GlobalMainQueue: dispatch_queue_t {
@@ -270,15 +435,29 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+     -------------------------
+     MARK: - Prepare For Segue
+     -------------------------
+     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "recipeInfoView"
+        {
+            let recipeInfoViewController: RecipeInfoViewController = segue.destinationViewController as! RecipeInfoViewController
+            
+            recipeInfoViewController.recipeName = recipeNameToPass
+            recipeInfoViewController.recipeImageUrl = recipeImageUrlToPass
+            recipeInfoViewController.calories = caloriesToPass
+            recipeInfoViewController.totalTime = totalTimeToPass
+            recipeInfoViewController.servings = numberOfServingsToPass
+            recipeInfoViewController.totalFatWithUnit = totalFatWithUnitToPass
+            recipeInfoViewController.saturatedFatWithUnit = totalSaturatedFatWithUnitToPass
+            recipeInfoViewController.polyunsaturatedFatWithUnit = totalPolyunsaturatedFatWithUnitToPass
+            recipeInfoViewController.monounsaturatedFatWithUnit = totalMonounsaturatedFatWithUnitToPass
+            
+        }
     }
-    */
-
 }

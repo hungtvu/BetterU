@@ -14,6 +14,7 @@ class CustomAlertViewController: UIViewController, UITableViewDataSource, UITabl
     var selection = ""
     // Passed from upstream to trigger a callback upon returning to upstream view controller
     var sender: CustomTabBarController!
+    var sender2: RecipeInfoViewController!
     
     // MARK: - View Did Load
     
@@ -94,8 +95,16 @@ class CustomAlertViewController: UIViewController, UITableViewDataSource, UITabl
         dismissViewControllerAnimated(true, completion: {
             
             // Set the selection upstream and call "segueToDetailViewController"
-            self.sender.selection = self.selection
-            self.sender.segueToDetailTableViewController()
+            if ((self.sender) != nil) {
+                self.sender.selection = self.selection
+                self.sender.segueToDetailTableViewController()
+            }
+            else
+            {
+                self.sender2.selection = self.selection
+                self.sender2.popToScheduleViewController()
+            }
+            
         })
     }
     

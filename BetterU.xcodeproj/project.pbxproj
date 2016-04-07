@@ -38,6 +38,7 @@
 		0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */; };
 		0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */; };
 		0AEA2EEC1CB48D7D0058CCAD /* Recipes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */; };
+		0AEA2EEE1CB5A10B0058CCAD /* RecipeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA2EED1CB5A10B0058CCAD /* RecipeInfoViewController.swift */; };
 		1F782EC81CB313650073AA90 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 1F782EC71CB313650073AA90 /* Podfile */; };
 		1F782ECD1CB3136E0073AA90 /* Pods_BetterU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782EC91CB3136E0073AA90 /* Pods_BetterU.framework */; };
 		1F782ECE1CB3136E0073AA90 /* SwiftChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECA1CB3136E0073AA90 /* SwiftChart.framework */; };
@@ -105,6 +106,7 @@
 		0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorViewController.swift; sourceTree = "<group>"; };
 		0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Recipes.plist; path = ../Recipes.plist; sourceTree = "<group>"; };
+		0AEA2EED1CB5A10B0058CCAD /* RecipeInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeInfoViewController.swift; sourceTree = "<group>"; };
 		1F782EC71CB313650073AA90 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		1F782EC91CB3136E0073AA90 /* Pods_BetterU.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_BetterU.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/Pods_BetterU.framework"; sourceTree = "<group>"; };
 		1F782ECA1CB3136E0073AA90 /* SwiftChart.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftChart.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/SwiftChart.framework"; sourceTree = "<group>"; };
@@ -162,11 +164,12 @@
 		0A0A63181CB38BEF00694CFC /* Journal Tab */ = {
 			isa = PBXGroup;
 			children = (
+				0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */,
 				0A0A63191CB38C0B00694CFC /* JournalViewController.swift */,
 				0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */,
 				0ADBAF871CB43AFE008D4C72 /* RecommendMealViewController.swift */,
 				0ADBAF891CB43B52008D4C72 /* RecipeViewController.swift */,
-				0AEA2EE91CB483C60058CCAD /* ActivityIndicatorViewController.swift */,
+				0AEA2EED1CB5A10B0058CCAD /* RecipeInfoViewController.swift */,
 			);
 			name = "Journal Tab";
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
 				0AA2E5501CB06D2A005AA390 /* UserObject.swift in Sources */,
 				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
+				0AEA2EEE1CB5A10B0058CCAD /* RecipeInfoViewController.swift in Sources */,
 				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
 				0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */,
 				0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */,

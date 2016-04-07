@@ -21,21 +21,24 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bsm-ab-3UX">
                                 <rect key="frame" x="7" y="32" width="400" height="671"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BetterU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBX-tU-kcE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BetterU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tBX-tU-kcE">
                                         <rect key="frame" x="154" y="0.0" width="92" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="BetterUIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mQw-Yy-SN1">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BetterUIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mQw-Yy-SN1">
                                         <rect key="frame" x="100" y="131" width="200" height="200"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="Mkj-Nn-60z"/>
-                                            <constraint firstAttribute="height" constant="200" id="RLu-at-WLE"/>
+                                            <constraint firstAttribute="height" constant="200" id="oer-lB-jZG"/>
+                                            <constraint firstAttribute="width" constant="200" id="qV8-vf-jqk"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRy-KV-Y0k">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRy-KV-Y0k">
                                         <rect key="frame" x="126" y="366" width="148" height="92"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="92" id="d2H-g4-89o"/>
+                                        </constraints>
                                         <attributedString key="attributedText">
                                             <fragment content="Be you, but better">
                                                 <attributes>
@@ -46,17 +49,20 @@
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="BetterU, © 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CS-CF-bla">
-                                        <rect key="frame" x="138" y="651" width="125" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BetterU, © 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CS-CF-bla">
+                                        <rect key="frame" x="137.5" y="578" width="125" height="93"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="125" id="DPM-lv-DWY"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="wRy-KV-Y0k" firstAttribute="top" secondItem="mQw-Yy-SN1" secondAttribute="bottom" constant="35" id="FtO-zK-tKq"/>
-                                    <constraint firstItem="6CS-CF-bla" firstAttribute="top" secondItem="wRy-KV-Y0k" secondAttribute="bottom" constant="193" id="fqY-ma-Kmo"/>
-                                    <constraint firstItem="mQw-Yy-SN1" firstAttribute="top" secondItem="tBX-tU-kcE" secondAttribute="bottom" constant="101" id="jRO-KO-wrh"/>
+                                    <constraint firstItem="6CS-CF-bla" firstAttribute="top" secondItem="wRy-KV-Y0k" secondAttribute="bottom" constant="120" id="4TC-nb-CjP"/>
+                                    <constraint firstItem="mQw-Yy-SN1" firstAttribute="top" secondItem="Bsm-ab-3UX" secondAttribute="top" constant="131" id="YN2-mF-d2T"/>
+                                    <constraint firstItem="wRy-KV-Y0k" firstAttribute="top" secondItem="mQw-Yy-SN1" secondAttribute="bottom" constant="35" id="ahh-0p-OQ8"/>
                                 </constraints>
                             </stackView>
                         </subviews>
