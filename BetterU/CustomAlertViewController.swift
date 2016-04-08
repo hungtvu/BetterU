@@ -12,6 +12,7 @@ class CustomAlertViewController: UIViewController, UITableViewDataSource, UITabl
     
     // Stores the user's selected row to pass upstream
     var selection = ""
+    
     // Passed from upstream to trigger a callback upon returning to upstream view controller
     var sender: CustomTabBarController!
     var sender2: RecipeInfoViewController!

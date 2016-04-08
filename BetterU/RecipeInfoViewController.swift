@@ -11,6 +11,9 @@ import UIKit
 class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
+    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
+    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     // Initialize storyboard objects for the view
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var totalTimeLabel: UILabel!
@@ -25,6 +28,9 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     var totalTime = ""
     var servings = 0
     var calories = 0
+    var recipeUrl = ""
+    var recipeRatings = 0
+    var imageSize90Url = ""
     
     // Initializing nutritional facts. These values are passed down from the RecipeViewController class
     var totalFatWithUnit = ""
@@ -45,11 +51,10 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
     var dailyCalcium = ""
     var dailyIron = ""
     
-    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
-    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
     // Passed from downstream CustomAlertViewController to then pass back downstream to the DetailTableViewController
     var selection = ""
+    var selectionTypeArray = [String]()
+    var recipeInfoArray = [String]()
     
     // Initialize array to pass so that the tableview can populate the cells
     var nutritionTitleArray = [String]()
@@ -65,6 +70,7 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         
         self.title = recipeName
+        getRecipeButton.layer.cornerRadius = 8
         
         // Set up the Add button on the right of the navigation bar to call the addRecipe method when tapped
         let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(RecipeInfoViewController.addRecipe(_:)))
@@ -88,10 +94,10 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         nutritionTitleArray.append("Fiber")
         nutritionTitleArray.append("Sugar")
         nutritionTitleArray.append("Protein")
-        nutritionTitleArray.append("Vitamin A")
-        nutritionTitleArray.append("Vitamin C")
-        nutritionTitleArray.append("Calcium")
-        nutritionTitleArray.append("Iron")
+        nutritionTitleArray.append("Daily Vitamin A")
+        nutritionTitleArray.append("Daily Vitamin C")
+        nutritionTitleArray.append("Daily Calcium")
+        nutritionTitleArray.append("Daily Iron")
         
         nutritonDataArray.append(totalFatWithUnit)
         nutritonDataArray.append(saturatedFatWithUnit)
@@ -109,6 +115,12 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         nutritonDataArray.append(dailyCalcium)
         nutritonDataArray.append(dailyIron)
         
+        selectionTypeArray = applicationDelegate.savedRecipesDict.allKeys as! [String]
+        selectionTypeArray.sortInPlace(){$0 < $1}
+        
+        recipeInfoArray.append(recipeName)
+        recipeInfoArray.append(String(recipeRatings))
+        recipeInfoArray.append(imageSize90Url)
     }
     
     /*
@@ -146,8 +158,27 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
      */
     
     // Called downstream to handle custom alert view's selection
-    func popToScheduleViewController() {
+    func popToScheduleViewController()
+    {
+        //print(recipeInfoArray)
+        // If the section exists inside of the dictionary
+        if selectionTypeArray.contains(selection)
+        {
+            // obtain the list of recipes in the given section as AnyObject
+            let recipes: AnyObject? = applicationDelegate.savedRecipesDict[selection]
+            
+            // Typecast the AnyObject to a Swift array of array
+            var recipesFromSectionSelected = recipes! as! [[String]]
+            
+            // Add new recipe at the end of the list
+            recipesFromSectionSelected.append(recipeInfoArray)
+            
+            // Update the new list of recipe
+            applicationDelegate.savedRecipesDict.setValue(recipesFromSectionSelected, forKey: selection)
+        }
         
+        //applicationDelegate.savedRecipesDict.setValue(recipeName, forKey: selectionArray)
+        //print(applicationDelegate.savedRecipesDict)
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
@@ -191,9 +222,28 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
      ---------------------------------------------
      */
     
-    @IBAction func getRecipeButtonTapped(sender: UIButton) {
+    @IBAction func getRecipeButtonTapped(sender: UIButton)
+    {
+        self.performSegueWithIdentifier("showWebView", sender: self)
     }
-
+    
+    
+    /*
+     -------------------------
+     MARK: - Prepare for Segue
+     -------------------------
+     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "showWebView"
+        {
+            let recipeInstructionsWebViewController: RecipeInstructionsWebViewController = segue.destinationViewController as! RecipeInstructionsWebViewController
+            
+            recipeInstructionsWebViewController.recipeUrl = recipeUrl
+            recipeInstructionsWebViewController.recipeTitle = recipeName
+        }
+    }
     
     /*
      ------------------------------------------------

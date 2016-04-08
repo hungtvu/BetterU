@@ -26,6 +26,7 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
     var totalTimeArray = [String]()
     var numberOfServingsArray = [Int]()
     var nutritionalFacts = NSDictionary()
+    var recipeUrlArray = [String]()
     
     let tableViewRowHeight: CGFloat = 85.0
     
@@ -37,15 +38,42 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
     var caloriesToPass = 0
     var totalTimeToPass = ""
     var numberOfServingsToPass = 0
+    var recipeUrlToPass = ""
+    var recipeRatingToPass = 0
+    var imageSize90UrlToPass = ""
+    
+    // Initialize nutritional data variables to pass downstream onto the next view
     var totalFatWithUnitToPass = ""
     var totalSaturatedFatWithUnitToPass = ""
     var totalPolyunsaturatedFatWithUnitToPass = ""
     var totalMonounsaturatedFatWithUnitToPass = ""
+    var totalCholesterolWithUnitToPass = ""
+    var totalsodiumWithUnitToPass = ""
+    var totalpotassiumWithUnitToPass = ""
+    var totalcarbsWithUnitToPass = ""
+    var totalfiberWithUnitToPass = ""
+    var totalsugarWithUnitToPass = ""
+    var totalproteinWithUnitToPass = ""
+    var totalVitADailyPercentage = ""
+    var totalVitCDailyPercentage = ""
+    var totalCalciumDailyPercentage = ""
+    var totalIronDailyPercentage = ""
     
     var totalFatWithUnitArray = [String]()
     var saturatedFatUnitArray = [String]()
     var polyunsaturatedFatArray = [String]()
     var monounsaturatedFatWithUnitArray = [String]()
+    var cholesterolWithUnitArray = [String]()
+    var sodiumWithUnitArray = [String]()
+    var potassiumWithUnitArray = [String]()
+    var carbsWithUnitArray = [String]()
+    var fiberWithUnitArray = [String]()
+    var sugarWithUnitArray = [String]()
+    var proteinWithUnitArray = [String]()
+    var vitaminADailyPercentArray = [String]()
+    var vitaminCDailyPercentArray = [String]()
+    var calciumDailyPercentArray = [String]()
+    var ironDailyPercentArray = [String]()
     
     
     override func viewDidLoad() {
@@ -58,17 +86,30 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         {
             recipeNameArray = applicationDelegate.recipesDict["Recipe Name"] as! [String]
             recipeRatingsArray = applicationDelegate.recipesDict["Rating"] as! [Int]
+            imageSize90Array = self.applicationDelegate.recipesDict["Image"] as! [String]
             largeImageArray = applicationDelegate.recipesDict["Large Image"] as! [String]
             caloriesArray = applicationDelegate.recipesDict["Calories"] as! [Int]
             totalTimeArray = applicationDelegate.recipesDict["Total Time"] as! [String]
             numberOfServingsArray = applicationDelegate.recipesDict["Serving Size"] as! [Int]
             nutritionalFacts = applicationDelegate.recipesDict["Nutrition Facts"] as! NSDictionary
+            recipeUrlArray = applicationDelegate.recipesDict["Source Url"] as! [String]
         }
         
         totalFatWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
         saturatedFatUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
         polyunsaturatedFatArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
         monounsaturatedFatWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        cholesterolWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        sodiumWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        potassiumWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        carbsWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        fiberWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        sugarWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        proteinWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        vitaminADailyPercentArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        vitaminCDailyPercentArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        calciumDailyPercentArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
+        ironDailyPercentArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
         
         grabNutritionalFacts(nutritionalFacts)
         
@@ -106,83 +147,136 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         var fiber = 0.0
         var sugar = 0.0
         var protein = 0.0
-        
+        var calcium = 0.0
+        var vitaminA = 0.0
+        var vitaminC = 0.0
+        var iron = 0.0
         
         while (i < nutritionalDictionary.count)
         {
+            
             nutritionalFactsFromRecipeNameArray = (nutritionalDictionary[recipeNameArray[i]] as! NSArray)
             
+            j = 0
             while (j < nutritionalFactsFromRecipeNameArray.count)
             {
                 attributeDictionary = nutritionalFactsFromRecipeNameArray[j] as! NSDictionary
                 
                 attributeNameFromDict = attributeDictionary["attribute"] as! String
                 
-                // Total Fat
-                if attributeNameFromDict == "FAT"
-                {
-                    fat = attributeDictionary["value"] as! Double
-                    totalFatWithUnitArray[i] = String(fat) + "g"
-                }
-                
-                // Total saturated Fat
-                if attributeNameFromDict == "FASAT"
-                {
-                    //totalSaturatedFatArray.append(attributeDictionary["value"] as! Double)
-                    saturatedFat = attributeDictionary["value"] as! Double
-                    saturatedFatUnitArray[i] = String(saturatedFat) + "g"
-                }
-                
-                // polyunsaturated fat
-                if attributeNameFromDict == "FAPU"
-                {
-                    polyunsaturatedFat = attributeDictionary["value"] as! Double
-                    polyunsaturatedFatArray[i] = String(polyunsaturatedFat) + "g"
-                }
-                
-                // monounsaturated Fat
-                if attributeNameFromDict == "FAMS"
-                {
-                    monounsaturatedFat = attributeDictionary["value"] as! Double
-                    monounsaturatedFatWithUnitArray[i] = String(monounsaturatedFat) + "g"
-                }
-                
-                // Cholesterol
-                if attributeNameFromDict == "CHOLE"
-                {
-                    cholesterol = attributeDictionary["value"] as! Double
-                }
-                
-                // Sodium
-                if attributeNameFromDict == "NA"
-                {
-                    sodium = attributeDictionary["value"] as! Double
-                }
-                
                 // Potassium
                 if attributeNameFromDict == "K"
                 {
                     potassium = attributeDictionary["value"] as! Double
+                    potassiumWithUnitArray[i] = String(Int(potassium)) + "mg"
                 }
                 
+                // Total Fat
+                else if attributeNameFromDict == "FAT"
+                {
+                    fat = attributeDictionary["value"] as! Double
+                    totalFatWithUnitArray[i] = String(Int(fat)) + "g"
+                }
+                
+                // Total saturated Fat
+                else if attributeNameFromDict == "FASAT"
+                {
+                    saturatedFat = attributeDictionary["value"] as! Double
+                    saturatedFatUnitArray[i] = String(Int(saturatedFat)) + "g"
+                }
+                
+                // polyunsaturated fat
+                else if attributeNameFromDict == "FAPU"
+                {
+                    polyunsaturatedFat = attributeDictionary["value"] as! Double
+                    polyunsaturatedFatArray[i] = String(Int(polyunsaturatedFat)) + "g"
+                }
+                
+                // monounsaturated Fat
+                else if attributeNameFromDict == "FAMS"
+                {
+                    monounsaturatedFat = attributeDictionary["value"] as! Double
+                    monounsaturatedFatWithUnitArray[i] = String(Int(monounsaturatedFat)) + "g"
+                }
+                
+                // Cholesterol
+                else if attributeNameFromDict == "CHOLE"
+                {
+                    cholesterol = attributeDictionary["value"] as! Double
+                    cholesterolWithUnitArray[i] = String(Int(cholesterol)) + "mg"
+                }
+                
+                // Sodium
+                else if attributeNameFromDict == "NA"
+                {
+                    sodium = attributeDictionary["value"] as! Double
+                    sodiumWithUnitArray[i] = String(Int(sodium)) + "mg"
+                }
+
                 // Carbohydrate
-                if attributeNameFromDict == "CHOCDF"
+                else if attributeNameFromDict == "CHOCDF"
                 {
                     carbs = attributeDictionary["value"] as! Double
+                    carbsWithUnitArray[i] = String(Int(carbs)) + "g"
                 }
                 
                 // Fiber
-                if attributeNameFromDict == "FIBTG"
+                else if attributeNameFromDict == "FIBTG"
                 {
                     fiber = attributeDictionary["value"] as! Double
+                    fiberWithUnitArray[i] = String(Int(fiber)) + "g"
                 }
                 
                 // Sugar
-                if attributeNameFromDict == "SUGAR"
+                else if attributeNameFromDict == "SUGAR"
                 {
                     sugar = attributeDictionary["value"] as! Double
+                    sugarWithUnitArray[i] = String(Int(sugar)) + "g"
                 }
                 
+                // Protein
+                else if attributeNameFromDict == "PROCNT"
+                {
+                    protein = attributeDictionary["value"] as! Double
+                    proteinWithUnitArray[i] = String(Int(protein)) + "g"
+                }
+                
+                // Vitamin A
+                else if attributeNameFromDict == "VITA_IU"
+                {
+                    vitaminA = attributeDictionary["value"] as! Double
+                    let vitaminADailyPercentage = (vitaminA/5000) * 100
+                    vitaminADailyPercentArray[i] = String(Int(vitaminADailyPercentage)) + "%"
+                }
+                
+                // Vitamin C
+                else if attributeNameFromDict == "VITC"
+                {
+                    vitaminC = attributeDictionary["value"] as! Double
+                    let vitaminCInMilligrams = vitaminC * 1000
+                    let vitaminCDailyPercentage = (vitaminCInMilligrams/60) * 100
+                    vitaminCDailyPercentArray[i] = String(Int(vitaminCDailyPercentage)) + "%"
+                }
+                
+                // Calcium
+                else if attributeNameFromDict == "CA"
+                {
+                    calcium = attributeDictionary["value"] as! Double
+                    let calciumInMilligrams = calcium * 1000
+                    let calciumDailyPercentage = (calciumInMilligrams/1000) * 100
+                    calciumDailyPercentArray[i] = String(Int(calciumDailyPercentage)) + "%"
+                }
+                
+                // Iron
+                else if attributeNameFromDict == "FE"
+                {
+                    iron = attributeDictionary["value"] as! Double
+                    let ironInMilligrams = iron * 1000
+                    let ironDailyPercentage = (ironInMilligrams/1000) * 100
+                    ironDailyPercentArray[i] = String(Int(ironDailyPercentage)) + "%"
+                }
+                
+            
                 j = j + 1
             }
             
@@ -335,7 +429,7 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         cell.textLabel!.text = recipeNameArray[row]
         cell.detailTextLabel!.text = "Rating: \(recipeRatingsArray[row])/5"
         
-        imageSize90Array = self.applicationDelegate.recipesDict["Image"] as! [String]
+        
         
         // This grabs the Image URL from JSON
         dispatch_async(GlobalUserInitiatedQueue)
@@ -390,14 +484,38 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         caloriesToPass = caloriesArray[row]
         totalTimeToPass = totalTimeArray[row]
         numberOfServingsToPass = numberOfServingsArray[row]
+        recipeUrlToPass = recipeUrlArray[row]
+        recipeRatingToPass = recipeRatingsArray[row]
+        imageSize90UrlToPass = imageSize90Array[row]
         
         totalFatWithUnitToPass = totalFatWithUnitArray[row]
         totalSaturatedFatWithUnitToPass = saturatedFatUnitArray[row]
         totalPolyunsaturatedFatWithUnitToPass = polyunsaturatedFatArray[row]
         totalMonounsaturatedFatWithUnitToPass = monounsaturatedFatWithUnitArray[row]
+        totalCholesterolWithUnitToPass = cholesterolWithUnitArray[row]
+        totalsodiumWithUnitToPass = sodiumWithUnitArray[row]
+        totalpotassiumWithUnitToPass = potassiumWithUnitArray[row]
+        totalcarbsWithUnitToPass = carbsWithUnitArray[row]
+        totalfiberWithUnitToPass = fiberWithUnitArray[row]
+        totalsugarWithUnitToPass = sugarWithUnitArray[row]
+        totalproteinWithUnitToPass = proteinWithUnitArray[row]
+        totalVitADailyPercentage = vitaminADailyPercentArray[row]
+        totalVitCDailyPercentage = vitaminCDailyPercentArray[row]
+        totalCalciumDailyPercentage = calciumDailyPercentArray[row]
+        totalIronDailyPercentage = ironDailyPercentArray[row]
+        
         
         self.performSegueWithIdentifier("recipeInfoView", sender: self)
     }
+    
+    /*
+     --------------------------------------
+     MARK: - Grand Central Dispatch Methods
+     --------------------------------------
+     
+     These methods allow the application to download in the background by using multiple threads (including the
+     main thread) to do the work.
+     */
     
     var GlobalMainQueue: dispatch_queue_t {
         return dispatch_get_main_queue()
@@ -457,6 +575,20 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
             recipeInfoViewController.saturatedFatWithUnit = totalSaturatedFatWithUnitToPass
             recipeInfoViewController.polyunsaturatedFatWithUnit = totalPolyunsaturatedFatWithUnitToPass
             recipeInfoViewController.monounsaturatedFatWithUnit = totalMonounsaturatedFatWithUnitToPass
+            recipeInfoViewController.cholesterolWithUnit = totalCholesterolWithUnitToPass
+            recipeInfoViewController.sodiumWithUnit = totalsodiumWithUnitToPass
+            recipeInfoViewController.potassiumWithUnit = totalpotassiumWithUnitToPass
+            recipeInfoViewController.carbsWithUnit = totalcarbsWithUnitToPass
+            recipeInfoViewController.fiberWithUnit = totalfiberWithUnitToPass
+            recipeInfoViewController.sugarWithUnit = totalsugarWithUnitToPass
+            recipeInfoViewController.proteinWithUnit = totalproteinWithUnitToPass
+            recipeInfoViewController.dailyVitA = totalVitADailyPercentage
+            recipeInfoViewController.dailyVitC = totalVitCDailyPercentage
+            recipeInfoViewController.dailyCalcium = totalCalciumDailyPercentage
+            recipeInfoViewController.dailyIron = totalIronDailyPercentage
+            recipeInfoViewController.recipeUrl = recipeUrlToPass
+            recipeInfoViewController.recipeRatings = recipeRatingToPass
+            recipeInfoViewController.imageSize90Url = imageSize90UrlToPass
             
         }
     }

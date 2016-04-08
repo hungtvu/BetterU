@@ -33,6 +33,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var imageSizeLargeArray = [String]()
     var totalTimeArray = [String]()
     var numberOfSeringsArray = [Int]()
+    var recipeUrlArray = [String]()
     
     var caloriesFromRecipes = [Int]()
     var recipeName_dict_calories = [String: Int]()
@@ -42,6 +43,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var recipeName_dict_totalTime = [String: String]()
     var recipeName_dict_numOfServings = [String: Int]()
     var recipeName_dict_nutritionFacts = [String: NSArray]()
+    var recipeName_dict_recipeUrl = [String: String]()
     
     // Initializing the dictionaries for the difficulties of each recipe based on caloric intake
     var recipeName_dict_max250Cal = [String: Int]()
@@ -226,16 +228,31 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                     recipeImageDict = imagesArrayFromDict[0] as! Dictionary<String, AnyObject>
                     recipeImageURL = recipeImageDict["hostedLargeUrl"] as! String
                     recipeName_dict_imageSizeLarge[recipeNameArray[i]] = recipeImageURL
-     
-                    recipeName_dict_totalTime[recipeNameArray[i]] = recipeDictFromID["totalTime"] as? String
-                    recipeName_dict_numOfServings[recipeNameArray[i]] = recipeDictFromID["numberOfServings"] as? Int
                     
-                    if nutritionFacts.count == 0
+                    if let totalTime = recipeDictFromID["totalTime"] as? String
                     {
-                        nutritionFacts = ["Sorry, we do not have sufficient nutritional facts"]
+                        recipeName_dict_totalTime[recipeNameArray[i]] = totalTime
+                    }
+                    else
+                    {
+                        recipeName_dict_totalTime[recipeNameArray[i]] = "No Data"
                     }
                     
+                    recipeName_dict_numOfServings[recipeNameArray[i]] = recipeDictFromID["numberOfServings"] as? Int
+                    
                     recipeName_dict_nutritionFacts[recipeNameArray[i]] = nutritionFacts
+                    
+                    let source = recipeDictFromID["source"] as! NSDictionary
+                    
+                    if let recipeUrl = source["sourceRecipeUrl"] as? String
+                    {
+                        recipeName_dict_recipeUrl[recipeNameArray[i]] = recipeUrl
+                    }
+                    else
+                    {
+                        recipeName_dict_recipeUrl[recipeNameArray[i]] = "No Data"
+                    }
+                    
                     
                     
                 }catch let error as NSError
@@ -253,7 +270,6 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             i = i + 1
         }
         
-       
         
         var k = 0
         while (k < recipeCount)
@@ -327,7 +343,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             let cell = tableView.dequeueReusableCellWithIdentifier("easyCell")! 
             
             // Grab the row count from the indexPath in the cell
-            cell.textLabel!.text = "Easy"
+            cell.textLabel!.text = "Light Meals"
             cell.detailTextLabel!.text = "Maximum 250 calorie meals"
             
             return cell
@@ -338,7 +354,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             let cell = tableView.dequeueReusableCellWithIdentifier("mediumCell")!
             
             // Grab the row count from the indexPath in the cell
-            cell.textLabel!.text = "Medium"
+            cell.textLabel!.text = "Light to Heavy Meals"
             cell.detailTextLabel!.text = "Between 250 and 500 calorie meals"
             
             return cell
@@ -349,7 +365,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             let cell = tableView.dequeueReusableCellWithIdentifier("hardCell")!
             
             // Grab the row count from the indexPath in the cell
-            cell.textLabel!.text = "Hard"
+            cell.textLabel!.text = "Heavy Meals"
             cell.detailTextLabel!.text = "Between 500 to 750 calorie meals"
             
             return cell
@@ -360,7 +376,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             let cell = tableView.dequeueReusableCellWithIdentifier("veryHardCell")!
             
             // Grab the row count from the indexPath in the cell
-            cell.textLabel!.text = "Very Hard"
+            cell.textLabel!.text = "Very Heavy Meals"
             cell.detailTextLabel!.text = "Greater than 750 calorie meals"
             
             return cell
@@ -494,6 +510,12 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             {
                 recipeName_dict_nutritionalFactsArray[key] = nutritionalFactsArrayValue
                 applicationDelegate.recipesDict.setValue(recipeName_dict_nutritionalFactsArray, forKey: "Nutrition Facts")
+            }
+            
+            if let recipeUrl = self.recipeName_dict_recipeUrl[key]
+            {
+                recipeUrlArray.append(recipeUrl)
+                applicationDelegate.recipesDict.setValue(recipeUrlArray, forKey: "Source Url")
             }
             
         }

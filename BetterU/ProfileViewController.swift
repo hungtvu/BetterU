@@ -91,7 +91,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Return Number of Rows in Section
     //---------------------------------
     
-    // Number of rows in a given country (section) = Number of Cities in the given country (section)
+    // Number of rows in the menu
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 2

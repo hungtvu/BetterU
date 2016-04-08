@@ -10,8 +10,6 @@ import UIKit
 import SwiftyJSON
 
 class SignInViewController: UIViewController {
-
-    var items = [UserObject]()
     
     // Initializing and making object references to the UITextField class
     @IBOutlet var usernameTextField: UITextField!
@@ -64,9 +62,9 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
 
         // Adding in rounded corners to the buttons
-        loginButton.layer.cornerRadius = 8;
-        signupButton.layer.cornerRadius = 8;
-        facebookButton.layer.cornerRadius = 8;
+        loginButton.layer.cornerRadius = 8
+        signupButton.layer.cornerRadius = 8
+        facebookButton.layer.cornerRadius = 8
         
         parseJSONForUserAccountAuthorization()
     }
