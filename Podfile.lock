@@ -1,9 +1,11 @@
 PODS:
+  - Alamofire (3.3.1)
   - SwiftChart (0.2.1)
   - SwiftyJSON (2.3.2)
   - VideoSplashKit (1.1.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 3.0)
   - SwiftChart
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - VideoSplashKit
@@ -18,6 +20,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   SwiftChart: b76d4607022107a46473aa29a93c867872253d68
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VideoSplashKit: 0aa63d0bb37c5bd357de3e6a2a13dea5acad4d66

@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, UITextFieldDelegate {
     
     // Initializing and making object references to the UITextField class
     @IBOutlet var usernameTextField: UITextField!
@@ -65,8 +65,16 @@ class SignInViewController: UIViewController {
         loginButton.layer.cornerRadius = 8
         signupButton.layer.cornerRadius = 8
         facebookButton.layer.cornerRadius = 8
-        
         parseJSONForUserAccountAuthorization()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(true)
+        parseJSONForUserAccountAuthorization()
+        print(username_Dict_firstName)
+        print(usernameAndPasswordDict)
     }
     
     // This method calls from BetterU's REST API and parses its JSON information.
@@ -185,6 +193,15 @@ class SignInViewController: UIViewController {
         }
     }
     
+    // This method is called when the user taps Return on the keyboard
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        // Deactivate the text field and remove the keyboard
+        textField.resignFirstResponder()
+        
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -201,7 +218,7 @@ class SignInViewController: UIViewController {
             showAlertViewControllers("Sign in Failed!", errorMessage: "Please enter your username and password!")
         }
         
-        // User authentication: Checks to see if the dictionary has the key-value pair. If it does, then grab the value 
+        // User authentication: Checks to see if the dictionary has the key-value pair. If it does, then grab the value
         // as password and checks to see if the user enters the value to the key correctly.
         if let passwordValue = usernameAndPasswordDict[usernameEntered!]
         {
