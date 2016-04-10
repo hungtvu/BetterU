@@ -77,7 +77,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
         // Adds the toolbar to the textfield on top of the pickerview
         securityQuestionTextField.inputAccessoryView = toolBar
         
-        print(accountInfoPassed)
+        //print(accountInfoPassed)
 
     }
     

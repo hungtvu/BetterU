@@ -6,7 +6,7 @@
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
-
+// Current not used with any classes yet.
 import Foundation
 
 extension String {

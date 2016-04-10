@@ -32,6 +32,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var height: Int = 0
     var gender: String = ""
     var levelExp: Int = 0
+    var activityGoal = ""
+    var activityLevel = 0
+    var goalWeight = 0
+    var userId = 0
+    var securityQuestion = 0
+    var securityAnswer = ""
     
     // Dictionary KV pairs for the JSON data variables
     var usernameAndPasswordDict = [String: String]()
@@ -43,6 +49,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var username_Dict_height = [String: Int]()
     var username_Dict_gender = [String: String]()
     var username_Dict_levelExp = [String: Int]()
+    var username_Dict_activityGoal = [String: String]()
+    var username_Dict_activityLevel = [String: Int]()
+    var username_Dict_goalWeight = [String: Int]()
+    var username_Dict_userId = [String: Int]()
+    var username_Dict_securityQuestion = [String: Int]()
+    var username_Dict_securityAnswer = [String: String]()
     
     var isLoggedIn = false
     
@@ -73,8 +85,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     {
         super.viewWillAppear(true)
         parseJSONForUserAccountAuthorization()
-        print(username_Dict_firstName)
-        print(usernameAndPasswordDict)
+        //print(username_Dict_firstName)
+        //print(usernameAndPasswordDict)
     }
     
     // This method calls from BetterU's REST API and parses its JSON information.
@@ -160,6 +172,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     gender = jsonDataDictInfo["gender"] as! String
                     height = jsonDataDictInfo["height"] as! Int
                     levelExp = jsonDataDictInfo["points"] as! Int
+                    activityLevel = jsonDataDictInfo["activityLevel"] as! Int
+                    activityGoal = jsonDataDictInfo["activityGoal"] as! String
+                    goalWeight = jsonDataDictInfo["goalWeight"] as! Int
+                    userId = jsonDataDictInfo["id"] as! Int
+                    securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
+                    securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
                     
                     // Password is value, username is key
                     usernameAndPasswordDict[username] = password
@@ -175,6 +193,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     username_Dict_height[username] = height
                     username_Dict_gender[username] = gender
                     username_Dict_levelExp[username] = levelExp
+                    username_Dict_goalWeight[username] = goalWeight
+                    username_Dict_activityLevel[username] = activityLevel
+                    username_Dict_activityGoal[username] = activityGoal
+                    username_Dict_userId[username] = userId
+                    username_Dict_securityAnswer[username] = securityAnswer
+                    username_Dict_securityQuestion[username] = securityQuestion
                     
                     i += 1
                     
@@ -266,8 +290,38 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     gender = genderValue
                 }
                 
+                if let activityLevelValue = username_Dict_activityLevel[usernameEntered!]
+                {
+                    activityLevel = activityLevelValue
+                }
                 
-                // Create a new ingredient title name with a new title in the plist
+                if let activityGoalValue = username_Dict_activityGoal[usernameEntered!]
+                {
+                    activityGoal = activityGoalValue
+                }
+                
+                if let goalWeightValue = username_Dict_goalWeight[usernameEntered!]
+                {
+                    goalWeight = goalWeightValue
+                }
+                
+                if let userIdValue = username_Dict_userId[usernameEntered!]
+                {
+                    userId = userIdValue
+                }
+                
+                if let securityQuestionValue = username_Dict_securityQuestion[usernameEntered!]
+                {
+                    securityQuestion = securityQuestionValue
+                }
+                
+                if let securityAnswerValue = username_Dict_securityAnswer[usernameEntered!]
+                {
+                    securityAnswer = securityAnswerValue
+                }
+                
+                
+                // Create a entry onto the plist
                 applicationDelegate.userAccountInfo.setObject(weight, forKey: "User Weight")
                 applicationDelegate.userAccountInfo.setObject(usernameEntered!, forKey: "Username")
                 applicationDelegate.userAccountInfo.setObject(passwordEntered!, forKey: "Password")
@@ -278,6 +332,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 applicationDelegate.userAccountInfo.setObject(gender, forKey: "Gender")
                 applicationDelegate.userAccountInfo.setObject(levelExp, forKey: "Exp")
                 applicationDelegate.userAccountInfo.setObject(height, forKey: "Height")
+                applicationDelegate.userAccountInfo.setObject(activityGoal, forKey: "Activity Goal")
+                applicationDelegate.userAccountInfo.setObject(activityLevel, forKey: "Current Activity Level")
+                applicationDelegate.userAccountInfo.setObject(goalWeight, forKey: "Goal Weight")
+                applicationDelegate.userAccountInfo.setObject(userId, forKey: "id")
+                applicationDelegate.userAccountInfo.setObject(securityQuestion, forKey: "Security Question")
+                applicationDelegate.userAccountInfo.setObject(securityAnswer, forKey: "Security Answer")
                 
                 
                 isLoggedIn = true

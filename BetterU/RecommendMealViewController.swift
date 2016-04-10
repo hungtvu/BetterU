@@ -84,7 +84,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         var dictionaryOfRecipes = [String: AnyObject]()
         
         // Instantiate an API URL to return the JSON data
-        let apiURL = "http://api.yummly.com/v1/api/recipes?_app_id=\(yummylyAppID)&_app_key=\(yummlyAPIKey)&requirePictures=true&maxResult=40&start=10\(exclusionString)"
+        let apiURL = "http://api.yummly.com/v1/api/recipes?_app_id=\(yummylyAppID)&_app_key=\(yummlyAPIKey)&requirePictures=true&maxResult=60&start=10\(exclusionString)"
         
         // Convert URL to NSURL
         let url = NSURL(string: apiURL)
@@ -274,7 +274,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
         var k = 0
         while (k < recipeCount)
         {
-            if (caloriesFromRecipes[k] <= 250)
+            if (caloriesFromRecipes[k] <= 250 && caloriesFromRecipes[k] > 1)
             {
                 if let max250Cal = recipeName_dict_calories[recipeNameArray[k]]
                 {
@@ -298,7 +298,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }
             
-            else
+            else if (caloriesFromRecipes[k] > 750)
             {
                 if let max1000Cal = recipeName_dict_calories[recipeNameArray[k]]
                 {

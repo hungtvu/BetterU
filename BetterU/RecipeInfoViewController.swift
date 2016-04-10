@@ -175,6 +175,12 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
             
             // Update the new list of recipe
             applicationDelegate.savedRecipesDict.setValue(recipesFromSectionSelected, forKey: selection)
+            applicationDelegate.savedRecipesDict.setValue(nutritonDataArray, forKey: "\(recipeName) Nutrition Data")
+            applicationDelegate.savedRecipesDict.setValue(recipeImageUrl, forKey: "\(recipeName) Img Url")
+            applicationDelegate.savedRecipesDict.setValue(calories, forKey: "\(recipeName) Calories")
+            applicationDelegate.savedRecipesDict.setValue(totalTime, forKey: "\(recipeName) Total Time")
+            applicationDelegate.savedRecipesDict.setValue(servings, forKey: "\(recipeName) Servings")
+            applicationDelegate.savedRecipesDict.setValue(recipeUrl, forKey: "\(recipeName) Url")
         }
         
         //applicationDelegate.savedRecipesDict.setValue(recipeName, forKey: selectionArray)

@@ -14,15 +14,22 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var recommendFoodButton: UIButton!
     @IBOutlet var mealScheduleTableView: UITableView!
     
-    var recipeNameForLunchArray = [String]()
     var selectionTypeArray = [String]()
+    var nutritionDataArray = [String]()
+    
+    var recipeName = ""
+    var recipeImageUrl = ""
+    var servings = 0
+    var totalTime = ""
+    var calories = 0
+    var recipeUrl = ""
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Adding in rounded corners to the buttons
         logCaloriesButton.layer.cornerRadius = 8;
         recommendFoodButton.layer.cornerRadius = 8;
@@ -33,19 +40,34 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         selectionTypeArray.sortInPlace { $0 < $1 }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
+    }
+    
     // View will get updated with the correct recipe in the table
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
+        self.parentViewController?.navigationItem.leftBarButtonItem = self.editButtonItem()
         mealScheduleTableView.reloadData()
-        //recipeNameForLunchArray.append(applicationDelegate.savedRecipesDict["Lunch"] as! String)
-        //print(applicationDelegate.savedRecipesDict)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //-------------------------------
+    // Allow Editing of Rows
+    //-------------------------------
+    
+    // We allow each row of the table view to be editable, i.e., deletable or movable
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        return true
+    }
+    
     
     //----------------------------------------
     // Return Number of Sections in Table View
@@ -155,6 +177,84 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         
         return cell
     }
+    
+    /*
+     -------------------------------------------------------------------
+     Informs the table view delegate that the specified row is selected.
+     -------------------------------------------------------------------
+     */
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let row: Int = indexPath.row    // Identify the row number
+        let section = indexPath.section // Identify the section
+        
+        // Obtain type of meal - the section
+        let mealType = selectionTypeArray[section]
+        
+        // obtain recipe names
+        let recipeInfo: AnyObject? = applicationDelegate.savedRecipesDict[mealType]
+        
+        // Typecast the AnyObject to a swift array
+        var recipeInfoArray = recipeInfo! as! [[String]]
+        
+        recipeName = recipeInfoArray[row][0]
+        
+        if let nutritionDataArrayValue = applicationDelegate.savedRecipesDict["\(recipeName) Nutrition Data"] as? [String]
+        {
+            nutritionDataArray = nutritionDataArrayValue
+        }
+        
+        if let recipeImageUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Img Url"] as? String
+        {
+            recipeImageUrl = recipeImageUrlValue
+        }
+        
+        if let caloriesValue = applicationDelegate.savedRecipesDict["\(recipeName) Calories"] as? Int
+        {
+            calories = caloriesValue
+        }
+        
+        if let totalTimeValue = applicationDelegate.savedRecipesDict["\(recipeName) Total Time"] as? String
+        {
+            totalTime = totalTimeValue
+        }
+        
+        if let servingsValue = applicationDelegate.savedRecipesDict["\(recipeName) Servings"] as? Int
+        {
+            servings = servingsValue
+        }
+        
+        if let recipeUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Url"] as? String
+        {
+            recipeUrl = recipeUrlValue
+        }
+        
+        self.performSegueWithIdentifier("showMealFromSchedule", sender: self)
+    }
+    
+    
+    /*
+     -------------------------
+     MARK: - Prepare for segue
+     -------------------------
+     */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "showMealFromSchedule"
+        {
+            let seeRecipeFromScheduleViewController: SeeRecipeFromScheduleViewController = segue.destinationViewController as! SeeRecipeFromScheduleViewController
+            
+            seeRecipeFromScheduleViewController.nutritionDataArray = self.nutritionDataArray
+            seeRecipeFromScheduleViewController.servings = self.servings
+            seeRecipeFromScheduleViewController.totalTime = self.totalTime
+            seeRecipeFromScheduleViewController.calories = self.calories
+            seeRecipeFromScheduleViewController.recipeImageUrl = self.recipeImageUrl
+            seeRecipeFromScheduleViewController.recipeUrl = self.recipeUrl
+            seeRecipeFromScheduleViewController.recipeName = self.recipeName
+        }
+    }
+
     
     /*
      --------------------------------------

@@ -8,15 +8,11 @@
 
 import UIKit
 
-class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableViewDataSource, UITableViewDelegate {
+class RecipeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var barcodeButton: UIButton = UIButton()
     
     @IBOutlet var recipeTableView: UITableView!
-    
-    // These two instance variables are used for Search Bar functionality
-    var searchResults = [String]()
-    var searchResultsController = UISearchController()
     
     var recipeNameArray = [String]()
     var recipeRatingsArray = [Int]()
@@ -78,8 +74,6 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        createSearchResultsController()
         
         // Just to make sure it doesn't crash when the user did not find anything in the data
         if (applicationDelegate.recipesDict.count > 0)
@@ -309,86 +303,7 @@ class RecipeViewController: UIViewController, UISearchResultsUpdating, UITableVi
         
     }
     
-    /*
-     ---------------------------------------------
-     MARK: - Creation of Search Results Controller
-     ---------------------------------------------
-     */
-    func createSearchResultsController() {
-        /*
-         Instantiate a UISearchController object and store its object reference into local variable: controller.
-         Setting the parameter searchResultsController to nil implies that the search results will be displayed
-         in the same view used for searching (under the same UITableViewController object).
-         */
-        let controller = UISearchController(searchResultsController: nil)
-        
-        /*
-         We use the same table view controller (self) to also display the search results. Therefore,
-         set self to be the object responsible for listing and updating the search results.
-         Note that we made self to conform to UISearchResultsUpdating protocol.
-         */
-        controller.searchResultsUpdater = self
-        
-        /*
-         The property dimsBackgroundDuringPresentation determines if the underlying content is dimmed during
-         presentation. We set this property to false since we are presenting the search results in the same
-         view that is used for searching. The "false" option displays the search results without dimming.
-         */
-        controller.dimsBackgroundDuringPresentation = false
-        
-        // Resize the search bar object based on screen size and device orientation.
-        controller.searchBar.sizeToFit()
-        
-        /***************************************************************************
-         No need to create the search bar in the Interface Builder (storyboard file).
-         The statement below creates it at runtime.
-         ***************************************************************************/
-        
-        // Set the tableHeaderView's accessory view displayed above the table view to display the search bar.
-        self.recipeTableView.tableHeaderView = controller.searchBar
-        
-        /*
-         Set self (Table View Controller) define the presentation context so that the Search Bar subview
-         does not show up on top of the view (scene) displayed by a downstream view controller.
-         */
-        self.definesPresentationContext = true
-        
-        /*
-         Set the object reference (controller) of the newly created and dressed up UISearchController
-         object to be the value of the instance variable searchResultsController.
-         */
-        searchResultsController = controller
-    }
-    
-    /*
-     -----------------------------------------------
-     MARK: - UISearchResultsUpdating Protocol Method
-     -----------------------------------------------
-     
-     This UISearchResultsUpdating protocol required method is automatically called whenever the search
-     bar becomes the first responder or changes are made to the text or scope of the search bar.
-     You must perform all required filtering and updating operations inside this method.
-     */
-    func updateSearchResultsForSearchController(searchController: UISearchController)
-    {
-        // Empty the instance variable searchResults array without keeping its capacity
-        searchResults.removeAll(keepCapacity: false)
-        
-        // Set searchPredicate to search for any character(s) the user enters into the search bar.
-        // [c] indicates that the search is case insensitive.
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-        
-        // Obtain the country names that contain the character(s) the user types into the Search Bar.
-        //let listOfCountryNamesFound = (countryNames as NSArray).filteredArrayUsingPredicate(searchPredicate)
-        
-        // Obtain the search results as an array of type String
-       // searchResults = listOfCountryNamesFound as! [String]
-        
-        // Reload the table view to display the search results
-        self.recipeTableView.reloadData()
-    }
-
-    /*
+       /*
      ----------------------------------------------
      MARK: - UITableViewDataSource Protocol Methods
      ----------------------------------------------
