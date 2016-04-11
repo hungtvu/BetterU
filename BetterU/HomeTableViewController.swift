@@ -19,7 +19,7 @@ class HomeTableViewController: UITableViewController {
     var stepsCount: Int = 0
     
     var context: NSManagedObjectContext!
-    
+    var isAscending = true
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -54,17 +54,49 @@ class HomeTableViewController: UITableViewController {
             self.stepsCount = Int(steps)
         }
         
-       
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(HomeTableViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl = refreshControl
 
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-     
-            dispatch_async(dispatch_get_main_queue(),
+    func reloadTable(sender: AnyObject)
+    {
+        
+        HealthKitHelper().recentSteps() { steps, error in
+            
+            // Since there are 2112 steps in one mile, we will divide steps taken by 2112
+            let milesFromSteps: Double = steps/2112
+            
+            // Calculate the amount of calories burned per mile
+            // By multiplying the user's weight by 0.57, we can get that.
+            // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
+            let caloriesBurnedPerMile = 0.57 * Double(self.weightInLbs)
+            
+            // Divide the number of calories that are burned per mile by number of steps to walk a mile
+            let caloriesPerStep = caloriesBurnedPerMile/2112
+            
+            // Calculating calories burned by multiplying the total steps to calories burned per steps
+            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
+            
+            // Grabbing the necessary values and assigning it to a variable
+            self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
+            self.totalMilesWalked = round(milesFromSteps * 100)/100
+            self.stepsCount = Int(steps)
+        }
+
+        
+        dispatch_async(dispatch_get_main_queue(),
+        {
+           
+            self.tableView.reloadData()
+            
+            if (self.refreshControl!.refreshing)
             {
-                self.tableView.reloadData()
-            })
+                self.refreshControl!.endRefreshing()
+            }
+            
+        })
     }
     
     override func didReceiveMemoryWarning() {

@@ -20,6 +20,7 @@
 		0A5CF7DA1CB84A33005D1C4F /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7D91CB84A33005D1C4F /* AccountDetailsViewController.swift */; };
 		0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7DD1CB84CA8005D1C4F /* ValidationUtils.swift */; };
 		0A5CF7E01CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7DF1CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift */; };
+		0A5CF7E21CBB1B05005D1C4F /* SetActivityLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */; };
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
 		0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */; };
@@ -87,6 +88,7 @@
 		0A5CF7D91CB84A33005D1C4F /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		0A5CF7DD1CB84CA8005D1C4F /* ValidationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationUtils.swift; sourceTree = "<group>"; };
 		0A5CF7DF1CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeRecipeFromScheduleViewController.swift; sourceTree = "<group>"; };
+		0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetActivityLevelViewController.swift; sourceTree = "<group>"; };
 		0A79C7701CADB85300DE9CD8 /* BetterU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */,
 				0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */,
 				0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */,
+				0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */,
 			);
 			name = "Profile Tab";
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				0A5CF7D61CB84A00005D1C4F /* HeightWeightViewController.swift in Sources */,
 				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
 				0A5CF7E01CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift in Sources */,
+				0A5CF7E21CBB1B05005D1C4F /* SetActivityLevelViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -259,7 +259,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     func parseJson()
     {
         // Instantiate an API URL to return the JSON data
-        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user"
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(id)"
         
         // Convert URL to NSURL
         let url = NSURL(string: restApiUrl)
@@ -318,36 +318,25 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
                  weight = 155;
                  },
                  */
-                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                 
-                var jsonDataDictInfo: NSDictionary = NSDictionary()
-                
-                var i = 0
-                while (i < jsonDataArray.count)
-                {
-                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
-                    
-                    // Grabs data from the JSON and stores it into the appropriate variable
-                    username = jsonDataDictInfo["username"] as! String
-                    password = jsonDataDictInfo["password"] as! String
-                    weight = jsonDataDictInfo["weight"] as! Int
-                    firstName = jsonDataDictInfo["firstName"] as! String
-                    lastName = jsonDataDictInfo["lastName"] as! String
-                    email = jsonDataDictInfo["email"] as! String
-                    age = jsonDataDictInfo["age"] as! Int
-                    gender = jsonDataDictInfo["gender"] as! String
-                    height = jsonDataDictInfo["height"] as! Int
-                    exp = jsonDataDictInfo["points"] as! Int
-                    currentActivityLevel = jsonDataDictInfo["activityLevel"] as! Int
-                    activityGoal = jsonDataDictInfo["activityGoal"] as! String
-                    goalWeight = jsonDataDictInfo["goalWeight"] as! Int
-                    id = jsonDataDictInfo["id"] as! Int
-                    securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
-                    securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
-                    
-                    i += 1
-                    
-                }
+                // Grabs data from the JSON and stores it into the appropriate variable
+                username = jsonDataDictInfo["username"] as! String
+                password = jsonDataDictInfo["password"] as! String
+                weight = jsonDataDictInfo["weight"] as! Int
+                firstName = jsonDataDictInfo["firstName"] as! String
+                lastName = jsonDataDictInfo["lastName"] as! String
+                email = jsonDataDictInfo["email"] as! String
+                age = jsonDataDictInfo["age"] as! Int
+                gender = jsonDataDictInfo["gender"] as! String
+                height = jsonDataDictInfo["height"] as! Int
+                exp = jsonDataDictInfo["points"] as! Int
+                currentActivityLevel = jsonDataDictInfo["activityLevel"] as! Int
+                activityGoal = jsonDataDictInfo["activityGoal"] as! String
+                goalWeight = jsonDataDictInfo["goalWeight"] as! Int
+                id = jsonDataDictInfo["id"] as! Int
+                securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
+                securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
                 
             }catch let error as NSError
             {

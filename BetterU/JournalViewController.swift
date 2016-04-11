@@ -14,9 +14,7 @@ class JournalViewController: UIViewController {
     @IBOutlet var mealContainerView: UIView!
     
     @IBOutlet var mealOrExerciseControl: UISegmentedControl!
-    
-    var mealScheduleTableView: UITableView?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +48,5 @@ class JournalViewController: UIViewController {
             })
         }
     }
-    
-    
     
 }

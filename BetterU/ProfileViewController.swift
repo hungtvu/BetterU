@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var firstName: String = ""
     var lastName: String = ""
     var email: String = ""
+    var id = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +45,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         firstName = applicationDelegate.userAccountInfo["First Name"] as! String
         lastName = applicationDelegate.userAccountInfo["Last Name"] as! String
         email = applicationDelegate.userAccountInfo["Email"] as! String
+        id = applicationDelegate.userAccountInfo["id"] as! Int
         
         // Assigning label values
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
+        levelLabel!.text = "Lvl 1"
         
         // Adding in rounded corners to the buttons
         editProfileButton.layer.cornerRadius = 8;
@@ -56,6 +59,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         settingsTitleArray.append("Advanced Settings")
         settingsTitleArray.append("Contact Information")
+        
+        
         
     }
     
@@ -67,6 +72,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func editProfileButtonTapped(sender: UIButton)
     {
         self.performSegueWithIdentifier("EditProfile", sender: self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        parseJson()
+        
+        // Assigning label values
+        firstNameLabel.text = firstName
+        lastNameLabel.text = lastName
+        emailLabel.text = email
+        levelLabel!.text = "Lvl 1"
     }
     
     /*
@@ -161,6 +177,90 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //self.performSegueWithIdentifier("SignInView", sender: self)
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.resetAppToFirstView()
+    }
+    
+    func parseJson()
+    {
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(id)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /* {
+                 DCSkipped = 1;
+                 WCSkipped = 1;
+                 activityGoal = "Very Active";
+                 activityLevel = 0;
+                 age = 20;
+                 bmr = 1724;
+                 dailyChallengeIndex = 4;
+                 email = "jdoe@vt.edu";
+                 firstName = John;
+                 gender = M;
+                 goalType = 4;
+                 goalWeight = 130;
+                 height = 65;
+                 id = 1;
+                 lastName = Doe;
+                 password = password;
+                 points = 0;
+                 securityAnswer = Virginia;
+                 securityQuestion = 3;
+                 units = I;
+                 username = jdoe;
+                 weeklyChallengeIndex = 2;
+                 weight = 155;
+                 },
+                 */
+                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                // Grabs data from the JSON and stores it into the appropriate variable
+                firstName = jsonDataDictInfo["firstName"] as! String
+                lastName = jsonDataDictInfo["lastName"] as! String
+                email = jsonDataDictInfo["email"] as! String
+              
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+        
     }
     
 }

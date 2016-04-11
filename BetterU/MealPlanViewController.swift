@@ -34,7 +34,11 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         logCaloriesButton.layer.cornerRadius = 8;
         recommendFoodButton.layer.cornerRadius = 8;
         
-        selectionTypeArray = applicationDelegate.savedRecipesDict.allKeys as! [String]
+        //selectionTypeArray = applicationDelegate.savedRecipesDict.allKeys as! [String]
+        selectionTypeArray.append("Breakfast")
+        selectionTypeArray.append("Lunch")
+        selectionTypeArray.append("Dinner")
+        selectionTypeArray.append("Snacks")
         
         // Sort the selection names within itself in alphabetical order
         selectionTypeArray.sortInPlace { $0 < $1 }
@@ -49,7 +53,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
-        self.parentViewController?.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem = self.editButtonItem()
         mealScheduleTableView.reloadData()
     }
 
@@ -67,6 +71,13 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         
         return true
     }
+    
+    func editTable() {
+        
+        mealScheduleTableView.setEditing(true, animated: true)
+        
+    }
+
     
     
     //----------------------------------------
