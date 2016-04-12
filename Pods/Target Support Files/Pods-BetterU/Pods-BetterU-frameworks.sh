@@ -85,13 +85,17 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-BetterU/Alamofire.framework"
+  install_framework "Pods-BetterU/CircleProgressBar.framework"
   install_framework "Pods-BetterU/SwiftChart.framework"
+  install_framework "Pods-BetterU/SwiftDate.framework"
   install_framework "Pods-BetterU/SwiftyJSON.framework"
   install_framework "Pods-BetterU/VideoSplashKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-BetterU/Alamofire.framework"
+  install_framework "Pods-BetterU/CircleProgressBar.framework"
   install_framework "Pods-BetterU/SwiftChart.framework"
+  install_framework "Pods-BetterU/SwiftDate.framework"
   install_framework "Pods-BetterU/SwiftyJSON.framework"
   install_framework "Pods-BetterU/VideoSplashKit.framework"
 fi

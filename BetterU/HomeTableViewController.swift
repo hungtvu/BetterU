@@ -57,6 +57,8 @@ class HomeTableViewController: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(HomeTableViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
+        
+        
 
     }
     

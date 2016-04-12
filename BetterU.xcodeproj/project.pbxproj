@@ -21,6 +21,14 @@
 		0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7DD1CB84CA8005D1C4F /* ValidationUtils.swift */; };
 		0A5CF7E01CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7DF1CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift */; };
 		0A5CF7E21CBB1B05005D1C4F /* SetActivityLevelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */; };
+		0A5CF7E51CBC4E42005D1C4F /* StepsTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7E41CBC4E42005D1C4F /* StepsTakenViewController.swift */; };
+		0A5CF7E71CBC4E5C005D1C4F /* WeeklyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7E61CBC4E5C005D1C4F /* WeeklyStepsViewController.swift */; };
+		0A5CF7E91CBC4E79005D1C4F /* MonthlyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7E81CBC4E79005D1C4F /* MonthlyStepsViewController.swift */; };
+		0A5CF7EB1CBC4E9C005D1C4F /* DailyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7EA1CBC4E9C005D1C4F /* DailyStepsViewController.swift */; };
+		0A5CF7ED1CBC4F0B005D1C4F /* WeekStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7EC1CBC4F0B005D1C4F /* WeekStepsTableViewCell.swift */; };
+		0A5CF7EF1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7EE1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift */; };
+		0A5CF7F21CBC546C005D1C4F /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0A5CF7F11CBC546C005D1C4F /* background.mp4 */; };
+		0A5CF7F41CBC87B2005D1C4F /* LogCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7F31CBC87B1005D1C4F /* LogCaloriesViewController.swift */; };
 		0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */; };
 		0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */; };
 		0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */; };
@@ -52,7 +60,6 @@
 		1F782ECF1CB3136E0073AA90 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECB1CB3136E0073AA90 /* SwiftyJSON.framework */; };
 		1F782ED01CB3136E0073AA90 /* VideoSplashKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECC1CB3136E0073AA90 /* VideoSplashKit.framework */; };
 		1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */; };
-		1F782ED71CB314830073AA90 /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 1F782ED61CB314750073AA90 /* background.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +96,14 @@
 		0A5CF7DD1CB84CA8005D1C4F /* ValidationUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationUtils.swift; sourceTree = "<group>"; };
 		0A5CF7DF1CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeRecipeFromScheduleViewController.swift; sourceTree = "<group>"; };
 		0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetActivityLevelViewController.swift; sourceTree = "<group>"; };
+		0A5CF7E41CBC4E42005D1C4F /* StepsTakenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTakenViewController.swift; sourceTree = "<group>"; };
+		0A5CF7E61CBC4E5C005D1C4F /* WeeklyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyStepsViewController.swift; sourceTree = "<group>"; };
+		0A5CF7E81CBC4E79005D1C4F /* MonthlyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyStepsViewController.swift; sourceTree = "<group>"; };
+		0A5CF7EA1CBC4E9C005D1C4F /* DailyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyStepsViewController.swift; sourceTree = "<group>"; };
+		0A5CF7EC1CBC4F0B005D1C4F /* WeekStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekStepsTableViewCell.swift; sourceTree = "<group>"; };
+		0A5CF7EE1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthStepsTableViewCell.swift; sourceTree = "<group>"; };
+		0A5CF7F11CBC546C005D1C4F /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
+		0A5CF7F31CBC87B1005D1C4F /* LogCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCaloriesViewController.swift; sourceTree = "<group>"; };
 		0A79C7701CADB85300DE9CD8 /* BetterU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,7 +142,6 @@
 		1F782ECB1CB3136E0073AA90 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		1F782ECC1CB3136E0073AA90 /* VideoSplashKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoSplashKit.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/VideoSplashKit.framework"; sourceTree = "<group>"; };
 		1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
-		1F782ED61CB314750073AA90 /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
 		345E07733A7F82D722B7E856 /* Pods-BetterU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.release.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.release.xcconfig"; sourceTree = "<group>"; };
 		8A69104A9B51D3BADDE63808 /* Pods_BetterU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E339B620CBD0AE1DFDBFB75 /* Pods-BetterU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +216,7 @@
 		0A5CF7D11CB780F8005D1C4F /* Log Calories */ = {
 			isa = PBXGroup;
 			children = (
+				0A5CF7F31CBC87B1005D1C4F /* LogCaloriesViewController.swift */,
 			);
 			name = "Log Calories";
 			sourceTree = "<group>";
@@ -216,6 +231,19 @@
 				0A5CF7DD1CB84CA8005D1C4F /* ValidationUtils.swift */,
 			);
 			name = "User Creation";
+			sourceTree = "<group>";
+		};
+		0A5CF7E31CBC4E30005D1C4F /* Steps View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A5CF7E41CBC4E42005D1C4F /* StepsTakenViewController.swift */,
+				0A5CF7E61CBC4E5C005D1C4F /* WeeklyStepsViewController.swift */,
+				0A5CF7E81CBC4E79005D1C4F /* MonthlyStepsViewController.swift */,
+				0A5CF7EA1CBC4E9C005D1C4F /* DailyStepsViewController.swift */,
+				0A5CF7EC1CBC4F0B005D1C4F /* WeekStepsTableViewCell.swift */,
+				0A5CF7EE1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift */,
+			);
+			name = "Steps View Controllers";
 			sourceTree = "<group>";
 		};
 		0A79C7671CADB85300DE9CD8 = {
@@ -245,7 +273,7 @@
 		0A79C7721CADB85400DE9CD8 /* BetterU */ = {
 			isa = PBXGroup;
 			children = (
-				1F782ED61CB314750073AA90 /* background.mp4 */,
+				0A5CF7F11CBC546C005D1C4F /* background.mp4 */,
 				0A79C7731CADB85400DE9CD8 /* AppDelegate.swift */,
 				1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */,
 				0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */,
@@ -310,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */,
+				0A5CF7E31CBC4E30005D1C4F /* Steps View Controllers */,
 				0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */,
 				0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */,
 				0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */,
@@ -453,12 +482,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F782ED71CB314830073AA90 /* background.mp4 in Resources */,
 				1F782EC81CB313650073AA90 /* Podfile in Resources */,
 				0A5CF7D01CB71F61005D1C4F /* SavedRecipes.plist in Resources */,
 				0AEA2EEC1CB48D7D0058CCAD /* Recipes.plist in Resources */,
 				0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */,
 				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
+				0A5CF7F21CBC546C005D1C4F /* background.mp4 in Resources */,
 				0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */,
 				0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */,
 			);
@@ -533,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A5CF7E51CBC4E42005D1C4F /* StepsTakenViewController.swift in Sources */,
 				0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */,
 				0A5CF7DA1CB84A33005D1C4F /* AccountDetailsViewController.swift in Sources */,
 				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
@@ -544,10 +574,12 @@
 				1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */,
 				0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */,
 				0AA2E5601CB3172F005AA390 /* ProfileViewController.swift in Sources */,
+				0A5CF7F41CBC87B2005D1C4F /* LogCaloriesViewController.swift in Sources */,
 				0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */,
 				0ADBAF881CB43AFE008D4C72 /* RecommendMealViewController.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
 				0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */,
+				0A5CF7ED1CBC4F0B005D1C4F /* WeekStepsTableViewCell.swift in Sources */,
 				0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */,
 				0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */,
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
@@ -555,8 +587,12 @@
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A5CF7D81CB84A0F005D1C4F /* ActivityLevelViewController.swift in Sources */,
+				0A5CF7E71CBC4E5C005D1C4F /* WeeklyStepsViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
+				0A5CF7EB1CBC4E9C005D1C4F /* DailyStepsViewController.swift in Sources */,
+				0A5CF7EF1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift in Sources */,
+				0A5CF7E91CBC4E79005D1C4F /* MonthlyStepsViewController.swift in Sources */,
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
 				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
 				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,

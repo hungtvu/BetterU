@@ -1,12 +1,16 @@
 PODS:
   - Alamofire (3.3.1)
+  - CircleProgressBar (0.31)
   - SwiftChart (0.2.1)
+  - SwiftDate (3.0.8)
   - SwiftyJSON (2.3.2)
   - VideoSplashKit (1.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - CircleProgressBar (~> 0.22)
   - SwiftChart
+  - SwiftDate
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - VideoSplashKit
 
@@ -21,7 +25,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  CircleProgressBar: 1de5fc6ba919174b845bc2447720db67f8cb6c08
   SwiftChart: b76d4607022107a46473aa29a93c867872253d68
+  SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VideoSplashKit: 0aa63d0bb37c5bd357de3e6a2a13dea5acad4d66
 
