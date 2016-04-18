@@ -9,6 +9,7 @@ pod 'VideoSplashKit'
 pod 'Alamofire', '~> 3.0'
 pod 'SwiftChart'
 pod 'CircleProgressBar', '~> 0.22’
+pod ‘KDCircularProgress’, :git=> ‘https://github.com/kaandedeoglu/KDCircularProgress.git'
 pod 'SwiftDate'
 end
 

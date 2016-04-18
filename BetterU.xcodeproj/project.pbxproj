@@ -60,6 +60,13 @@
 		1F782ECF1CB3136E0073AA90 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECB1CB3136E0073AA90 /* SwiftyJSON.framework */; };
 		1F782ED01CB3136E0073AA90 /* VideoSplashKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F782ECC1CB3136E0073AA90 /* VideoSplashKit.framework */; };
 		1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */; };
+		57A2F2D31CC0189E006739F3 /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2F2D21CC0189E006739F3 /* WeightViewController.swift */; };
+		57A3F8D01CC5600C00489F66 /* WeeklyWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8CF1CC5600C00489F66 /* WeeklyWeightViewController.swift */; };
+		57A3F8D21CC5601D00489F66 /* MonthlyWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8D11CC5601D00489F66 /* MonthlyWeightViewController.swift */; };
+		57A3F8D41CC5602D00489F66 /* YearlyWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8D31CC5602D00489F66 /* YearlyWeightViewController.swift */; };
+		57A3F8D61CC565C100489F66 /* WeeklyWeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8D51CC565C100489F66 /* WeeklyWeightTableViewCell.swift */; };
+		57A3F8D81CC567A100489F66 /* MonthlyWeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8D71CC567A100489F66 /* MonthlyWeightTableViewCell.swift */; };
+		57A3F8DA1CC567B300489F66 /* YearlyWeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A3F8D91CC567B300489F66 /* YearlyWeightTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +150,13 @@
 		1F782ECC1CB3136E0073AA90 /* VideoSplashKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoSplashKit.framework; path = "../../Library/Developer/Xcode/DerivedData/BetterU-fubhyksropfmxfdfvbkcnmxmhesg/Build/Products/Debug-iphonesimulator/VideoSplashKit.framework"; sourceTree = "<group>"; };
 		1F782ED21CB314140073AA90 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
 		345E07733A7F82D722B7E856 /* Pods-BetterU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.release.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.release.xcconfig"; sourceTree = "<group>"; };
+		57A2F2D21CC0189E006739F3 /* WeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
+		57A3F8CF1CC5600C00489F66 /* WeeklyWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyWeightViewController.swift; sourceTree = "<group>"; };
+		57A3F8D11CC5601D00489F66 /* MonthlyWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyWeightViewController.swift; sourceTree = "<group>"; };
+		57A3F8D31CC5602D00489F66 /* YearlyWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearlyWeightViewController.swift; sourceTree = "<group>"; };
+		57A3F8D51CC565C100489F66 /* WeeklyWeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyWeightTableViewCell.swift; sourceTree = "<group>"; };
+		57A3F8D71CC567A100489F66 /* MonthlyWeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyWeightTableViewCell.swift; sourceTree = "<group>"; };
+		57A3F8D91CC567B300489F66 /* YearlyWeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearlyWeightTableViewCell.swift; sourceTree = "<group>"; };
 		8A69104A9B51D3BADDE63808 /* Pods_BetterU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E339B620CBD0AE1DFDBFB75 /* Pods-BetterU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BetterU/Pods-BetterU.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -337,6 +351,7 @@
 		0AD384D31CAE4DD80098E5B1 /* Home Tab */ = {
 			isa = PBXGroup;
 			children = (
+				57A2F2D11CC01884006739F3 /* WeightViewControllers */,
 				0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */,
 				0A5CF7E31CBC4E30005D1C4F /* Steps View Controllers */,
 				0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */,
@@ -365,6 +380,20 @@
 				345E07733A7F82D722B7E856 /* Pods-BetterU.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		57A2F2D11CC01884006739F3 /* WeightViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				57A2F2D21CC0189E006739F3 /* WeightViewController.swift */,
+				57A3F8CF1CC5600C00489F66 /* WeeklyWeightViewController.swift */,
+				57A3F8D11CC5601D00489F66 /* MonthlyWeightViewController.swift */,
+				57A3F8D31CC5602D00489F66 /* YearlyWeightViewController.swift */,
+				57A3F8D51CC565C100489F66 /* WeeklyWeightTableViewCell.swift */,
+				57A3F8D71CC567A100489F66 /* MonthlyWeightTableViewCell.swift */,
+				57A3F8D91CC567B300489F66 /* YearlyWeightTableViewCell.swift */,
+			);
+			name = WeightViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -566,7 +595,10 @@
 				0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */,
 				0A5CF7DA1CB84A33005D1C4F /* AccountDetailsViewController.swift in Sources */,
 				0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */,
+				57A2F2D31CC0189E006739F3 /* WeightViewController.swift in Sources */,
 				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
+				57A3F8D61CC565C100489F66 /* WeeklyWeightTableViewCell.swift in Sources */,
+				57A3F8D21CC5601D00489F66 /* MonthlyWeightViewController.swift in Sources */,
 				0AEA2EEE1CB5A10B0058CCAD /* RecipeInfoViewController.swift in Sources */,
 				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
 				0AD384CE1CADE3EF0098E5B1 /* CheckBox.swift in Sources */,
@@ -588,17 +620,21 @@
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A5CF7D81CB84A0F005D1C4F /* ActivityLevelViewController.swift in Sources */,
 				0A5CF7E71CBC4E5C005D1C4F /* WeeklyStepsViewController.swift in Sources */,
+				57A3F8D01CC5600C00489F66 /* WeeklyWeightViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
 				0A5CF7EB1CBC4E9C005D1C4F /* DailyStepsViewController.swift in Sources */,
+				57A3F8D81CC567A100489F66 /* MonthlyWeightTableViewCell.swift in Sources */,
 				0A5CF7EF1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift in Sources */,
 				0A5CF7E91CBC4E79005D1C4F /* MonthlyStepsViewController.swift in Sources */,
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
 				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
+				57A3F8D41CC5602D00489F66 /* YearlyWeightViewController.swift in Sources */,
 				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,
 				0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */,
 				0A5CF7D61CB84A00005D1C4F /* HeightWeightViewController.swift in Sources */,
 				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
+				57A3F8DA1CC567B300489F66 /* YearlyWeightTableViewCell.swift in Sources */,
 				0A5CF7E01CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift in Sources */,
 				0A5CF7E21CBB1B05005D1C4F /* SetActivityLevelViewController.swift in Sources */,
 			);
