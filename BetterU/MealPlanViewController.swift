@@ -8,15 +8,18 @@
 
 import UIKit
 
-class MealPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+/* MAJOR BUG: Users cannot move rows between sections without causing crashes or duplications of items. Users can however move within their own sections fine. */
 
+class MealPlanViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var logCaloriesButton: UIButton!
     @IBOutlet var recommendFoodButton: UIButton!
     @IBOutlet var mealScheduleTableView: UITableView!
     
-    var selectionTypeArray = [String]()
+    var sectionTypeArray = [String]()
     var nutritionDataArray = [String]()
-    
+    var nutritionDataString = String()
+
     var recipeName = ""
     var recipeImageUrl = ""
     var servings = 0
@@ -27,6 +30,8 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    var editButtonTable = UIBarButtonItem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,14 +39,11 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         logCaloriesButton.layer.cornerRadius = 8;
         recommendFoodButton.layer.cornerRadius = 8;
         
-        //selectionTypeArray = applicationDelegate.savedRecipesDict.allKeys as! [String]
-        selectionTypeArray.append("Breakfast")
-        selectionTypeArray.append("Lunch")
-        selectionTypeArray.append("Dinner")
-        selectionTypeArray.append("Snacks")
+        sectionTypeArray = applicationDelegate.savedRecipesDict.allKeys as! [String]
         
         // Sort the selection names within itself in alphabetical order
-        selectionTypeArray.sortInPlace { $0 < $1 }
+        sectionTypeArray.sortInPlace { $0 < $1 }
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -53,18 +55,26 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
+        let leftButton = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanViewController.showEditing(_:)))
+        self.parentViewController?.navigationItem.leftBarButtonItem = leftButton
+        
         mealScheduleTableView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    //-------------------------------
+    @IBAction func logCaloriesButtonTapped(sender: UIButton)
+    {
+        self.performSegueWithIdentifier("showLogCaloriesView", sender: self)
+    }
+    
+    //----------------------
     // Allow Editing of Rows
-    //-------------------------------
+    //----------------------
     
     // We allow each row of the table view to be editable, i.e., deletable or movable
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -72,13 +82,156 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         return true
     }
     
-    func editTable() {
+    func showEditing(sender: UIBarButtonItem)
+    {
+        self.mealScheduleTableView.setEditing(!mealScheduleTableView.editing, animated: true)
         
-        mealScheduleTableView.setEditing(true, animated: true)
+        if(self.mealScheduleTableView.editing == true)
+        {
+            self.parentViewController?.navigationItem.leftBarButtonItem?.title = "Done"
+        }
+        else
+        {
+            self.parentViewController?.navigationItem.leftBarButtonItem?.title = "Edit"
+        }
         
+       
     }
-
     
+    //---------------------
+    // Delete Button Tapped
+    //---------------------
+    
+    // This is the method invoked when the user taps the Delete button in the Edit mode
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        // Handle the Delete action
+        if editingStyle == .Delete
+        {
+            // Obtain the section of the recipe to be deleted
+            let sectionOfRecipeToBeDeleted = sectionTypeArray[indexPath.section]
+            
+            // Obtain the list of recipes from each section
+            let recipes: AnyObject? = applicationDelegate.savedRecipesDict[sectionOfRecipeToBeDeleted]
+            
+            // Typecast the anyobject to a swift array
+            var recipesToBeDeleted = recipes! as! [[String]]
+            
+            // Delete the identified recipe at row
+            recipesToBeDeleted.removeAtIndex(indexPath.row)
+            
+            // Update new list of recipes
+            applicationDelegate.savedRecipesDict.setValue(recipesToBeDeleted, forKey: sectionOfRecipeToBeDeleted)
+            
+            self.mealScheduleTableView.reloadData()
+            
+            
+            
+        }
+    }
+    
+    //---------------------------
+    // Movement of Row Attempted
+    //---------------------------
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    {
+        // Obtain the section of the recipe to be deleted
+        let sectionOfRecipe = sectionTypeArray[fromIndexPath.section]
+        
+        // Obtain the list of recipes from each section
+        let recipes: AnyObject? = applicationDelegate.savedRecipesDict[sectionOfRecipe]
+        
+        // Typecast the anyobject to a swift array
+        var recipesToBeMoved = recipes as! [[String]]
+        
+        // Row number to move FROM
+        let rowNumberFrom = fromIndexPath.row
+        
+        // Row number to move TO
+        let rowNumberTo = toIndexPath.row
+        
+        // Section number to move FROM
+        let sectionNumberFrom = fromIndexPath.section
+        
+        // Section number to move TO
+        let sectionNumberTo = toIndexPath.section
+        
+        // If the recipe cells are moving outside of their sections
+        if sectionNumberFrom != sectionNumberTo
+        {
+            let recipeNameToMove = recipesToBeMoved[rowNumberFrom]
+            
+            // If movement is from lower part of the list to upper part
+          //  if sectionNumberFrom > sectionNumberTo
+          //  {
+                recipesToBeMoved[rowNumberFrom].insert(String(recipeNameToMove), atIndex: rowNumberTo)
+                print(recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom))
+                //recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom)
+            
+            //}
+//            else
+//            {
+//                // Movement is from upper part to lower part
+//                recipesToBeMoved[rowNumberTo].insert(String(recipeNameToMove), atIndex: rowNumberTo + 1)
+//                recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom)
+//            }
+            
+          // let sectionOfRecipeFrom = sectionTypeArray[sectionNumberFrom]
+          // applicationDelegate.savedRecipesDict.removeObjectForKey(sectionOfRecipeFrom)
+            
+            let sectionOfRecipeTo = sectionTypeArray[sectionNumberTo]
+            applicationDelegate.savedRecipesDict.setValue(recipesToBeMoved, forKey: sectionOfRecipeTo)
+            
+            
+            
+            //print(applicationDelegate.savedRecipesDict)
+            print(String(recipeNameToMove))
+           
+            print(recipeNameToMove.count)
+            //print(recipesToBeMoved[rowNumberTo].insert(String(recipeNameToMove), atIndex: rowNumberTo))
+           
+            
+        }
+        
+        
+        else if rowNumberFrom != rowNumberTo
+        {
+        
+            // Recipe to move:
+            let recipeNameToMove = recipesToBeMoved[rowNumberFrom]
+            
+            // If movement is from lower part of the list to upper part
+            if rowNumberFrom > rowNumberTo
+            {
+                recipesToBeMoved.insert(recipeNameToMove, atIndex: rowNumberTo)
+                recipesToBeMoved.removeAtIndex(rowNumberFrom + 1)
+            }
+            else
+            {
+                // Movement is from upper part to lower part
+                recipesToBeMoved.insert(recipeNameToMove, atIndex: rowNumberTo + 1)
+                recipesToBeMoved.removeAtIndex(rowNumberFrom)
+            }
+
+            applicationDelegate.savedRecipesDict.setValue(recipesToBeMoved, forKey: sectionOfRecipe)
+            
+            print("Moving within sections")
+        
+        }
+        
+        
+
+    }
+    
+    //-----------------------
+    // Allow Movement of Rows
+    //-----------------------
+    
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        return true
+    }
     
     //----------------------------------------
     // Return Number of Sections in Table View
@@ -87,7 +240,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     // Each table view section corresponds to a country
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return selectionTypeArray.count
+        return sectionTypeArray.count
     }
     
     //---------------------------------
@@ -98,14 +251,14 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         // Obtain name of selection
-        let selectionName = selectionTypeArray[section]
+        let selectionName = sectionTypeArray[section]
         
         // Obtain recipe names of each selection
         let recipeArray: AnyObject? = applicationDelegate.savedRecipesDict[selectionName]
         
         // Checks if there is something in the dictionary first
         if recipeArray != nil {
-        
+            
             // Typecast to AnyObject to Swift array of array of strings
             if let recipeArraysInEachSelection = recipeArray! as? [[String]]
             {
@@ -124,7 +277,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     // Set the table view section header
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return selectionTypeArray[section]
+        return sectionTypeArray[section]
     }
     
     //-------------------------------------
@@ -139,7 +292,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         let section = indexPath.section
         
         // Obtain type of meal - the section
-        let mealType = selectionTypeArray[section]
+        let mealType = sectionTypeArray[section]
         
         // obtain recipe names
         let recipeInfo: AnyObject? = applicationDelegate.savedRecipesDict[mealType]
@@ -157,9 +310,9 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         dispatch_async(GlobalUserInitiatedQueue)
         {
             let imageNSURL = NSURL(string: imageUrl)
-        
+            
             var imageData: NSData?
-        
+            
             do {
                 /*
                  Try getting the thumbnail image data from the URL and map it into virtual memory, if possible and safe.
@@ -172,17 +325,17 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             }
             
             dispatch_async(self.GlobalMainQueue,
-            {
-                if let image = imageData
-                {
-                    // Image was successfully gotten
-                    cell.imageView!.image = UIImage(data: image)
-                }
-                else
-                {
-                    self.showErrorMessage("Error occurred while retrieving recipe image data!")
-                }
-                cell.setNeedsLayout()
+                           {
+                            if let image = imageData
+                            {
+                                // Image was successfully gotten
+                                cell.imageView!.image = UIImage(data: image)
+                            }
+                            else
+                            {
+                                self.showErrorMessage("Error occurred while retrieving recipe image data!")
+                            }
+                            cell.setNeedsLayout()
             })
         }
         
@@ -201,7 +354,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         let section = indexPath.section // Identify the section
         
         // Obtain type of meal - the section
-        let mealType = selectionTypeArray[section]
+        let mealType = sectionTypeArray[section]
         
         // obtain recipe names
         let recipeInfo: AnyObject? = applicationDelegate.savedRecipesDict[mealType]
@@ -211,35 +364,52 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         
         recipeName = recipeInfoArray[row][0]
         
-        if let nutritionDataArrayValue = applicationDelegate.savedRecipesDict["\(recipeName) Nutrition Data"] as? [String]
+        nutritionDataArray.removeAll()
+        
+        var i = 3
+        while (i < 18)
         {
-            nutritionDataArray = nutritionDataArrayValue
+            nutritionDataString = recipeInfoArray[row][i]
+            nutritionDataArray.append(nutritionDataString)
+            i = i + 1
         }
         
-        if let recipeImageUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Img Url"] as? String
-        {
-            recipeImageUrl = recipeImageUrlValue
-        }
+        recipeImageUrl = recipeInfoArray[row][18]
+        calories = Int(recipeInfoArray[row][19])!
+        totalTime = recipeInfoArray[row][20]
+        servings = Int(recipeInfoArray[row][21])!
+        recipeUrl = recipeInfoArray[row][22]
         
-        if let caloriesValue = applicationDelegate.savedRecipesDict["\(recipeName) Calories"] as? Int
-        {
-            calories = caloriesValue
-        }
         
-        if let totalTimeValue = applicationDelegate.savedRecipesDict["\(recipeName) Total Time"] as? String
-        {
-            totalTime = totalTimeValue
-        }
-        
-        if let servingsValue = applicationDelegate.savedRecipesDict["\(recipeName) Servings"] as? Int
-        {
-            servings = servingsValue
-        }
-        
-        if let recipeUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Url"] as? String
-        {
-            recipeUrl = recipeUrlValue
-        }
+//        if let nutritionDataArrayValue = applicationDelegate.savedRecipesDict["\(recipeName) Nutrition Data"] as? [String]
+//        {
+//            nutritionDataArray = nutritionDataArrayValue
+//        }
+//        
+//        if let recipeImageUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Img Url"] as? String
+//        {
+//            recipeImageUrl = recipeImageUrlValue
+//        }
+//        
+//        if let caloriesValue = applicationDelegate.savedRecipesDict["\(recipeName) Calories"] as? Int
+//        {
+//            calories = caloriesValue
+//        }
+//        
+//        if let totalTimeValue = applicationDelegate.savedRecipesDict["\(recipeName) Total Time"] as? String
+//        {
+//            totalTime = totalTimeValue
+//        }
+//        
+//        if let servingsValue = applicationDelegate.savedRecipesDict["\(recipeName) Servings"] as? Int
+//        {
+//            servings = servingsValue
+//        }
+//        
+//        if let recipeUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Url"] as? String
+//        {
+//            recipeUrl = recipeUrlValue
+//        }
         
         self.performSegueWithIdentifier("showMealFromSchedule", sender: self)
     }
@@ -265,7 +435,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             seeRecipeFromScheduleViewController.recipeName = self.recipeName
         }
     }
-
+    
     
     /*
      --------------------------------------
@@ -305,9 +475,8 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             // Present the alert controller by calling the presentViewController method
             self.presentViewController(alertController, animated: true, completion: nil)
         }
-
+        
     }
-
+    
 }
-
 

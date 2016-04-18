@@ -51,7 +51,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
-        levelLabel!.text = "Lvl 1"
+        levelLabel!.text = "Level 1"
         
         // Adding in rounded corners to the buttons
         editProfileButton.layer.cornerRadius = 8;
@@ -82,7 +82,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
-        levelLabel!.text = "Lvl 1"
+        levelLabel!.text = "Level 1"
     }
     
     /*
