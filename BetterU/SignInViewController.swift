@@ -58,16 +58,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var isLoggedIn = false
     
+    var checkbox = CheckBox()
+    var usernameEntered = ""
+    var usernameSaved = ""
+    
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    // Action call for the checkBoxButton
-    // When the check box button is touched, the states of the checkbox images will change
-    @IBAction func checkBoxButtonTapped(sender: UIButton)
-    {
-        
-    }
-    
+    var isChecked = Bool()
     
     // This method gets called first when the view is shown
     override func viewDidLoad() {
@@ -78,6 +76,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signupButton.layer.cornerRadius = 8
         facebookButton.layer.cornerRadius = 8
         parseJSONForUserAccountAuthorization()
+//        isChecked = NSUserDefaults.standardUserDefaults().boolForKey("isBtnChecked")
+//        checkbox.isChecked = isChecked
+        
+    }
+    
+    // Action call for the checkBoxButton
+    // When the check box button is touched, the states of the checkbox images will change
+    @IBAction func checkBoxButtonTapped(sender: UIButton)
+    {
         
     }
     
@@ -234,7 +241,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // User authenication and authorization.
     @IBAction func loginButtonTapped(sender: UIButton)
     {
-        let usernameEntered = usernameTextField.text
+        usernameEntered = usernameTextField.text!
         let passwordEntered = passwordTextField.text
         
         if ((usernameEntered ?? "").isEmpty || (passwordEntered ?? "").isEmpty)
@@ -242,80 +249,82 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             showAlertViewControllers("Sign in Failed!", errorMessage: "Please enter your username and password!")
         }
         
+        usernameSaved = usernameEntered
+        
         // User authentication: Checks to see if the dictionary has the key-value pair. If it does, then grab the value
         // as password and checks to see if the user enters the value to the key correctly.
-        if let passwordValue = usernameAndPasswordDict[usernameEntered!]
+        if let passwordValue = usernameAndPasswordDict[usernameEntered]
         {
             if (passwordValue == passwordEntered)
             {
-                if let weightValue = userWeightDict[usernameEntered!]
+                if let weightValue = userWeightDict[usernameEntered]
                 {
                     // Assign value to variable to pass downstream
                     weight = weightValue
                 }
                 
                 
-                if let emailValue = username_Dict_email[usernameEntered!]
+                if let emailValue = username_Dict_email[usernameEntered]
                 {
                     email = emailValue
                 }
                 
-                if let firstNameValue = username_Dict_firstName[usernameEntered!]
+                if let firstNameValue = username_Dict_firstName[usernameEntered]
                 {
                     firstName = firstNameValue
                 }
                 
-                if let lastNameValue = username_Dict_lastName[usernameEntered!]
+                if let lastNameValue = username_Dict_lastName[usernameEntered]
                 {
                     lastName = lastNameValue
                 }
                 
-                if let ageValue = username_Dict_age[usernameEntered!]
+                if let ageValue = username_Dict_age[usernameEntered]
                 {
                     age = ageValue
                 }
                 
-                if let heightValue = username_Dict_height[usernameEntered!]
+                if let heightValue = username_Dict_height[usernameEntered]
                 {
                     height = heightValue
                 }
                 
-                if let levelExpValue = username_Dict_levelExp[usernameEntered!]
+                if let levelExpValue = username_Dict_levelExp[usernameEntered]
                 {
                     levelExp = levelExpValue
                 }
                 
-                if let genderValue = username_Dict_gender[usernameEntered!]
+                if let genderValue = username_Dict_gender[usernameEntered]
                 {
                     gender = genderValue
                 }
                 
-                if let activityLevelValue = username_Dict_activityLevel[usernameEntered!]
+                if let activityLevelValue = username_Dict_activityLevel[usernameEntered]
                 {
                     activityLevel = activityLevelValue
                 }
                 
-                if let activityGoalValue = username_Dict_activityGoal[usernameEntered!]
+                if let activityGoalValue = username_Dict_activityGoal[usernameEntered]
                 {
                     activityGoal = activityGoalValue
                 }
                 
-                if let goalWeightValue = username_Dict_goalWeight[usernameEntered!]
+                if let goalWeightValue = username_Dict_goalWeight[usernameEntered]
                 {
                     goalWeight = goalWeightValue
                 }
                 
-                if let userIdValue = username_Dict_userId[usernameEntered!]
+                if let userIdValue = username_Dict_userId[usernameEntered]
                 {
                     userId = userIdValue
                 }
                 
-                if let securityQuestionValue = username_Dict_securityQuestion[usernameEntered!]
+                if let securityQuestionValue = username_Dict_securityQuestion[usernameEntered]
                 {
                     securityQuestion = securityQuestionValue
                 }
                 
-                if let securityAnswerValue = username_Dict_securityAnswer[usernameEntered!]
+                if let securityAnswerValue = username_Dict_securityAnswer[usernameEntered]
                 {
                     securityAnswer = securityAnswerValue
                 }
@@ -323,7 +332,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 
                 // Create a entry onto the plist
                 applicationDelegate.userAccountInfo.setObject(weight, forKey: "User Weight")
-                applicationDelegate.userAccountInfo.setObject(usernameEntered!, forKey: "Username")
+                applicationDelegate.userAccountInfo.setObject(usernameEntered, forKey: "Username")
                 applicationDelegate.userAccountInfo.setObject(passwordEntered!, forKey: "Password")
                 applicationDelegate.userAccountInfo.setObject(email, forKey: "Email")
                 applicationDelegate.userAccountInfo.setObject(lastName, forKey: "Last Name")

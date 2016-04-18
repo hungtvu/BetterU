@@ -23,6 +23,8 @@ class CheckBox: UIButton
             } else {
                 self.setImage(uncheckedImage, forState: .Normal)
             }
+            NSUserDefaults.standardUserDefaults().setObject(isChecked, forKey: "isBtnChecked")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
     

@@ -266,7 +266,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
                 {
                     iron = attributeDictionary["value"] as! Double
                     let ironInMilligrams = iron * 1000
-                    let ironDailyPercentage = (ironInMilligrams/1000) * 100
+                    let ironDailyPercentage = (ironInMilligrams/18) * 100
                     ironDailyPercentArray[i] = String(Int(ironDailyPercentage)) + "%"
                 }
                 
@@ -303,7 +303,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-       /*
+    /*
      ----------------------------------------------
      MARK: - UITableViewDataSource Protocol Methods
      ----------------------------------------------

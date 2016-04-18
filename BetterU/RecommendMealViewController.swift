@@ -13,16 +13,16 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet var preferenceTextField: UITextField!
     
     @IBOutlet var levelOfCaloriesTableView: UITableView!
-    // Not used here, just for reference
-    let usdaAPIKey = "lmng23Wvez10CHDEqiWE90dL1qWhJrkXlqIIXRmN"
     
     var recipeCount: Int = 0
     var recipesInDatabase = [String]()
     var matchedRecipes = [AnyObject]()
     var recipeID = [String]()
     // Initialize keys needed to obtain yummly API data
-    let yummylyAppID = "648e9030"
-    let yummlyAPIKey = "0e7f65d6979544b4683291e72232e1c1"
+    //let yummylyAppID = "648e9030"
+    //let yummlyAPIKey = "0e7f65d6979544b4683291e72232e1c1"
+    let yummylyAppID = "21dfe224"
+    let yummlyAPIKey = "ce3e5c566e575985f6c879283813c0d2"
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

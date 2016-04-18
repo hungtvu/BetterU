@@ -39,6 +39,9 @@
 		0A79C7A81CADCD0500DE9CD8 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */; };
 		0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C7A91CADD59200DE9CD8 /* Main.storyboard */; };
 		0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */; };
+		0A92EAF31CC183B900A0275E /* FoodNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EAF21CC183B800A0275E /* FoodNutritionViewController.swift */; };
+		0A92EAF51CC3168E00A0275E /* FoodBarcodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EAF41CC3168E00A0275E /* FoodBarcodeReaderViewController.swift */; };
+		0A92EAF91CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EAF81CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift */; };
 		0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */; };
 		0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */; };
 		0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5551CB0954D005AA390 /* WeightTableViewCell.swift */; };
@@ -120,6 +123,9 @@
 		0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		0A79C7A91CADD59200DE9CD8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		0A92EAF21CC183B800A0275E /* FoodNutritionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodNutritionViewController.swift; sourceTree = "<group>"; };
+		0A92EAF41CC3168E00A0275E /* FoodBarcodeReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBarcodeReaderViewController.swift; sourceTree = "<group>"; };
+		0A92EAF81CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDataFromBarcodeViewController.swift; sourceTree = "<group>"; };
 		0AA2E54C1CB06B7B005AA390 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/BetterU-fzlsvusiwavyplfjgncvclvjzyuj/Build/Products/Debug-iphonesimulator/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTableViewCell.swift; sourceTree = "<group>"; };
 		0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MilesTableViewCell.swift; sourceTree = "<group>"; };
@@ -217,6 +223,9 @@
 			isa = PBXGroup;
 			children = (
 				0A5CF7F31CBC87B1005D1C4F /* LogCaloriesViewController.swift */,
+				0A92EAF21CC183B800A0275E /* FoodNutritionViewController.swift */,
+				0A92EAF41CC3168E00A0275E /* FoodBarcodeReaderViewController.swift */,
+				0A92EAF81CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift */,
 			);
 			name = "Log Calories";
 			sourceTree = "<group>";
@@ -316,8 +325,8 @@
 		0AA2E5471CB06253005AA390 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */,
 				0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */,
+				0AD384CD1CADE3EF0098E5B1 /* CheckBox.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -585,16 +594,19 @@
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
 				0A5CF7D41CB849DD005D1C4F /* AgeGenderViewController.swift in Sources */,
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
+				0A92EAF51CC3168E00A0275E /* FoodBarcodeReaderViewController.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A5CF7D81CB84A0F005D1C4F /* ActivityLevelViewController.swift in Sources */,
 				0A5CF7E71CBC4E5C005D1C4F /* WeeklyStepsViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
 				0A5CF7EB1CBC4E9C005D1C4F /* DailyStepsViewController.swift in Sources */,
+				0A92EAF31CC183B900A0275E /* FoodNutritionViewController.swift in Sources */,
 				0A5CF7EF1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift in Sources */,
 				0A5CF7E91CBC4E79005D1C4F /* MonthlyStepsViewController.swift in Sources */,
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
 				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
+				0A92EAF91CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift in Sources */,
 				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,
 				0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */,
 				0A5CF7D61CB84A00005D1C4F /* HeightWeightViewController.swift in Sources */,
