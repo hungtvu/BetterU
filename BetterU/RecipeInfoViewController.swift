@@ -185,8 +185,6 @@ class RecipeInfoViewController: UIViewController, UITableViewDelegate, UITableVi
         
         }
         
-        //applicationDelegate.savedRecipesDict.setValue(recipeName, forKey: selectionArray)
-        //print(applicationDelegate.savedRecipesDict)
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     

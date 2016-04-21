@@ -380,37 +380,6 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         servings = Int(recipeInfoArray[row][21])!
         recipeUrl = recipeInfoArray[row][22]
         
-        
-//        if let nutritionDataArrayValue = applicationDelegate.savedRecipesDict["\(recipeName) Nutrition Data"] as? [String]
-//        {
-//            nutritionDataArray = nutritionDataArrayValue
-//        }
-//        
-//        if let recipeImageUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Img Url"] as? String
-//        {
-//            recipeImageUrl = recipeImageUrlValue
-//        }
-//        
-//        if let caloriesValue = applicationDelegate.savedRecipesDict["\(recipeName) Calories"] as? Int
-//        {
-//            calories = caloriesValue
-//        }
-//        
-//        if let totalTimeValue = applicationDelegate.savedRecipesDict["\(recipeName) Total Time"] as? String
-//        {
-//            totalTime = totalTimeValue
-//        }
-//        
-//        if let servingsValue = applicationDelegate.savedRecipesDict["\(recipeName) Servings"] as? Int
-//        {
-//            servings = servingsValue
-//        }
-//        
-//        if let recipeUrlValue = applicationDelegate.savedRecipesDict["\(recipeName) Url"] as? String
-//        {
-//            recipeUrl = recipeUrlValue
-//        }
-        
         self.performSegueWithIdentifier("showMealFromSchedule", sender: self)
     }
     

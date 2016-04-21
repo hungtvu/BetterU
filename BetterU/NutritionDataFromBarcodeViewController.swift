@@ -235,9 +235,9 @@ class NutritionDataFromBarcodeViewController: UIViewController, UITableViewDeleg
             self.servingSizeUnit = servingSizeUnit
         }
         
-        if let servingSizeQty = jsonDict["nf_serving_size_qty"] as? Int
+        if let servingSizeQty = jsonDict["nf_serving_size_qty"] as? Double
         {
-            self.servingSizeQty = String(Double(servingSizeQty))
+            self.servingSizeQty = String(servingSizeQty)
         }
         
         if let name = jsonDict["item_name"] as? String {

@@ -12,7 +12,7 @@ import CoreData
 
 class HomeTableViewController: UITableViewController {
     
-    var weightInLbs: Int = 800
+    var weightInLbs: Int = 0
     var tableViewRowHeight: CGFloat = 117.0
     var totalCaloriesBurned: Double = 0.0
     var totalMilesWalked: Double = 0.0
