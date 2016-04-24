@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MuscleGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class MuscleGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var muscleGroupTableView: UITableView!
     
@@ -18,8 +18,6 @@ class MuscleGroupViewController: UIViewController, UITableViewDelegate, UITableV
     var muscleGroupArray = [String]()
     var exerciseIdArray = [Int]()
     var imageArray = [UIImage]()
-    
-    var resultsSearchController = UISearchController()
     
     var exerciseIdToPass = 0
     var muscleGroupNameToPass = ""
@@ -37,17 +35,6 @@ class MuscleGroupViewController: UIViewController, UITableViewDelegate, UITableV
         imageArray.append(UIImage(named: "chestMuscle")!)
         imageArray.append(UIImage(named: "legMuscle")!)
         imageArray.append(UIImage(named: "shoulderMuscle")!)
-        
-        self.resultsSearchController = UISearchController(searchResultsController: nil)
-        self.resultsSearchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        self.resultsSearchController.searchBar.delegate = self
-        self.resultsSearchController.searchBar.sizeToFit()
-
-        self.resultsSearchController.searchBar.placeholder = "Search for an exercise"
-        //self.navigationItem.titleView = self.resultsSearchController.searchBar
-        self.resultsSearchController.hidesNavigationBarDuringPresentation = false;
-        self.muscleGroupTableView.tableHeaderView = self.resultsSearchController.searchBar
         
         parseMuscleGroup()
         //parseExercise()

@@ -20,6 +20,7 @@ class WaitForDataToBeFetchedViewController: UIViewController {
     var exerciseIdToPass = 0
     var musclePrimaryIdArray = [Int]()
     var muscleSecondaryIdArray = [Int]()
+    var muscleGroupImageToPass = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,7 @@ class WaitForDataToBeFetchedViewController: UIViewController {
             parentExerciseView.exerciseId = self.exerciseIdToPass
             parentExerciseView.musclePrimaryIdArray = self.musclePrimaryIdArray
             parentExerciseView.muscleSecondaryIdArray = self.muscleSecondaryIdArray
+            parentExerciseView.muscleGroupImage = self.muscleGroupImageToPass
         }
     }
     

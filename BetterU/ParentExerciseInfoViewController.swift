@@ -11,10 +11,13 @@ import UIKit
 class ParentExerciseInfoViewController: UIViewController {
 
     @IBOutlet var exerciseNameLabel: UILabel!
-    
     @IBOutlet var descriptionContainerView: UIView!
     @IBOutlet var imageContainerView: UIView!
     @IBOutlet var muscleContainerView: UIView!
+    @IBOutlet var muscleButton: UIButton!
+    
+    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
+    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var exerciseName = ""
     var equipmentName = ""
@@ -31,17 +34,26 @@ class ParentExerciseInfoViewController: UIViewController {
     var primaryMuscleName = [String]()
     var secondaryMuscleName = [String]()
     
+    var hasGotFromTable = false
+    var exerciseArrayInfo = [String]()
+    var primaryMuscleNameFromTable = [String]()
+    var secondaryMuscleNameFromTable = [String]()
+    var muscleGroupImage = UIImage()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(exerciseId)
-        
         exerciseNameLabel.text! = exerciseName
         
-        // Set up the Add button on the right of the navigation bar to call the addRecipe method when tapped
-        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ParentExerciseInfoViewController.addExercise(_:)))
-        self.navigationItem.rightBarButtonItem = addButton
+        muscleButton.setImage(muscleGroupImage, forState: .Normal)
         
+        if !hasGotFromTable
+        {
+            // Set up the Add button on the right of the navigation bar to call the addRecipe method when tapped
+            let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ParentExerciseInfoViewController.addExercise(_:)))
+            self.navigationItem.rightBarButtonItem = addButton
+        }
+
         // Create a custom back button on the navigation bar
         // This will let us pop the current view controller to the one before the previous view
         // This is needed so that the user does not have to see the previous loading screen
@@ -57,18 +69,63 @@ class ParentExerciseInfoViewController: UIViewController {
     
     func popBackTwoViews(sender: UIBarButtonItem)
     {
-        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
+        if !hasGotFromTable
+        {
+            let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 3], animated: true);
+        }
+        else
+        {
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
     }
     
     func addExercise(sender: AnyObject)
     {
         
+        exerciseArrayInfo.append(String(exerciseId))
+        exerciseArrayInfo.append(muscleGroupName)
+        exerciseArrayInfo.append(equipmentName)
+        exerciseArrayInfo.append(exerciseDescription)
+        exerciseArrayInfo += ["PrimaryMuscle:\(primaryMuscleName)"]
+        exerciseArrayInfo += ["SecondaryMuscle:\(secondaryMuscleName)"]
+        
+        switch muscleGroupName {
+            
+            case "Abs":
+                exerciseArrayInfo.append("absMuscle")
+            break
+            case "Arms":
+                exerciseArrayInfo.append("armMuscle")
+                break
+            case "Back":
+                exerciseArrayInfo.append("backMuscle")
+                break
+            case "Calves":
+                exerciseArrayInfo.append("calvesMuscle")
+                break
+            case "Legs":
+                exerciseArrayInfo.append("legMuscle")
+                break
+            case "Chest":
+                exerciseArrayInfo.append("chestMuscle")
+                break
+            case "Shoulders":
+                exerciseArrayInfo.append("shoulderMuscle")
+                break
+                
+            default:
+                exerciseArrayInfo.append("absMuscle")
+                break
+        }
+        
+        applicationDelegate.savedRecommendedExercisesDict.setValue(exerciseArrayInfo, forKey: exerciseName)
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-       // parseMuscle()
+        muscleButton.setImage(muscleGroupImage, forState: .Normal)
         
     }
 
@@ -318,15 +375,49 @@ class ParentExerciseInfoViewController: UIViewController {
             let exerciseMuscleView: ExerciseMuscleViewController = segue.destinationViewController as! ExerciseMuscleViewController
             
             parseMuscle()
-
-            if self.primaryMuscleName.count > 0
-            {
-                exerciseMuscleView.primaryMuscleName.appendContentsOf(self.primaryMuscleName)
+            if !hasGotFromTable {
+                
+                if self.primaryMuscleName.count > 0
+                {
+                    exerciseMuscleView.primaryMuscleName.appendContentsOf(self.primaryMuscleName)
+                }
+                
+                if self.secondaryMuscleName.count > 0
+                {
+                    exerciseMuscleView.secondaryMuscleName.appendContentsOf(self.secondaryMuscleName)
+                }
             }
-            
-            if self.secondaryMuscleName.count > 0
+            else
             {
-                exerciseMuscleView.secondaryMuscleName.appendContentsOf(self.secondaryMuscleName)
+                /* Because we have the array, that was passed from the ExerciseViewController, with unnecessary characters for the primary and secondary muscles, we must separate them and parse them into a separate array. This is for the ExerciseMuscleViewController that only takes in an array of strings.  */
+               primaryMuscleNameFromTable[0] =  primaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("PrimaryMuscle:", withString: "")
+                
+                primaryMuscleNameFromTable[0] =  primaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("\"", withString: "")
+                
+                primaryMuscleNameFromTable[0] =  primaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("]", withString: "")
+                
+                primaryMuscleNameFromTable[0] =  primaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("[", withString: "")
+                
+                secondaryMuscleNameFromTable[0] =  secondaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("SecondaryMuscle:", withString: "")
+                
+                 secondaryMuscleNameFromTable[0] =  secondaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("\"", withString: "")
+                
+                 secondaryMuscleNameFromTable[0] =  secondaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("[", withString: "")
+                
+                 secondaryMuscleNameFromTable[0] =  secondaryMuscleNameFromTable[0].stringByReplacingOccurrencesOfString("]", withString: "")
+                
+                // Creates the arrays of strings to be passed down to the exerciseMuscleViewController
+                var primaryMuscleFromTable = [String]()
+                var secondaryMuscleFromTable = [String]()
+                
+                // Separates each string component by a comma into different array indicies
+                primaryMuscleFromTable = primaryMuscleNameFromTable[0].componentsSeparatedByString(",")
+                secondaryMuscleFromTable = secondaryMuscleNameFromTable[0].componentsSeparatedByString(",")
+                
+                // Passes data downstream
+                exerciseMuscleView.primaryMuscleName.appendContentsOf(primaryMuscleFromTable)
+                exerciseMuscleView.secondaryMuscleName.appendContentsOf(secondaryMuscleFromTable)
+                
             }
 
         }

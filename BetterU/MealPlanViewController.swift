@@ -43,12 +43,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Sort the selection names within itself in alphabetical order
         sectionTypeArray.sortInPlace { $0 < $1 }
-
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
     }
     
     // View will get updated with the correct recipe in the table
@@ -56,9 +51,9 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     {
         super.viewWillAppear(true)
         
-        let leftButton = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanViewController.showEditing(_:)))
+        let leftButton = UIBarButtonItem(title: "Edit Meal", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MealPlanViewController.showEditing(_:)))
         self.parentViewController?.navigationItem.leftBarButtonItem = leftButton
-        
+
         mealScheduleTableView.reloadData()
     }
     
@@ -92,7 +87,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         }
         else
         {
-            self.parentViewController?.navigationItem.leftBarButtonItem?.title = "Edit"
+            self.parentViewController?.navigationItem.leftBarButtonItem?.title = "Edit Meal"
         }
         
        
@@ -124,9 +119,6 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             applicationDelegate.savedRecipesDict.setValue(recipesToBeDeleted, forKey: sectionOfRecipeToBeDeleted)
             
             self.mealScheduleTableView.reloadData()
-            
-            
-            
         }
     }
     

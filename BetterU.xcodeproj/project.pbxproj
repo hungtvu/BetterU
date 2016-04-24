@@ -52,6 +52,13 @@
 		0A92EB0C1CC816A300A0275E /* ExerciseImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB0B1CC816A300A0275E /* ExerciseImageViewController.swift */; };
 		0A92EB0E1CC816B100A0275E /* ExerciseMuscleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB0D1CC816B100A0275E /* ExerciseMuscleViewController.swift */; };
 		0A92EB101CC86D7D00A0275E /* WaitForDataToBeFetchedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB0F1CC86D7D00A0275E /* WaitForDataToBeFetchedViewController.swift */; };
+		0A92EB131CC9219F00A0275E /* SavedRecommendedExercises.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A92EB121CC9219F00A0275E /* SavedRecommendedExercises.plist */; };
+		0A92EB181CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB171CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift */; };
+		0A92EB1E1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB1D1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift */; };
+		0A92EB211CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB201CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift */; };
+		0A92EB281CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB261CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift */; };
+		0A92EB291CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A92EB271CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib */; };
+		0A92EB2B1CCC7B8E00A0275E /* InfiniteCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EB2A1CCC7B8E00A0275E /* InfiniteCollectionView.swift */; };
 		0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */; };
 		0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */; };
 		0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5551CB0954D005AA390 /* WeightTableViewCell.swift */; };
@@ -146,6 +153,13 @@
 		0A92EB0B1CC816A300A0275E /* ExerciseImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseImageViewController.swift; sourceTree = "<group>"; };
 		0A92EB0D1CC816B100A0275E /* ExerciseMuscleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseMuscleViewController.swift; sourceTree = "<group>"; };
 		0A92EB0F1CC86D7D00A0275E /* WaitForDataToBeFetchedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitForDataToBeFetchedViewController.swift; sourceTree = "<group>"; };
+		0A92EB121CC9219F00A0275E /* SavedRecommendedExercises.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SavedRecommendedExercises.plist; sourceTree = "<group>"; };
+		0A92EB171CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInputCaloriesAlertViewController.swift; sourceTree = "<group>"; };
+		0A92EB1D1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogExerciseFromCustomTabViewController.swift; sourceTree = "<group>"; };
+		0A92EB201CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeWeightFromCustomTabViewController.swift; sourceTree = "<group>"; };
+		0A92EB261CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionViewCell.swift; sourceTree = "<group>"; };
+		0A92EB271CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfiniteCollectionViewCell.xib; sourceTree = "<group>"; };
+		0A92EB2A1CCC7B8E00A0275E /* InfiniteCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteCollectionView.swift; sourceTree = "<group>"; };
 		0AA2E54C1CB06B7B005AA390 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/BetterU-fzlsvusiwavyplfjgncvclvjzyuj/Build/Products/Debug-iphonesimulator/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		0AA2E5511CB08F1B005AA390 /* StepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTableViewCell.swift; sourceTree = "<group>"; };
 		0AA2E5531CB09545005AA390 /* MilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MilesTableViewCell.swift; sourceTree = "<group>"; };
@@ -221,8 +235,8 @@
 				0A0A63191CB38C0B00694CFC /* JournalViewController.swift */,
 				0A5CF7D11CB780F8005D1C4F /* Log Calories */,
 				0A5CF7CE1CB71976005D1C4F /* Food Recommendation */,
-				0A92EB111CC8A88F00A0275E /* Exercise Recommendation */,
 				0A92EAFA1CC481CB00A0275E /* Log Exercise */,
+				0A92EB111CC8A88F00A0275E /* Exercise Recommendation */,
 			);
 			name = "Journal Tab";
 			sourceTree = "<group>";
@@ -321,6 +335,7 @@
 				0A5CF7CF1CB71F61005D1C4F /* SavedRecipes.plist */,
 				0AEA2EEB1CB48D7D0058CCAD /* Recipes.plist */,
 				0A92EAFF1CC4919F00A0275E /* SavedLoggedExercises.plist */,
+				0A92EB121CC9219F00A0275E /* SavedRecommendedExercises.plist */,
 				0A79C7811CADB85400DE9CD8 /* Info.plist */,
 				0A4A64A61CAE582500598EA0 /* BetterU.entitlements */,
 			);
@@ -368,6 +383,44 @@
 			name = "Exercise Recommendation";
 			sourceTree = "<group>";
 		};
+		0A92EB141CC9D6AC00A0275E /* Custom Alert Views */ = {
+			isa = PBXGroup;
+			children = (
+				0A92EB1F1CCC7A6E00A0275E /* Weight */,
+				0A92EB1C1CCC35B000A0275E /* Exercise */,
+				0A92EB191CCC2EC100A0275E /* Food */,
+				0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */,
+			);
+			name = "Custom Alert Views";
+			sourceTree = "<group>";
+		};
+		0A92EB191CCC2EC100A0275E /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				0A92EB171CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift */,
+			);
+			name = Food;
+			sourceTree = "<group>";
+		};
+		0A92EB1C1CCC35B000A0275E /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				0A92EB1D1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift */,
+			);
+			name = Exercise;
+			sourceTree = "<group>";
+		};
+		0A92EB1F1CCC7A6E00A0275E /* Weight */ = {
+			isa = PBXGroup;
+			children = (
+				0A92EB201CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift */,
+				0A92EB2A1CCC7B8E00A0275E /* InfiniteCollectionView.swift */,
+				0A92EB261CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift */,
+				0A92EB271CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib */,
+			);
+			name = Weight;
+			sourceTree = "<group>";
+		};
 		0AA2E5471CB06253005AA390 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,9 +459,9 @@
 		0AD384D41CAE4DF10098E5B1 /* Custom Tab Bar Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */,
-				0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */,
+				0A92EB141CC9D6AC00A0275E /* Custom Alert Views */,
 				0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */,
+				0A79C7A71CADCD0500DE9CD8 /* DetailTableViewController.swift */,
 			);
 			name = "Custom Tab Bar Controller";
 			sourceTree = "<group>";
@@ -543,7 +596,9 @@
 				0A92EB001CC4919F00A0275E /* SavedLoggedExercises.plist in Resources */,
 				0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */,
 				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
+				0A92EB131CC9219F00A0275E /* SavedRecommendedExercises.plist in Resources */,
 				0A5CF7F21CBC546C005D1C4F /* background.mp4 in Resources */,
+				0A92EB291CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib in Resources */,
 				0A79C7801CADB85400DE9CD8 /* LaunchScreen.storyboard in Resources */,
 				0A79C77D1CADB85400DE9CD8 /* Assets.xcassets in Resources */,
 			);
@@ -645,19 +700,24 @@
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
 				0A5CF7D41CB849DD005D1C4F /* AgeGenderViewController.swift in Sources */,
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
+				0A92EB211CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift in Sources */,
 				0A92EB101CC86D7D00A0275E /* WaitForDataToBeFetchedViewController.swift in Sources */,
 				0A92EAF51CC3168E00A0275E /* FoodBarcodeReaderViewController.swift in Sources */,
+				0A92EB181CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
 				0A5CF7D81CB84A0F005D1C4F /* ActivityLevelViewController.swift in Sources */,
 				0A92EB0C1CC816A300A0275E /* ExerciseImageViewController.swift in Sources */,
 				0A5CF7E71CBC4E5C005D1C4F /* WeeklyStepsViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
+				0A92EB281CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift in Sources */,
 				0A5CF7EB1CBC4E9C005D1C4F /* DailyStepsViewController.swift in Sources */,
 				0A92EAF31CC183B900A0275E /* FoodNutritionViewController.swift in Sources */,
 				0A5CF7EF1CBC4F1D005D1C4F /* MonthStepsTableViewCell.swift in Sources */,
 				0A5CF7E91CBC4E79005D1C4F /* MonthlyStepsViewController.swift in Sources */,
+				0A92EB2B1CCC7B8E00A0275E /* InfiniteCollectionView.swift in Sources */,
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
+				0A92EB1E1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift in Sources */,
 				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
 				0A92EAF91CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift in Sources */,
 				0A92EB061CC5BA6300A0275E /* ExercisesFromMuscleGroupTableViewController.swift in Sources */,

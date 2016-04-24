@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var recipesDict: NSMutableDictionary = NSMutableDictionary()
     var savedRecipesDict: NSMutableDictionary = NSMutableDictionary()
     var savedLoggedExercisesDict: NSMutableDictionary = NSMutableDictionary()
+    var savedRecommendedExercisesDict: NSMutableDictionary = NSMutableDictionary()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         /*
@@ -121,6 +122,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             savedLoggedExercisesDict = dictionaryFromFileInMainBundle!
         }
+        
+        // Add the plist filename to the documents directory path to obtain an absolute path to the plist filename
+        let savedRecommendedExercisesPlistFilePathInDocumentDirectory = documentDirectoryPath + "/SavedRecommendedExercises.plist"
+        
+        let savedRecommendedExercisesDictFromFile: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: savedRecommendedExercisesPlistFilePathInDocumentDirectory)
+        
+        if let dictFromFileInDocumentDirectory = savedRecommendedExercisesDictFromFile
+        {
+            // exercise plist exists
+            savedRecommendedExercisesDict = dictFromFileInDocumentDirectory
+        }
+        else
+        {
+            // does not exist in the directory
+            // Obtain the path to the plist file
+            let plistFilePathInMainBundle = NSBundle.mainBundle().pathForResource("SavedRecommendedExercises", ofType: "plist")
+            
+            let dictionaryFromFileInMainBundle: NSMutableDictionary? = NSMutableDictionary(contentsOfFile: plistFilePathInMainBundle!)
+            
+            savedRecommendedExercisesDict = dictionaryFromFileInMainBundle!
+        }
+
 
 
 
@@ -171,6 +194,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Write NSMutableDictionary to the destination file
         savedLoggedExercisesDict.writeToFile(savedLoggedExercisesPlistFileFromDocumentDirectory, atomically: true)
+        
+        // Add plist file name to the documents directory path
+        let savedRecommendedExercisesPlistFileFromDocumentDirectory = documentDirectoryPath + "/SavedRecommendedExercises"
+        
+        // Write NSMutableDictionary to the destination file
+        savedRecommendedExercisesDict.writeToFile(savedRecommendedExercisesPlistFileFromDocumentDirectory, atomically: true)
         
     }
 

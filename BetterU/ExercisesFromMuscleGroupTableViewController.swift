@@ -41,6 +41,7 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
     var exerciseIdToPass = 0
     var musclePrimaryIdToPass = [Int]()
     var muscleSecondaryIdToPass = [Int]()
+    var muscleGroupImageToPass = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -339,6 +340,7 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
             exerciseIdToPass = exerciseIdFromCategoryArray[rowNumber]
             musclePrimaryIdToPass = musclePrimaryIdArray[rowNumber]
             muscleSecondaryIdToPass = muscleSecondaryIdArray[rowNumber]
+            muscleGroupImageToPass = muscleGroupImage
             
             performSegueWithIdentifier("showActivityIndicator", sender: self)
         }
@@ -363,6 +365,7 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
             waitForDataToFetchView.hasDataBeenFetched = self.hasDataBeenFetched
             waitForDataToFetchView.musclePrimaryIdArray = self.musclePrimaryIdToPass
             waitForDataToFetchView.muscleSecondaryIdArray = self.muscleSecondaryIdToPass
+            waitForDataToFetchView.muscleGroupImageToPass = self.muscleGroupImageToPass
         }
     }
 

@@ -139,9 +139,6 @@ class CustomTabBarController: UITabBarController {
         hiddenItem = UITabBarItem(title: "", image: UIImage(named: "Home-25"), selectedImage: nil)
         itemC = UITabBarItem(title: "Challenges", image: UIImage(named: "Sword-25"), selectedImage: nil)
         itemD = UITabBarItem(title: "Account", image: UIImage(named: "Account-25"), selectedImage: nil)
-//        moreItem = UITabBarItem(tabBarSystemItem: .More, tag: 0)
-//        itemD = UITabBarItem(title: "D", image: UIImage(named: "character-d-7"), selectedImage: nil)
-//        itemE = UITabBarItem(title: "E", image: UIImage(named: "character-e-7"), selectedImage: nil)
         
         // Initiate each view controller and assign its associated tab bar item
         vcA = (storyboard?.instantiateViewControllerWithIdentifier("Home"))! as UIViewController
@@ -154,8 +151,6 @@ class CustomTabBarController: UITabBarController {
         vcC.tabBarItem = UITabBarItem(title: "Challenges", image: UIImage(named: "Sword-25"), selectedImage: nil)
         vcD = (storyboard?.instantiateViewControllerWithIdentifier("Account"))! as UIViewController
         vcD.tabBarItem = UITabBarItem(title: "Account", image: UIImage(named: "Account-25"), selectedImage: nil)
-       // vcE = (storyboard?.instantiateViewControllerWithIdentifier("E"))! as UIViewController
-       // vcE.tabBarItem = UITabBarItem(title: "E", image: UIImage(named: "character-e-7"), selectedImage: nil)
         
         // Add the tab bar items to the customTabBar
         customTabBar.items = [itemA, itemB, hiddenItem, itemC, itemD]
@@ -213,21 +208,11 @@ class CustomTabBarController: UITabBarController {
             customTabBar.selectedItem = itemC
             selectedItem = itemC
             break
-//        case moreItem:
-//            selectedViewController = moreNavigationController
-//            customTabBar.selectedItem = moreItem
-//            selectedItem = moreItem
-//            break
         case itemD:
             selectedViewController = vcD
             customTabBar.selectedItem = itemD
             selectedItem = itemD
             break
-//        case itemE:
-//            selectedViewController = vcE
-//            customTabBar.selectedItem = itemE
-//            selectedItem = itemE
-//            break
         default:
             selectedViewController = vcA
             customTabBar.selectedItem = itemA
@@ -267,7 +252,7 @@ class CustomTabBarController: UITabBarController {
     func statusTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.15, animations: {
             
             self.waterButton.alpha = 0.0
             self.foodButton.alpha = 0.0
@@ -285,7 +270,7 @@ class CustomTabBarController: UITabBarController {
     func waterTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.15, animations: {
             
             self.statusButton.alpha = 0.0
             self.foodButton.alpha = 0.0
@@ -303,7 +288,7 @@ class CustomTabBarController: UITabBarController {
     func foodTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.15, animations: {
             
             self.statusButton.alpha = 0.0
             self.waterButton.alpha = 0.0
@@ -313,7 +298,7 @@ class CustomTabBarController: UITabBarController {
                 
                 self.menuEnabled = false
                 self.closeMenu(false)
-                self.openCustomAlertView() // make this unique for a more interesting user interface
+                self.openCustomInputCaloriesView() // make this unique for a more interesting user interface
         })
     }
     
@@ -321,7 +306,7 @@ class CustomTabBarController: UITabBarController {
     func exerciseTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.15, animations: {
             
             self.statusButton.alpha = 0.0
             self.waterButton.alpha = 0.0
@@ -331,7 +316,8 @@ class CustomTabBarController: UITabBarController {
                 
                 self.menuEnabled = false
                 self.closeMenu(false)
-                self.openCustomAlertView() // make this unique for a more interesting user interface
+                self.segueToLogExericse()
+                //self.openCustomAlertView() // make this unique for a more interesting user interface
         })
     }
     
@@ -339,7 +325,7 @@ class CustomTabBarController: UITabBarController {
     func weightTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.15, animations: {
             
             self.statusButton.alpha = 0.0
             self.waterButton.alpha = 0.0
@@ -349,7 +335,7 @@ class CustomTabBarController: UITabBarController {
                 
                 self.menuEnabled = false
                 self.closeMenu(false)
-                self.openCustomAlertView() // make this unique for a more interesting user interface
+                self.openChangeWeightAlertView()
         })
     }
     
@@ -375,7 +361,7 @@ class CustomTabBarController: UITabBarController {
         self.view.bringSubviewToFront(self.menuButton)
         
         // Animate rotating to menu button and fading the background quickly
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animateWithDuration(0.2, animations: {
             
             self.menuButton.transform = CGAffineTransformMakeRotation((-45.0 * CGFloat(M_PI)) / 180.0)
             self.fadeView.alpha = 0.7
@@ -396,7 +382,7 @@ class CustomTabBarController: UITabBarController {
     func closeMenu(unfadeBackground: Bool) {
         
         // Animate bring all the buttons back underneath the main menu button
-        UIView.animateWithDuration(0.6, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
+        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0, options: [], animations: {
             
             // If the caller passes in true, make the fadeView completely transparent
             if unfadeBackground {
@@ -431,6 +417,28 @@ class CustomTabBarController: UITabBarController {
         alert.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         alert.sender = self
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    /*
+        Once the user selects a food button, they will be taken to a custom alert view controller that has the options to allow the user for an entry of custom caloric intake.
+    */
+    func openCustomInputCaloriesView()
+    {
+        let alert = storyboard?.instantiateViewControllerWithIdentifier("alertInputCalories") as! CustomInputCaloriesAlertViewController
+        alert.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func openChangeWeightAlertView()
+    {
+        let alert = storyboard?.instantiateViewControllerWithIdentifier("changeWeightAlert") as! ChangeWeightFromCustomTabViewController
+        alert.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        presentViewController(alert, animated: true, completion: nil)
+    }
+
+    func segueToLogExericse()
+    {
+        self.performSegueWithIdentifier("showLogExercise", sender: self)
     }
     
     // MARK: - Custom Navigation

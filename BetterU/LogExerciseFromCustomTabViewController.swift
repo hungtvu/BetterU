@@ -1,14 +1,14 @@
 //
-//  LogExerciseViewController.swift
+//  LogExerciseFromCustomTabViewController.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/17/16.
+//  Created by Hung Vu on 4/23/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
 import UIKit
 
-class LogExerciseViewController: UIViewController, UITextFieldDelegate {
+class LogExerciseFromCustomTabViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate {
 
     // Initialize object references for the various objects under the View Controller
     @IBOutlet var descriptionTextField: UITextField!
@@ -25,6 +25,8 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var setsRightLabel: UILabel!
     @IBOutlet var weightLbsRightLabel: UILabel!
     @IBOutlet var minsRightLabel: UILabel!
+    @IBOutlet var navigationBar: UINavigationBar!
+    @IBOutlet var customNavigationItem: UINavigationItem!
     @IBOutlet var caloriesBurnedLabel: UILabel!
     
     
@@ -46,11 +48,17 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         intensityLevelLabel.text! = String(1)
         registerForKeyboardNotifications()
         
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogExerciseViewController.hideKeyboard(_:)))
+        /* Changes the status bar color to the navigation bar's color */
+        let statusBar = UIView(frame:
+            CGRect(x: 0.0, y: 0.0, width: UIScreen.mainScreen().bounds.size.width, height: 20.0))
+        statusBar.backgroundColor = UIColor(red: 65/255, green: 192/255, blue: 247/255, alpha: 1)
+        self.view.addSubview(statusBar)
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogExerciseFromCustomTabViewController.hideKeyboard(_:)))
         
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
@@ -58,8 +66,8 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
         scrollView.addGestureRecognizer(tapGesture)
         
         // Set up the Add button on the right of the navigation bar to call the addRecipe method when tapped
-        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(LogExerciseViewController.addExercise(_:)))
-        self.navigationItem.rightBarButtonItem = addButton
+        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(LogExerciseFromCustomTabViewController.addExercise(_:)))
+        self.customNavigationItem.rightBarButtonItem = addButton
         
         // This is the body weight in pounds, so we must convert it to kg
         bodyWeightLbs = applicationDelegate.userAccountInfo["User Weight"] as! Int
@@ -86,6 +94,12 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
         minsRightLabel.alpha = 0
     }
     
+    @IBAction func backButtonTapped(sender: UIBarButtonItem)
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
     /*
      ----------------------------------
      MARK: - Add Exercise Button Tapped
@@ -110,58 +124,24 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        exerciseInfoArray.append(descriptionEntered)
+        exerciseInfoArray.append(repsPerSetEntered)
+        exerciseInfoArray.append(setsEntered)
+        exerciseInfoArray.append(weightPerSetEntered)
+        exerciseInfoArray.append(lengthOfWorkoutEntered)
+        exerciseInfoArray.append(intensitylevel)
         
-        // Update the new list of exercise
-        // If we are updating the set of workout that has already been created
-        if hasTouchedRows
-        {
-            descriptionTextField.userInteractionEnabled = false
-            
-            workoutDescriptionPassed = descriptionEntered
-            repsPerSetsPassed = repsPerSetEntered
-            numberSetsPassed = setsEntered
-            weightLbsPassed = weightPerSetEntered
-            workoutLengthPassed = lengthOfWorkoutEntered
-            workoutIntensityPassed = intensitylevel
-            
-            exerciseInfoArray.append(workoutDescriptionPassed)
-            exerciseInfoArray.append(repsPerSetsPassed)
-            exerciseInfoArray.append(numberSetsPassed)
-            exerciseInfoArray.append(weightLbsPassed)
-            exerciseInfoArray.append(workoutLengthPassed)
-            exerciseInfoArray.append(workoutIntensityPassed)
-            
-            var caloriesBurned = calculateCaloriesBurned(Int(workoutIntensityPassed)!, bodyWeightKg: bodyWeightKg, workoutIntervalMins: Int(workoutLengthPassed)!)
-            
-            // Rounds to the nearest hundredth
-            caloriesBurned = round(100 * caloriesBurned)/100
-            
-            exerciseInfoArray.append(String(caloriesBurned))
-            
-            applicationDelegate.savedLoggedExercisesDict.setValue(exerciseInfoArray, forKey: workoutDescriptionPassed)
-        }
-            
-        // Creates a new value inside the plist
-        else
-        {
-            exerciseInfoArray.append(descriptionEntered)
-            exerciseInfoArray.append(repsPerSetEntered)
-            exerciseInfoArray.append(setsEntered)
-            exerciseInfoArray.append(weightPerSetEntered)
-            exerciseInfoArray.append(lengthOfWorkoutEntered)
-            exerciseInfoArray.append(intensitylevel)
-            
-            var caloriesBurned = calculateCaloriesBurned(Int(intensitylevel)!, bodyWeightKg: bodyWeightKg, workoutIntervalMins: Int(lengthOfWorkoutEntered)!)
-            
-            // Rounds to the nearest hundredth
-            caloriesBurned = round(100 * caloriesBurned)/100
-            
-            exerciseInfoArray.append(String(caloriesBurned))
-
-            applicationDelegate.savedLoggedExercisesDict.setValue(exerciseInfoArray, forKey: descriptionEntered)
-        }
+        var caloriesBurned = calculateCaloriesBurned(Int(intensitylevel)!, bodyWeightKg: bodyWeightKg, workoutIntervalMins: Int(lengthOfWorkoutEntered)!)
         
-        self.navigationController?.popViewControllerAnimated(true)
+        // Rounds to the nearest hundredth
+        caloriesBurned = round(100 * caloriesBurned)/100
+        
+        exerciseInfoArray.append(String(caloriesBurned))
+        
+        applicationDelegate.savedLoggedExercisesDict.setValue(exerciseInfoArray, forKey: descriptionEntered)
+        
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
         //let journalView = JournalViewController()
         //self.navigationController?.popToViewController(journalView.childViewControllers[0], animated: true)
     }
@@ -236,7 +216,7 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
     {
         return ((Double(intensityLevel) * 3.5 * bodyWeightKg)/200) * Double(workoutIntervalMins)
     }
-
+    
     // Allows the keyboard to hide by the user's interaction (background touch)
     func hideKeyboard(sender: UIScrollView)
     {
@@ -337,12 +317,12 @@ class LogExerciseViewController: UIViewController, UITextFieldDelegate {
         let notificationCenter = NSNotificationCenter.defaultCenter()
         
         notificationCenter.addObserver(self,
-            selector:   #selector(LogExerciseViewController.keyboardWillShow(_:)),    // <-- Call this method upon Keyboard Will SHOW Notification
+                                       selector:   #selector(LogExerciseViewController.keyboardWillShow(_:)),    // <-- Call this method upon Keyboard Will SHOW Notification
             name:       UIKeyboardWillShowNotification,
             object:     nil)
         
         notificationCenter.addObserver(self,
-            selector:   #selector(LogExerciseViewController.keyboardWillHide(_:)),    //  <-- Call this method upon Keyboard Will HIDE Notification
+                                       selector:   #selector(LogExerciseViewController.keyboardWillHide(_:)),    //  <-- Call this method upon Keyboard Will HIDE Notification
             name:       UIKeyboardWillHideNotification,
             object:     nil)
     }

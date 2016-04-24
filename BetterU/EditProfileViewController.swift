@@ -107,7 +107,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         
         saveButton.layer.cornerRadius = 8
         
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HeightWeightViewController.hideKeyboard(_:)))
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EditProfileViewController.hideKeyboard(_:)))
         
         // prevents the scroll view from swallowing up the touch event of child buttons
         tapGesture.cancelsTouchesInView = false
@@ -462,7 +462,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
                     print("The post is: " + post.description)
                 }
         }
-        
+        applicationDelegate.userAccountInfo.setValue(Int(weightToUse), forKey: "User Weight")
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     

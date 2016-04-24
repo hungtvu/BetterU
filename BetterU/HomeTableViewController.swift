@@ -18,6 +18,8 @@ class HomeTableViewController: UITableViewController {
     var totalMilesWalked: Double = 0.0
     var stepsCount: Int = 0
     
+    var id = 0
+    
     var context: NSManagedObjectContext!
     var isAscending = true
     
@@ -29,8 +31,7 @@ class HomeTableViewController: UITableViewController {
         super.viewDidLoad()
         self.title = "Home"
         
-        weightInLbs = applicationDelegate.userAccountInfo["User Weight"] as! Int
-        print(applicationDelegate.userAccountInfo)
+        id = applicationDelegate.userAccountInfo["id"] as! Int
         
         HealthKitHelper().recentSteps() { steps, error in
             
@@ -57,13 +58,107 @@ class HomeTableViewController: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(HomeTableViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
-        
-        
-
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        parseJson()
+        
+        dispatch_async(dispatch_get_main_queue(),
+        {
+            self.tableView.reloadData()
+        })
+        
+    }
+    
+    /* This method parses the json straight from the RESTful API services. Since the user's weight is grabbed and stored into a plist dictionary when the user enters the SignInViewController, it will not get updated until the user goes into that page again. Thus, we will need this method to update the user's most up to date information. (ie., a user decides to change their weight) */
+    func parseJson()
+    {
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(id)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /* {
+                 DCSkipped = 1;
+                 WCSkipped = 1;
+                 activityGoal = "Very Active";
+                 activityLevel = 0;
+                 age = 20;
+                 bmr = 1724;
+                 dailyChallengeIndex = 4;
+                 email = "jdoe@vt.edu";
+                 firstName = John;
+                 gender = M;
+                 goalType = 4;
+                 goalWeight = 130;
+                 height = 65;
+                 id = 1;
+                 lastName = Doe;
+                 password = password;
+                 points = 0;
+                 securityAnswer = Virginia;
+                 securityQuestion = 3;
+                 units = I;
+                 username = jdoe;
+                 weeklyChallengeIndex = 2;
+                 weight = 155;
+                 },
+                 */
+                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                // Grabs data from the JSON and stores it into the appropriate variable
+                weightInLbs = jsonDataDictInfo["weight"] as! Int
+                applicationDelegate.userAccountInfo.setValue(weightInLbs, forKey: "User Weight")
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+        
+    }
+
     
     func reloadTable(sender: AnyObject)
     {
+        parseJson()
         
         HealthKitHelper().recentSteps() { steps, error in
             

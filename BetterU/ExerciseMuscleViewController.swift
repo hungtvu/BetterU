@@ -31,7 +31,9 @@ class ExerciseMuscleViewController: UIViewController {
             var i = 0
             while (i < primaryMuscleName.count)
             {
-                muscleFrontalLabel.text! += "•\(primaryMuscleName[i])\n"
+                if !muscleFrontalLabel.text!.containsString("•\(primaryMuscleName[i])\n") {
+                    muscleFrontalLabel.text! += "•\(primaryMuscleName[i])\n"
+                }
                 i = i + 1
             }
         }
@@ -47,7 +49,10 @@ class ExerciseMuscleViewController: UIViewController {
             var j = 0
             while (j < secondaryMuscleName.count)
             {
-                muscleBackLabel.text! += "•\(secondaryMuscleName[j])\n"
+                if !muscleBackLabel.text!.containsString("•\(secondaryMuscleName[j])\n")
+                {
+                    muscleBackLabel.text! += "•\(secondaryMuscleName[j])\n"
+                }
                 j = j + 1
             }
         }

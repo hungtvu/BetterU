@@ -29,6 +29,8 @@ class DescriptionViewController: UIViewController {
         
         instructions = instructions.stringByReplacingOccurrencesOfString("<p>", withString: "")
         instructions = instructions.stringByReplacingOccurrencesOfString("</p>", withString: "")
+        instructions = instructions.stringByReplacingOccurrencesOfString("<em>", withString: "")
+        instructions = instructions.stringByReplacingOccurrencesOfString("</em>", withString: "")
         
         categoryNameLabel.text! = categoryName
         equipmentNameLabel.text! = equipmentName

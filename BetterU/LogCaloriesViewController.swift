@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
@@ -121,10 +123,6 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
-    func logCaloriesButtonTapped(sender: UIButton)
-    {
-        
-    }
     
     @IBAction func barcodeButtonTapped(sender: UIButton)
     {
@@ -379,6 +377,45 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
     }
+    
+    func logCaloriesButtonTapped(sender: UIButton)
+    {
+        var caloriesEntered = caloriesTextField.text!
+        
+        if caloriesEntered.isEmpty
+        {
+            caloriesEntered = String(0)
+        }
+        
+        //don't forget to import Alamofire and SwiftyJSON
+        
+        //endpoint to database you want to post to
+        let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/5/1461110400"
+        
+        //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+        //Format is = "Field": value
+        let newPost = ["caloriesIn": caloriesEntered, "caloriesOut":200,"logDate":1461110400,"miles":2,"steps":2700,"userId":5,"weight":157]
+        
+        //Creating the request to post the newPost JSON var.
+        Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
+            .responseJSON { response in
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error calling GET on /posts/1")
+                    print(response.result.error!)
+                    return
+                }
+                
+                if let value: AnyObject = response.result.value {
+                    // handle the results as JSON, without a bunch of nested if loops
+                    // this might not return anything here, but check the DB just in case. It might post anyway
+                    let post = JSON(value)
+                    print("The post is: " + post.description)
+                }
+        }
+        
+    }
+
     
        
     //--------------------
