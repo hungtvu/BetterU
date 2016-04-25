@@ -152,41 +152,49 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         // If the recipe cells are moving outside of their sections
         if sectionNumberFrom != sectionNumberTo
         {
+            // Stores the recipe that is to be moved onto another variable
             let recipeNameToMove = recipesToBeMoved[rowNumberFrom]
             
-            // If movement is from lower part of the list to upper part
-          //  if sectionNumberFrom > sectionNumberTo
-          //  {
-                recipesToBeMoved[rowNumberFrom].insert(String(recipeNameToMove), atIndex: rowNumberTo)
-                print(recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom))
-                //recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom)
-            
-            //}
-//            else
-//            {
-//                // Movement is from upper part to lower part
-//                recipesToBeMoved[rowNumberTo].insert(String(recipeNameToMove), atIndex: rowNumberTo + 1)
-//                recipesToBeMoved[rowNumberFrom].removeAtIndex(rowNumberFrom)
-//            }
-            
-          // let sectionOfRecipeFrom = sectionTypeArray[sectionNumberFrom]
-          // applicationDelegate.savedRecipesDict.removeObjectForKey(sectionOfRecipeFrom)
-            
+            // Initialize the section name
+            let sectionOfRecipeFrom = sectionTypeArray[sectionNumberFrom]
             let sectionOfRecipeTo = sectionTypeArray[sectionNumberTo]
-            applicationDelegate.savedRecipesDict.setValue(recipesToBeMoved, forKey: sectionOfRecipeTo)
             
+            // Initialize local variables to grab the arrays of each section
+            var recipesToBeMovedFrom = [[String]]()
+            var recipesToBeMovedTo = [[String]]()
             
+            // Grab the double array of strings for the section that the recipe is moving FROM
+            if let recipesValuesFrom = applicationDelegate.savedRecipesDict[sectionOfRecipeFrom] as? [[String]]
+            {
+                recipesToBeMovedFrom = recipesValuesFrom
+            }
+    
+            // Grab the double array of strings for the section that the recipe is moving TO
+            if let recipesToValueArray = applicationDelegate.savedRecipesDict[sectionOfRecipeTo] as? [[String]]
+            {
+                recipesToBeMovedTo = recipesToValueArray
+                
+                // Inserts the original recipe to the section it is moving to
+                recipesToBeMovedTo.insert(recipeNameToMove, atIndex: rowNumberTo)
+                
+                // Then removes that recipe completely from the row it was moved from
+                recipesToBeMovedFrom.removeAtIndex(rowNumberFrom)
+            }
             
-            //print(applicationDelegate.savedRecipesDict)
-            print(String(recipeNameToMove))
-           
-            print(recipeNameToMove.count)
-            //print(recipesToBeMoved[rowNumberTo].insert(String(recipeNameToMove), atIndex: rowNumberTo))
-           
+            // Sets the value inside the dictionary and saves its data from the array
+            applicationDelegate.savedRecipesDict.setValue(recipesToBeMovedFrom, forKey: sectionOfRecipeFrom)
+            applicationDelegate.savedRecipesDict.setValue(recipesToBeMovedTo, forKey: sectionOfRecipeTo)
             
+            // Additional cleanup (may not be necessary, but just in case)
+            /* If there are no more recipes that was in its previous section, then remove the whole key from the dictionary and reinsert that key as an empty array. */
+            if recipesToBeMovedFrom.count == 0
+            {
+                applicationDelegate.savedRecipesDict.removeObjectForKey(sectionOfRecipeFrom)
+                applicationDelegate.savedRecipesDict.setObject([], forKey: sectionOfRecipeFrom)
+            }
         }
         
-        
+        // Moving within sections
         else if rowNumberFrom != rowNumberTo
         {
         
@@ -207,8 +215,6 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             }
 
             applicationDelegate.savedRecipesDict.setValue(recipesToBeMoved, forKey: sectionOfRecipe)
-            
-            print("Moving within sections")
         
         }
         
