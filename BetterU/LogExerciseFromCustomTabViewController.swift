@@ -55,7 +55,7 @@ class LogExerciseFromCustomTabViewController: UIViewController, UIScrollViewDele
         /* Changes the status bar color to the navigation bar's color */
         let statusBar = UIView(frame:
             CGRect(x: 0.0, y: 0.0, width: UIScreen.mainScreen().bounds.size.width, height: 20.0))
-        statusBar.backgroundColor = UIColor(red: 65/255, green: 192/255, blue: 247/255, alpha: 1)
+        statusBar.backgroundColor = UIColor(red: 41/255, green: 128/255, blue: 186/255, alpha: 1)
         self.view.addSubview(statusBar)
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogExerciseFromCustomTabViewController.hideKeyboard(_:)))

@@ -19,7 +19,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var checkBoxButton: UIButton!
     @IBOutlet var signupButton: UIButton!
-    @IBOutlet var facebookButton: UIButton!
     
     // Initialize variables to store JSON data
     var username: String = ""
@@ -58,7 +57,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var isLoggedIn = false
     
-    var checkbox = CheckBox()
     var usernameEntered = ""
     var usernameSaved = ""
     
@@ -74,18 +72,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         // Adding in rounded corners to the buttons
         loginButton.layer.cornerRadius = 8
         signupButton.layer.cornerRadius = 8
-        facebookButton.layer.cornerRadius = 8
         parseJSONForUserAccountAuthorization()
-//        isChecked = NSUserDefaults.standardUserDefaults().boolForKey("isBtnChecked")
-//        checkbox.isChecked = isChecked
-        
-    }
-    
-    // Action call for the checkBoxButton
-    // When the check box button is touched, the states of the checkbox images will change
-    @IBAction func checkBoxButtonTapped(sender: UIButton)
-    {
-        
     }
     
     override func viewWillAppear(animated: Bool)

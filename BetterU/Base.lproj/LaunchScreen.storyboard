@@ -29,6 +29,7 @@
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BetterUIcon" translatesAutoresizingMaskIntoConstraints="NO" id="mQw-Yy-SN1">
                                         <rect key="frame" x="100" y="131" width="200" height="200"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="oer-lB-jZG"/>
                                             <constraint firstAttribute="width" constant="200" id="qV8-vf-jqk"/>
@@ -50,7 +51,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BetterU, © 2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CS-CF-bla">
-                                        <rect key="frame" x="137.5" y="578" width="125" height="93"/>
+                                        <rect key="frame" x="138" y="578" width="125" height="93"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="125" id="DPM-lv-DWY"/>
                                         </constraints>

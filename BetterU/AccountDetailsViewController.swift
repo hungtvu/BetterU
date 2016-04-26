@@ -12,6 +12,9 @@ import SwiftyJSON
 
 class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate, UIPickerViewDelegate {
     
+    @IBOutlet var confirmPasswordCounterLabel: UILabel!
+    @IBOutlet var createPasswordCounterLabel: UILabel!
+    
     //age, gender, heightft, heightin, curweight, goalweight
     var accountInfoPassed = [String]()
     var accountInfoPass = [String]()
@@ -19,6 +22,9 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
     // Current activity and goal activity info passed
     var currentActivity = 0
     var goalActivity = String()
+    
+    //bmr
+    var bmr: Double = 0.0
     
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var userNameTextField: UITextField!
@@ -180,6 +186,8 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             let heightin = Int(accountInfoPassed[5])
             
             let height = heightft!*12 + heightin!
+            let targetCalories = determineTargetCalories()
+        
             
             //don't forget to import Alamofire and SwiftyJSON
             
@@ -188,7 +196,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             
             //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
             //Format is = "Field": value
-            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": "testBMR", "dailyChallengeIndex": 0, "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "password": confirmPasswordTextField.text!, "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex, "targetCalories": 0, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6]]
+            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": Int(bmr), "dailyChallengeIndex": 0, "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "password": confirmPasswordTextField.text!, "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex, "targetCalories": targetCalories, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6]]
             
             //Creating the request to post the newPost JSON var.
             Alamofire.request(.POST, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -229,6 +237,23 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             scrollView.contentOffset = offset
         }
     }
+    
+    /* This method makes a live counter available when a user is entering their password */
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField.tag == 1 {
+            let newLength = (textField.text!.utf16.count) + (string.utf16.count) - range.length
+            //change the value of the label
+            createPasswordCounterLabel.text =  String(newLength)
+        }
+        else if textField.tag == 2
+        {
+            let newLength = (textField.text!.utf16.count) + (string.utf16.count) - range.length
+            //change the value of the label
+            confirmPasswordCounterLabel.text =  String(newLength)
+        }
+        return true
+    }
+
     
     /*
      ---------------------------------------
@@ -429,6 +454,84 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             self.presentViewController(alertController, animated: true, completion: nil)
         }
         
+    }
+    
+    /*
+     ------------------------------------------------
+     MARK: - Determine Target Calories
+     ------------------------------------------------
+     */
+    func determineTargetCalories()->Int{
+        //currentActivity
+        //goalActivity
+        let age = accountInfoPassed[2]
+        let weight = accountInfoPassed[6]
+        let gender = accountInfoPassed[3]
+        let heightFt = accountInfoPassed[4]
+        let heightIn = accountInfoPassed[5]
+        let goalWeight = accountInfoPassed[7]
+        
+        let heightCM = (Double(heightFt)! * 12 + Double(heightIn)!) * 2.54
+        let weightKG = Double(weight)!/2.2
+        let ageDouble = Double(age)!
+        
+        var targetCalories: Int
+        
+        
+        if gender == "M"{
+            bmr = 66.47 + 13.74 * weightKG
+            bmr = bmr + 5 * heightCM - 6.75 * ageDouble
+            
+        }else{
+            bmr = 665.09 + (9.56 * weightKG) + (1.84 * heightCM) - (4.67 * ageDouble)
+        }
+        
+        var caloriesToMaintainWeight: Double = 0.0
+        switch currentActivity {
+        case 0:
+            caloriesToMaintainWeight = bmr * 1.2
+            break
+        case 1:
+            caloriesToMaintainWeight = bmr * 1.375
+            break
+        case 2:
+            caloriesToMaintainWeight = bmr * 1.55
+            break
+        case 3:
+            caloriesToMaintainWeight = bmr * 1.725
+            break
+        default:
+            break
+        }
+        
+        if goalActivity == "Lightly Active" {
+            if weight > goalWeight {
+                
+                targetCalories = Int(caloriesToMaintainWeight - 1000)
+                
+            }else{
+                targetCalories = Int(caloriesToMaintainWeight + 500)
+            }
+        }else{
+            if weight > goalWeight {
+                targetCalories = Int(caloriesToMaintainWeight - 500)
+            }else{
+                targetCalories = Int(caloriesToMaintainWeight + 1000)
+            }
+        }
+        
+        if gender == "M"{
+            if targetCalories < 1800{
+                targetCalories = 1800
+            }
+            
+        }else{
+            if targetCalories < 1200{
+                targetCalories = 1200
+            }
+        }
+        
+        return targetCalories
     }
 
     

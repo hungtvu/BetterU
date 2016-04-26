@@ -74,7 +74,7 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         
         logCaloriesButton = UIButton(type: UIButtonType.System) as UIButton
         logCaloriesButton.frame = CGRectMake(screenWidth * 0.35, 170, 115, 30)
-        logCaloriesButton.backgroundColor = UIColor(red: 65/255, green: 192/255, blue: 247/255, alpha: 1)
+        logCaloriesButton.backgroundColor = UIColor(red: 41/255, green: 128/255, blue: 186/255, alpha: 1)
         logCaloriesButton.setTitle("Log Calories", forState: UIControlState.Normal)
         logCaloriesButton.addTarget(self, action: #selector(LogCaloriesViewController.logCaloriesButtonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         logCaloriesButton.layer.cornerRadius = 8
@@ -82,7 +82,7 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         self.view.addSubview(logCaloriesButton)
         
         refreshControl = UIRefreshControl(frame: CGRectMake(0, 0, 20, 20))
-        refreshControl.tintColor = UIColor(red: 65/255, green: 192/255, blue: 247/255, alpha: 1)
+        refreshControl.tintColor = UIColor(red: 41/255, green: 128/255, blue: 186/255, alpha: 1)
         
         refreshControl.addTarget(self, action: #selector(LogCaloriesViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.nutritionFoodTableView.addSubview(self.refreshControl)

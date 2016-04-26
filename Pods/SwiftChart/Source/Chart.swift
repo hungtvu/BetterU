@@ -325,16 +325,18 @@ public class Chart: UIControl {
                 return point.x })
             let yValues =  series.data.map({ (point: ChartPoint) -> Float in
                 return point.y })
-
+            if (xValues.minElement() != nil && yValues.minElement() != nil) {
             let newMinX = xValues.minElement()!
             let newMinY = yValues.minElement()!
             let newMaxX = xValues.maxElement()!
             let newMaxY = yValues.maxElement()!
+            
 
             if min.x == nil || newMinX < min.x! { min.x = newMinX }
             if min.y == nil || newMinY < min.y! { min.y = newMinY }
             if max.x == nil || newMaxX > max.x! { max.x = newMaxX }
             if max.y == nil || newMaxY > max.y! { max.y = newMaxY }
+            }
         }
 
         // Check in labels

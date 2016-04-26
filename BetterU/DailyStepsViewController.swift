@@ -23,13 +23,14 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
     
     var CoolBeans = [Float]()
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         dataOutputDay()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
-       //print("LMAO")
+        //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        super.viewDidLoad()
+        //super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
@@ -54,7 +55,36 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
         }
     }
     override func viewDidLoad() {
+        super.viewDidLoad()
+        dataOutputDay()
+        //print(weekLabel())
+        //  HealthKitHelper().weeklySteps1()
+        //print("LMAO")
+        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
+        NSThread.sleepForTimeInterval(0.05)
+        //super.viewDidLoad()
         
+        // Draw the chart selected from the TableViewController
+        
+        // print(CoolBeans)
+        chart.delegate = self
+        //print("LMAO1")
+        
+        // Simple chart
+        let series = ChartSeries(CoolBeans)
+        // series.color = ChartColors.greenColor()
+        series.area = true
+        chart.addSeries(series)
+        //  chart.xLabelsFormatter = "Day"
+        let labels: Array<Float> = [0,Float(CoolBeans.count-1)]
+        chart.xLabels = labels
+        //chart.labelFont = UIFont.systemFontOfSize(12)
+        //chart.xLabelsTextAlignment = .Center
+        //print(monthLabel())
+        let labelsAsString = ["12AM", "Now"]
+        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+            return labelsAsString[labelIndex]
+        }
         
         
     }

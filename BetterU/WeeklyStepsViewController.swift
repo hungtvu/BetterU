@@ -16,18 +16,19 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
     @IBOutlet weak var labelLeadingMarginConstraint: NSLayoutConstraint!
     @IBOutlet weak var label: UILabel!
     private var labelLeadingMarginInitialConstant: CGFloat!
-    let cellIdentifier = "CellIdentifier"
+    let cellIdentifier = "CellIdentifier1"
     
     var selectedChart = 0
     
     var CoolBeans = [Float]()
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        super.viewDidLoad()
+        //super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
@@ -48,7 +49,21 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         dataOutputWeek()
+        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
+        // print(CoolBeans)
+        chart.delegate = self
+        
+        // Simple chart
+        let series = ChartSeries(CoolBeans)
+        // series.color = ChartColors.greenColor()
+        series.area = true
+        chart.addSeries(series)
+        //  chart.xLabelsFormatter = "Day"
+        let labelsAsString = weekLabel()
+        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+            return labelsAsString[labelIndex]
+        }
         
         
     }
@@ -63,7 +78,7 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
         return CoolBeans.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: WeekStepsTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as! WeekStepsTableViewCell
+        let cell: WeekStepsTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier1") as! WeekStepsTableViewCell
         
         // let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         let output = weekLabel()

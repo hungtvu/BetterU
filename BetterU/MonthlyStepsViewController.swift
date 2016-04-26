@@ -18,7 +18,8 @@ class MonthlyStepsViewController: UIViewController, ChartDelegate,  UITableViewD
     @IBOutlet weak var label: UILabel!
     private var labelLeadingMarginInitialConstant: CGFloat!
     let cellIdentifier = "CellIdentifier"
-    
+    var stepsCount: Int = 0
+    var stepsMonth = [Int]()
     @IBOutlet var cellLabel: UILabel!
     var selectedChart = 0
     
@@ -26,13 +27,47 @@ class MonthlyStepsViewController: UIViewController, ChartDelegate,  UITableViewD
     var TableStuff = [String]()
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         dataOutputMonth()
+        HealthKitHelper().intervalMonth(-56) { steps, error in
+            
+            // Since there are 2112 steps in one mile, we will divide steps taken by 2112
+            //let milesFromSteps: Double = steps/2112
+            
+            // Calculate the amount of calories burned per mile
+            // By multiplying the user's weight by 0.57, we can get that.
+            // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
+            //     let caloriesBurnedPerMile = 0.57 * Double(self.weightInLbs)
+            
+            //  // Divide the number of calories that are burned per mile by number of steps to walk a mile
+            //let caloriesPerStep = caloriesBurnedPerMile/2112
+            
+            // Calculating calories burned by multiplying the total steps to calories burned per steps
+            // let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
+            
+            // Grabbing the necessary values and assigning it to a variable
+            //self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
+            // self.totalMilesWalked = round(milesFromSteps * 100)/100
+            //print(steps)
+            self.stepsCount = Int(steps)
+            //NSThread.sleepForTimeInterval(0.05)
+            self.stepsMonth.append(Int(steps))
+            
+            
+            
+            
+            
+            
+        }
+        // stepsMonth.append(stepsCount)
+        //print(stepsMonth)
+        
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
-       // print("LMAO")
+        // print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        super.viewDidLoad()
+        //super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
@@ -59,6 +94,69 @@ class MonthlyStepsViewController: UIViewController, ChartDelegate,  UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         dataOutputMonth()
+        dataOutputMonth()
+        HealthKitHelper().intervalMonth(-56) { steps, error in
+            
+            // Since there are 2112 steps in one mile, we will divide steps taken by 2112
+            //let milesFromSteps: Double = steps/2112
+            
+            // Calculate the amount of calories burned per mile
+            // By multiplying the user's weight by 0.57, we can get that.
+            // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
+            //     let caloriesBurnedPerMile = 0.57 * Double(self.weightInLbs)
+            
+            //  // Divide the number of calories that are burned per mile by number of steps to walk a mile
+            //let caloriesPerStep = caloriesBurnedPerMile/2112
+            
+            // Calculating calories burned by multiplying the total steps to calories burned per steps
+            // let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
+            
+            // Grabbing the necessary values and assigning it to a variable
+            //self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
+            // self.totalMilesWalked = round(milesFromSteps * 100)/100
+            //print(steps)
+            self.stepsCount = Int(steps)
+            NSThread.sleepForTimeInterval(0.05)
+            self.stepsMonth.append(Int(steps))
+            
+            
+            
+            
+            
+            
+        }
+        // stepsMonth.append(stepsCount)
+        //print(stepsMonth)
+        
+        //print(weekLabel())
+        //  HealthKitHelper().weeklySteps1()
+        // print("LMAO")
+        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
+        NSThread.sleepForTimeInterval(0.05)
+        //super.viewDidLoad()
+        
+        // Draw the chart selected from the TableViewController
+        
+        // print(CoolBeans)
+        chart.delegate = self
+        //print("LMAO1")
+        
+        // Simple chart
+        let series = ChartSeries(CoolBeans)
+        // series.color = ChartColors.greenColor()
+        series.area = true
+        chart.addSeries(series)
+        //  chart.xLabelsFormatter = "Day"
+        let labels: Array<Float> = [0,6.5,14,21.5]
+        chart.xLabels = labels
+        chart.labelFont = UIFont.systemFontOfSize(12)
+        chart.xLabelsTextAlignment = .Center
+        //print(monthLabel())
+        let labelsAsString = ["Week 1", "Week 2", "Week 3", "Week 4"]
+        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+            return labelsAsString[labelIndex]
+        }
+
         NSThread.sleepForTimeInterval(0.05)
         
     }
@@ -69,7 +167,7 @@ class MonthlyStepsViewController: UIViewController, ChartDelegate,  UITableViewD
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // print(CoolBeans.count)
+        // print(CoolBeans.count)
         return CoolBeans.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -120,6 +218,7 @@ class MonthlyStepsViewController: UIViewController, ChartDelegate,  UITableViewD
         label.text = ""
         labelLeadingMarginConstraint.constant = labelLeadingMarginInitialConstant
     }
+    
     
     func dataOutputWeek()->[Float]
     {

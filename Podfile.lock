@@ -1,34 +1,50 @@
 PODS:
   - Alamofire (3.3.1)
   - CircleProgressBar (0.31)
+  - KDCircularProgress (1.4.0)
   - SwiftChart (0.2.1)
   - SwiftDate (3.0.8)
   - SwiftyJSON (2.3.2)
   - VideoSplashKit (1.1.0)
+  - YLProgressBar (3.8.1)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - CircleProgressBar (~> 0.22)
+  - KDCircularProgress (from `https://github.com/kaandedeoglu/KDCircularProgress.git`)
   - SwiftChart
   - SwiftDate
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - VideoSplashKit
+  - YLProgressBar (from `https://github.com/yannickl/YLProgressBar.git`)
 
 EXTERNAL SOURCES:
+  KDCircularProgress:
+    :git: https://github.com/kaandedeoglu/KDCircularProgress.git
   SwiftyJSON:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  YLProgressBar:
+    :git: https://github.com/yannickl/YLProgressBar.git
 
 CHECKOUT OPTIONS:
+  KDCircularProgress:
+    :commit: d96c0a95a3a3bb3779fed0a2563bd8a6a6e19f8f
+    :git: https://github.com/kaandedeoglu/KDCircularProgress.git
   SwiftyJSON:
     :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  YLProgressBar:
+    :commit: 34b0ef0c6a857ebece78a4cb3bf87d6040ec5768
+    :git: https://github.com/yannickl/YLProgressBar.git
 
 SPEC CHECKSUMS:
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   CircleProgressBar: 1de5fc6ba919174b845bc2447720db67f8cb6c08
+  KDCircularProgress: f5770bbd83da909bf6cd96c2dea0b8bae45ec774
   SwiftChart: b76d4607022107a46473aa29a93c867872253d68
   SwiftDate: 971f8b9394f664f2226b9c3ab64e801a7291c612
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   VideoSplashKit: 0aa63d0bb37c5bd357de3e6a2a13dea5acad4d66
+  YLProgressBar: c6699d75d58042377132c9301d3ab8fd0204937d
 
 COCOAPODS: 0.39.0
