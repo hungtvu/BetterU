@@ -43,6 +43,8 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
     var muscleSecondaryIdToPass = [Int]()
     var muscleGroupImageToPass = UIImage()
     
+    var exerciseShown = [Bool]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +52,9 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
         removeLines()
         parseEquipmentsFromId()
         parseExercise(currentPageNumber)
+        
+        exerciseShown = [Bool](count: 300, repeatedValue: false)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -283,6 +288,21 @@ class ExercisesFromMuscleGroupTableViewController: UITableViewController {
         
     }
     
+    // Animates table cell
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if exerciseShown[indexPath.row] == false
+        {
+            let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 10, 0)
+            cell.layer.transform = rotationTransform
+            
+            UIView.animateWithDuration(1.0, animations: { 
+                cell.layer.transform = CATransform3DIdentity
+            })
+            
+            exerciseShown[indexPath.row] = true
+        }
+    }
         
     override func scrollViewDidScroll(scrollView: UIScrollView)
     {

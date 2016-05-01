@@ -38,13 +38,13 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
         // print(CoolBeans)
         chart.delegate = self
         //print("LMAO1")
-        var i = CoolBeans.count-1
-        //for ; i>=0; i = i - 1
-        while (i >= 0)
+        for var i = CoolBeans.count-1; i>=0; i -= 1
         {// print(i)
             CoolBeans[i] = (CoolBeans[i]/2112)
-            i = i - 1
+            //print(CoolBeans[i])
         }
+        if CoolBeans.count != 0
+        {
         // Simple chart
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.greenColor()
@@ -60,6 +60,15 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
+        }
+        else{
+            let labels: Array<Float> = [0]
+            chart.xLabels = labels
+            let labelsAsString = ["No Data!"]
+            chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+                return labelsAsString[labelIndex]
+        }
+    }
     }
     override func viewDidLoad() {
         

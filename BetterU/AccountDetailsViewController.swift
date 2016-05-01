@@ -38,6 +38,12 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
     var pickerSecurityQuestions = [String]()
     let pickerView = UIPickerView()
     var pickerIndex = 0
+    
+    var username = ""
+    var email = ""
+    
+    var userNameArray = [String]()
+    var emailArray = [String]()
 
     
     override func viewDidLoad() {
@@ -83,7 +89,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
         // Adds the toolbar to the textfield on top of the pickerview
         securityQuestionTextField.inputAccessoryView = toolBar
         
-        //print(accountInfoPassed)
+        parseJSONForUsernameDuplicates()
 
     }
     
@@ -143,43 +149,156 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
         // Dispose of any resources that can be recreated.
     }
     
+    // This method calls from BetterU's REST API and parses its JSON information.
+    func parseJSONForUsernameDuplicates()
+    {
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /* {
+                 DCSkipped = 1;
+                 WCSkipped = 1;
+                 activityGoal = "Very Active";
+                 activityLevel = 0;
+                 age = 20;
+                 bmr = 1724;
+                 dailyChallengeIndex = 4;
+                 email = "jdoe@vt.edu";
+                 firstName = John;
+                 gender = M;
+                 goalType = 4;
+                 goalWeight = 130;
+                 height = 65;
+                 id = 1;
+                 lastName = Doe;
+                 password = password;
+                 points = 0;
+                 securityAnswer = Virginia;
+                 securityQuestion = 3;
+                 units = I;
+                 username = jdoe;
+                 weeklyChallengeIndex = 2;
+                 weight = 155;
+                 },
+                 */
+                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                
+                var jsonDataDictInfo: NSDictionary = NSDictionary()
+                
+                var i = 0
+                while (i < jsonDataArray.count)
+                {
+                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
+                    
+                    // Grabs data from the JSON and stores it into the appropriate variable
+                    username = jsonDataDictInfo["username"] as! String
+                    email = jsonDataDictInfo["email"] as! String
+                    
+                    userNameArray.append(username)
+                    emailArray.append(email)
+                    
+                    i += 1
+                    
+                }
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+    }
+
+    
     @IBAction func submitButtonTapped(sender: AnyObject) {
+        
+        var i = 0
+        while (i < userNameArray.count)
+        {
+            if userNameTextField.text! == userNameArray[i] {
+                self.showErrorMessage("Sorry, that username has been taken.", errorTitle: "Username Already Exist.")
+                return
+            }
+            if emailTextField.text! == emailArray[i] {
+                self.showErrorMessage("Sorry, there is already an account authenticated with that email.", errorTitle: "Email Already Exist.")
+                return
+            }
+            
+            i = i + 1
+        }
+        
         
         if userNameTextField.text!.isEmpty{
             self.showErrorMessage("Please complete all required entries.", errorTitle: "Username Missing!")
             return
         }
-        else if emailTextField.text!.isEmpty{
+        if emailTextField.text!.isEmpty{
             self.showErrorMessage("Please complete all required entries.", errorTitle: "Email Missing!")
             
             return
         }
-        else if createPasswordTextField.text!.isEmpty {
+        if createPasswordTextField.text!.isEmpty {
 
             self.showErrorMessage("Please create a new password.", errorTitle: "Password Missing!")
             return
         }
-            
-        else if createPasswordTextField.text!.characters.count < 8
+
+        if createPasswordTextField.text!.characters.count < 8
         {
             self.showErrorMessage("Password must have a minimum of 8 characters.", errorTitle: "Invalid Password Length!")
             return
         }
             
-        else if confirmPasswordTextField.text!.isEmpty{
+        if confirmPasswordTextField.text!.isEmpty{
             self.showErrorMessage("Please confirm your new password.", errorTitle: "Password Confirmation Missing!")
             return
         }
-        else if createPasswordTextField.text! != confirmPasswordTextField.text!{
+        if createPasswordTextField.text! != confirmPasswordTextField.text!{
             self.showErrorMessage("Your new password does not match. Please try again.", errorTitle: "Password Mismatch!")
             return
         }
         
-        else if securityQuestionTextField.text!.isEmpty || securityAnswerTextField.text!.isEmpty {
+        if securityQuestionTextField.text!.isEmpty || securityAnswerTextField.text!.isEmpty {
             self.showErrorMessage("Please choose your security question or enter your security answer.", errorTitle: "Security Details Missing!")
             return
         }
-            
+        
         else {
             
             let heightft = Int(accountInfoPassed[4])
@@ -196,7 +315,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             
             //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
             //Format is = "Field": value
-            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": Int(bmr), "dailyChallengeIndex": 0, "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "password": confirmPasswordTextField.text!, "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex, "targetCalories": targetCalories, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6]]
+            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": Int(bmr), "dailyChallengeIndex": 0, "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "password": confirmPasswordTextField.text!, "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex, "targetCalories": targetCalories, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6], "breakfast": "", "dinner": "", "lunch": "", "snack": ""]
             
             //Creating the request to post the newPost JSON var.
             Alamofire.request(.POST, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -254,6 +373,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
         return true
     }
 
+  
     
     /*
      ---------------------------------------

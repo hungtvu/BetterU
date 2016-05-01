@@ -86,6 +86,7 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         let series = ChartSeries(monthlyWeight)
         series.area = true
         chart.addSeries(series)
+        series.color = ChartColors.redColor()
         let labels: Array<Float> = [0,6.5,14,21.5]
         chart.xLabels = labels
         chart.labelFont = UIFont.systemFontOfSize(12)

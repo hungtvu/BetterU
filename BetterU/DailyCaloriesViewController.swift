@@ -25,25 +25,26 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
     
     var CoolBeans = [Float]()
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
         dataOutputDay()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
-       // NSThread.sleepForTimeInterval(0.05)
+        NSThread.sleepForTimeInterval(0.05)
         super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
         // print(CoolBeans)
-        
+        chart.delegate = self
         //print("LMAO1")
         for var i = CoolBeans.count-1; i>=0; i -= 1
         {// print(i)
             CoolBeans[i] = (0.57 * Float(self.weightInLbs))*(CoolBeans[i]/2112)
            //print(CoolBeans[i])
         }
+        if CoolBeans.count != 0
+        {
         // Simple chart
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.yellowColor()
@@ -59,13 +60,18 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
+        }
+        else{
+            let labels: Array<Float> = [0]
+            chart.xLabels = labels
+            let labelsAsString = ["No Data!"]
+            chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+                return labelsAsString[labelIndex]
+        }
+    }
     }
     override func viewDidLoad() {
-        super.viewDidLoad()
-//        weightInLbs = applicationDelegate.userAccountInfo["User Weight"] as! Int
-//        dataOutputDay()
-//        NSThread.sleepForTimeInterval(0.05)
-
+        
         
         
     }

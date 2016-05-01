@@ -19,6 +19,9 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     var sectionTypeArray = [String]()
     var nutritionDataArray = [String]()
     var nutritionDataString = String()
+    
+    let yummylyAppID = "21dfe224"
+    let yummlyAPIKey = "ce3e5c566e575985f6c879283813c0d2"
 
     var recipeName = ""
     var recipeImageUrl = ""
@@ -26,6 +29,8 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
     var totalTime = ""
     var calories = 0
     var recipeUrl = ""
+    
+    var recipeIdBreakfastArray = [String]()
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -121,7 +126,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
             self.mealScheduleTableView.reloadData()
         }
     }
-    
+
     //---------------------------
     // Movement of Row Attempted
     //---------------------------
@@ -339,6 +344,7 @@ class MealPlanViewController: UIViewController, UITableViewDelegate, UITableView
         
         return cell
     }
+    
     
     /*
      -------------------------------------------------------------------

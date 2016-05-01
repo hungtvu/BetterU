@@ -18,6 +18,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var recipesInDatabase = [String]()
     var matchedRecipes = [AnyObject]()
     var recipeID = [String]()
+    var recipeIdArrayToPass = [String]()
     // Initialize keys needed to obtain yummly API data
     //let yummylyAppID = "648e9030"
     //let yummlyAPIKey = "0e7f65d6979544b4683291e72232e1c1"
@@ -44,6 +45,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
     var recipeName_dict_numOfServings = [String: Int]()
     var recipeName_dict_nutritionFacts = [String: NSArray]()
     var recipeName_dict_recipeUrl = [String: String]()
+    var recipeName_dict_recipeId = [String: String]()
     
     // Initializing the dictionaries for the difficulties of each recipe based on caloric intake
     var recipeName_dict_max250Cal = [String: Int]()
@@ -146,6 +148,7 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     recipeName_dict_images[recipeName] = imageSize90
                     recipeName_dict_rating[recipeName] = recipeRatings
+                    recipeName_dict_recipeId[recipeName] = recipesDict["id"] as? String
                     
                     recipeNameArray.append(recipeName)
                     
@@ -153,11 +156,6 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
                     j = j + 1
                 }
                 
-               // print(exclusionString)
-               // print(recipesDict)
-                
-                
-               
             }catch let error as NSError
             {
                 self.showErrorMessage("Error in retrieving JSON data: \(error.localizedDescription)")
@@ -516,6 +514,12 @@ class RecommendMealViewController: UIViewController, UITableViewDelegate, UITabl
             {
                 recipeUrlArray.append(recipeUrl)
                 applicationDelegate.recipesDict.setValue(recipeUrlArray, forKey: "Source Url")
+            }
+            
+            if let recipeIdValue = self.recipeName_dict_recipeId[key]
+            {
+                recipeIdArrayToPass.append(recipeIdValue)
+                applicationDelegate.recipesDict.setValue(recipeIdArrayToPass, forKey: "Recipe ID")
             }
             
         }

@@ -21,7 +21,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     
     @IBOutlet var progressLabel: UILabel!
     
-    
+    var userId = 0
     
     let cellIdentifier = "WeeklyWeightCell"
     var username: String = ""
@@ -57,22 +57,15 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         
     
         username = applicationDelegate.userAccountInfo.valueForKey("Username") as! String
+        userId = applicationDelegate.userAccountInfo["id"] as! Int
         
-        parseJSONForGoalWeight()
-        parseJSONForCurrentWeight()
+        parseJSONForWeight()
         
         progress.setProgress(0, animated: true)
         init_progress_bar()
         
         computeWeeklySteps()
         NSThread.sleepForTimeInterval(0.05)
-//        weeklySteps.append(2212)
-//        weeklySteps.append(5000)
-//        weeklySteps.append(3500)
-//        weeklySteps.append(7000)
-//        weeklySteps.append(9000)
-//        weeklySteps.append(5200)
-//        weeklySteps.append(8500)
         computeCaloriesBurned()
         computeWeeklyWeight()
         
@@ -81,6 +74,9 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         let series = ChartSeries(weeklyWeight)
         series.area = true
         chart.addSeries(series)
+        
+        series.color = ChartColors.redColor()
+        
         let labelsAsString = weekLabel()
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
@@ -113,80 +109,11 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         return goalWeight/currentWeight
     }
     
-    func parseJSONForCurrentWeight(){
-        
-        // Instantiate an API URL to return the JSON data
-        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
-        
-        // Convert URL to NSURL
-        let url = NSURL(string: restApiUrl)
-        
-        var jsonData: NSData?
-        
-        do {
-            /*
-             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
-             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
-             */
-            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-        } catch let error as NSError
-        {
-            print("Error in retrieving JSON data: \(error.localizedDescription)")
-            return
-        }
-        
-        if let jsonDataFromApiURL = jsonData
-        {
-            // The JSON data is successfully obtained from the API
-            
-            /*
-             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
-             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
-             */
-            
-            do
-            {
-                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
-                // any info from inside of the JSON.
-                
-                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
-                
-                var jsonDataDictInfo: NSDictionary = NSDictionary()
-                
-                var i = 0
-                while (i < jsonDataArray.count)
-                {
-                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
-                    
-                    // Grabs data from the JSON and stores it into the appropriate variable
-                    //caloriesIn = jsonDataDictInfo["caloriesIn"] as! Int
-                    //caloriesOut = jsonDataDictInfo["caloriesOut"] as! Int
-                    //date = jsonDataDictInfo["day"] as! String
-                    //currentWeight = jsonDataDictInfo["weight"] as! Double
-                    
-                    i += 1
-                    
-                }
-                
-            }catch let error as NSError
-            {
-                print("Error in retrieving JSON data: \(error.localizedDescription)")
-                return
-            }
-        }
-            
-        else
-        {
-            print("Error in retrieving JSON data!")
-        }
-        
-    }
-    
     // This method calls from BetterU's REST API and parses its JSON information.
-    func parseJSONForGoalWeight()
+    func parseJSONForWeight()
     {
         // Instantiate an API URL to return the JSON data
-        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user"
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(userId)"
         
         // Convert URL to NSURL
         let url = NSURL(string: restApiUrl)
@@ -245,24 +172,14 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
                  weight = 155;
                  },
                  */
-                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
                 
-                var jsonDataDictInfo: NSDictionary = NSDictionary()
-                
-                var i = 0
-                while (i < jsonDataArray.count)
-                {
-                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
                     
-                    if username == jsonDataDictInfo["username"] as! String {
-                        // Grabs data from the JSON and stores it into the appropriate variable
-                        targetCalories = jsonDataDictInfo["targetCalories"] as? Int
-                        goalWeight = jsonDataDictInfo["goalWeight"] as! Double
-                        currentWeight = jsonDataDictInfo["weight"] as! Double
-                    }
-                    
-                    i += 1
-                    
+                if username == jsonDataDictInfo!["username"] as? String {
+                    // Grabs data from the JSON and stores it into the appropriate variable
+                    targetCalories = jsonDataDictInfo!["targetCalories"] as? Int
+                    goalWeight = jsonDataDictInfo!["goalWeight"] as! Double
+                    currentWeight = jsonDataDictInfo!["weight"] as! Double
                 }
                 
             }catch let error as NSError
@@ -289,9 +206,10 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         
         let date = weekLabel()
 
-        let weight = weeklyWeight[indexPath.row]
-        
-        cell.date.text = date[indexPath.row]
+        //let weight = weeklyWeight[indexPath.row]
+        let weight = weeklyWeight[weeklyWeight.count - 1 - indexPath.row]
+        //cell.date.text = date[indexPath.row]
+        cell.date.text = date[date.count - 1 - indexPath.row]
         cell.weight.text = String.localizedStringWithFormat("%.2f", weight) + "lbs"
         
         
@@ -378,21 +296,8 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     {
         HealthKitHelper().weeklySteps1() { stepLog, error in
             
-            // Since there are 2112 steps in one mile, we will divide steps taken by 2112
-            
-            // Calculate the amount of calories burned per mile
-            // By multiplying the user's weight by 0.57, we can get that.
-            // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
-            
-            // Divide the number of calories that are burned per mile by number of steps to walk a mile
-            // let caloriesPerStep = caloriesBurnedPerMile/2112
-            
-            // Calculating calories burned by multiplying the total steps to calories burned per steps
-            //let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
-            
             // Grabbing the necessary values and assigning it to a variable
             self.weeklySteps = stepLog
-            //print(self.CoolBeans)
             
         }
         return weeklySteps

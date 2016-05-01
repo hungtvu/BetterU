@@ -17,18 +17,25 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
     @IBOutlet weak var label: UILabel!
     private var labelLeadingMarginInitialConstant: CGFloat!
     let cellIdentifier = "CellIdentifier1"
-    
+   
     var selectedChart = 0
     
     var CoolBeans = [Float]()
+    
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        dataOutputWeek()
+        dispatch_async(dispatch_get_main_queue(),
+                       {
+                        
+                        self.dataOutputWeek()
+                        
+                        
+        })
+       // dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        //super.viewDidLoad()
+        super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
@@ -49,21 +56,7 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         dataOutputWeek()
-        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        // print(CoolBeans)
-        chart.delegate = self
-        
-        // Simple chart
-        let series = ChartSeries(CoolBeans)
-        // series.color = ChartColors.greenColor()
-        series.area = true
-        chart.addSeries(series)
-        //  chart.xLabelsFormatter = "Day"
-        let labelsAsString = weekLabel()
-        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
-            return labelsAsString[labelIndex]
-        }
         
         
     }

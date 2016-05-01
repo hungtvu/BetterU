@@ -46,11 +46,15 @@ class WeeklyCaloriesViewController: UIViewController, ChartDelegate,  UITableVie
         
         // Simple chart
         print(CoolBeans.count)
-        for var i = CoolBeans.count-1; i>=0; i -= 1
+        
+        var i = CoolBeans.count - 1
+        //for var i = CoolBeans.count-1; i>=0; i -= 1
+        while(i >= 0)
         {
           //  print(i)
             CoolBeans[i] = ((0.57 * Float(self.weightInLbs))/2112)*(CoolBeans[i])
             print(CoolBeans[i])
+            i = i - 1
         }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.yellowColor()

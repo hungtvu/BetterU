@@ -44,6 +44,11 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
     var username = ""
     var securityQuestion = 0
     var securityAnswer = ""
+    var recipeIdBreakfast = ""
+    var recipeIdDinner = ""
+    var recipeIdSnacks = ""
+    var recipeIdLunch = ""
+    var bmr = 0
     
     var isScrollingRight = false
     var scrolledOnce = false
@@ -60,6 +65,63 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
         }
     }
     
+    func parseJson()
+    {
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(id)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                bmr = jsonDataDictInfo["bmr"] as! Int
+                recipeIdBreakfast = (jsonDataDictInfo["breakfast"] as? String)!
+                recipeIdDinner = (jsonDataDictInfo["dinner"] as? String)!
+                recipeIdSnacks = (jsonDataDictInfo["snack"] as? String)!
+                recipeIdLunch = (jsonDataDictInfo["lunch"] as? String)!
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+        
+    }
+
     @IBAction func submitButtonTapped(sender: UIButton)
     {
         //endpoint to database you want to post to
@@ -67,7 +129,7 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": "testBMR", "dailyChallengeIndex": 0, "email": email, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": height, "id": id, "lastName": lastName, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToPass]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": height, "id": id, "lastName": lastName, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToPass, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "snack": recipeIdSnacks, "dinner": recipeIdDinner]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -90,6 +152,7 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
 
     }
+    
     
     @IBAction func exitButtonTapped(sender: UIButton)
     {
@@ -128,7 +191,7 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
         securityQuestion = applicationDelegate.userAccountInfo["Security Question"] as! Int
         securityAnswer = applicationDelegate.userAccountInfo["Security Answer"] as! String
         
-        
+        parseJson()
         
     }
     

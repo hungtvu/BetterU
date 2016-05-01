@@ -23,18 +23,25 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
     
     var CoolBeans = [Float]()
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        dataOutputDay()
+    
+                        
+          dataOutputDay()                        
+                        
+
+
+      //  dataOutputDay()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
-        //print("LMAO")
+       //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        //super.viewDidLoad()
+        super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
-        // print(CoolBeans)
+        // pporint(CoolBeans)
+        if CoolBeans.count != 0
+        {
         chart.delegate = self
         //print("LMAO1")
         
@@ -52,39 +59,21 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
         let labelsAsString = ["12AM", "Now"]
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
+            }
+        
+        }
+        else{
+            let labels: Array<Float> = [0]
+            chart.xLabels = labels
+            let labelsAsString = ["No Data!"]
+            chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+                return labelsAsString[labelIndex]
+            }
+
         }
     }
     override func viewDidLoad() {
-        super.viewDidLoad()
-        dataOutputDay()
-        //print(weekLabel())
-        //  HealthKitHelper().weeklySteps1()
-        //print("LMAO")
-        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
-        NSThread.sleepForTimeInterval(0.05)
-        //super.viewDidLoad()
         
-        // Draw the chart selected from the TableViewController
-        
-        // print(CoolBeans)
-        chart.delegate = self
-        //print("LMAO1")
-        
-        // Simple chart
-        let series = ChartSeries(CoolBeans)
-        // series.color = ChartColors.greenColor()
-        series.area = true
-        chart.addSeries(series)
-        //  chart.xLabelsFormatter = "Day"
-        let labels: Array<Float> = [0,Float(CoolBeans.count-1)]
-        chart.xLabels = labels
-        //chart.labelFont = UIFont.systemFontOfSize(12)
-        //chart.xLabelsTextAlignment = .Center
-        //print(monthLabel())
-        let labelsAsString = ["12AM", "Now"]
-        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
-            return labelsAsString[labelIndex]
-        }
         
         
     }

@@ -33,6 +33,7 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     var gender = ""
     var heightFtCalculated = 0
     var heightInCalculated = 0
+    var bmr = 0
     
     // Initialize variables that are NOT needed to update from textfields. These, however, are required
     // to post back the accurate data that was unchanged to the backend database
@@ -45,6 +46,10 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     var username = ""
     var securityQuestion = 0
     var securityAnswer = ""
+    var recipeIdBreakfast = ""
+    var recipeIdDinner = ""
+    var recipeIdSnacks = ""
+    var recipeIdLunch = ""
     
     var heightInches = ""
     var heightFt = ""
@@ -174,6 +179,13 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
                 id = jsonDataDictInfo["id"] as! Int
                 securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
                 securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
+                bmr = jsonDataDictInfo["bmr"] as! Int
+                
+                recipeIdBreakfast = jsonDataDictInfo["breakfast"] as! String
+                recipeIdSnacks = jsonDataDictInfo["snack"] as! String
+                recipeIdDinner = jsonDataDictInfo["dinner"] as! String
+                recipeIdLunch = jsonDataDictInfo["lunch"] as! String
+ 
                 
             }catch let error as NSError
             {
@@ -248,7 +260,7 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": "testBMR", "dailyChallengeIndex": 0, "email": emailToUse, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeightToUse, "height": height, "id": id, "lastName": lastName, "password": newPasswordToUse, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weight]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": emailToUse, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeightToUse, "height": height, "id": id, "lastName": lastName, "password": newPasswordToUse, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weight, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)

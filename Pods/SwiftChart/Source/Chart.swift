@@ -337,6 +337,7 @@ public class Chart: UIControl {
             if max.x == nil || newMaxX > max.x! { max.x = newMaxX }
             if max.y == nil || newMaxY > max.y! { max.y = newMaxY }
             }
+            
         }
 
         // Check in labels

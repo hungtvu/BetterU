@@ -25,6 +25,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
     var recipeUrlArray = [String]()
     
     let tableViewRowHeight: CGFloat = 85.0
+    var recipeId = ""
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -70,6 +71,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
     var vitaminCDailyPercentArray = [String]()
     var calciumDailyPercentArray = [String]()
     var ironDailyPercentArray = [String]()
+    var recipeIdArray = [String]()
     
     
     override func viewDidLoad() {
@@ -87,6 +89,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
             numberOfServingsArray = applicationDelegate.recipesDict["Serving Size"] as! [Int]
             nutritionalFacts = applicationDelegate.recipesDict["Nutrition Facts"] as! NSDictionary
             recipeUrlArray = applicationDelegate.recipesDict["Source Url"] as! [String]
+            recipeIdArray = applicationDelegate.recipesDict["Recipe ID"] as! [String]
         }
         
         totalFatWithUnitArray = [String](count: nutritionalFacts.count, repeatedValue: "No Data")
@@ -298,11 +301,6 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
-    @IBAction func barcodeButtonTapped(sender: UIButton)
-    {
-        
-    }
-    
     /*
      ----------------------------------------------
      MARK: - UITableViewDataSource Protocol Methods
@@ -418,6 +416,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
         totalVitCDailyPercentage = vitaminCDailyPercentArray[row]
         totalCalciumDailyPercentage = calciumDailyPercentArray[row]
         totalIronDailyPercentage = ironDailyPercentArray[row]
+        recipeId = recipeIdArray[row]
         
         
         self.performSegueWithIdentifier("recipeInfoView", sender: self)
@@ -504,7 +503,7 @@ class RecipeViewController: UIViewController, UITableViewDataSource, UITableView
             recipeInfoViewController.recipeUrl = recipeUrlToPass
             recipeInfoViewController.recipeRatings = recipeRatingToPass
             recipeInfoViewController.imageSize90Url = imageSize90UrlToPass
-            
+            recipeInfoViewController.recipeId = recipeId
         }
     }
 }

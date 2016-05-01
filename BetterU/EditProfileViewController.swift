@@ -58,9 +58,13 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     var username = ""
     var securityQuestion = 0
     var securityAnswer = ""
-    
+    var bmr = 0
     var heightInches = ""
     var heightFt = ""
+    var recipeIdBreakfast = ""
+    var recipeIdDinner = ""
+    var recipeIdSnacks = ""
+    var recipeIdLunch = ""
     
     // Initialize picker views and picker options for age and height
     var pickerViewForAge = UIPickerView()
@@ -337,6 +341,11 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
                 id = jsonDataDictInfo["id"] as! Int
                 securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
                 securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
+                bmr = jsonDataDictInfo["bmr"] as! Int
+                recipeIdBreakfast = jsonDataDictInfo["breakfast"] as! String
+                recipeIdSnacks = jsonDataDictInfo["snack"] as! String
+                recipeIdDinner = jsonDataDictInfo["dinner"] as! String
+                recipeIdLunch = jsonDataDictInfo["lunch"] as! String
                 
             }catch let error as NSError
             {
@@ -443,7 +452,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": "testBMR", "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
