@@ -44,6 +44,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
     
     var userNameArray = [String]()
     var emailArray = [String]()
+    
 
     
     override func viewDidLoad() {
@@ -90,7 +91,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
         securityQuestionTextField.inputAccessoryView = toolBar
         
         parseJSONForUsernameDuplicates()
-
+       
     }
     
     // Allows the keyboard to hide by the user's interaction (background touch)
@@ -273,6 +274,14 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             
             return
         }
+        
+        if !isValidEmail(emailTextField.text!)
+        {
+            self.showErrorMessage("Please enter a valid email in the format: email@domain.com", errorTitle: "Invalid Email.")
+            
+            return
+        }
+        
         if createPasswordTextField.text!.isEmpty {
 
             self.showErrorMessage("Please create a new password.", errorTitle: "Password Missing!")
@@ -315,7 +324,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
             
             //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
             //Format is = "Field": value
-            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": Int(bmr), "dailyChallengeIndex": 0, "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "password": confirmPasswordTextField.text!, "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex, "targetCalories": targetCalories, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6], "breakfast": "", "dinner": "", "lunch": "", "snack": ""]
+            let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": goalActivity, "activityLevel": currentActivity, "age": accountInfoPassed[2], "bmr": Int(bmr), "breakfast": "", "dailyChallengeIndex": 0, "dinner": "", "email": emailTextField.text!, "firstName": accountInfoPassed[0], "gender": accountInfoPassed[3], "goalType": 0, "goalWeight": accountInfoPassed[7], "height": height, "lastName": accountInfoPassed[1], "lunch": "","password": confirmPasswordTextField.text!, "photo": "", "points": 0, "securityAnswer": securityAnswerTextField!.text!, "securityQuestion": pickerIndex,"snack": "", "targetCalories": targetCalories, "units": "I", "username": userNameTextField.text!, "weeklyChallengeIndex": 0, "weight": accountInfoPassed[6]]
             
             //Creating the request to post the newPost JSON var.
             Alamofire.request(.POST, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -324,6 +333,7 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
                         // got an error in getting the data, need to handle it
                         print("error calling GET on /posts/1")
                         print(response.result.error!)
+                        self.showErrorMessage("We're very sorry, the server is unable to be connected at this time. Please try again later.", errorTitle: "Unable to Retrieve Server Info")
                         return
                     }
                     
@@ -332,18 +342,30 @@ class AccountDetailsViewController: UIViewController, UIScrollViewDelegate, UITe
                         // this might not return anything here, but check the DB just in case. It might post anyway
                         let post = JSON(value)
                         print("The post is: " + post.description)
+                        
+                        // Grabs the storyboard
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        
+                        // Grabs the view controller from the storyboard ID
+                        let signInViewcontroller = storyboard.instantiateViewControllerWithIdentifier("SignInView") as! SignInViewController
+                        
+                        // Presents the previous view controller
+                        self.presentViewController(signInViewcontroller, animated: true, completion: nil)
+
                     }
             }
             
-            // Grabs the storyboard
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            // Grabs the view controller from the storyboard ID
-            let signInViewcontroller = storyboard.instantiateViewControllerWithIdentifier("SignInView") as! SignInViewController
-            
-            // Presents the previous view controller
-            self.presentViewController(signInViewcontroller, animated: true, completion: nil)        }
+        }
         
+    }
+    
+    // Validates email
+    func isValidEmail(testStr:String) -> Bool {
+        // println("validate calendar: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
     }
     
     // Stops the scrollview from scrolling horizontally

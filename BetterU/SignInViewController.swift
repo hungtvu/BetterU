@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class SignInViewController: UIViewController, UITextFieldDelegate {
     
@@ -37,6 +38,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var userId = 0
     var securityQuestion = 0
     var securityAnswer = ""
+    var userIdFromProgress = 0
+    var logDate = 0
+    var caloriesIn = 0
+    var caloriesOut = 0
+    var miles = 0
+    var steps = 0
     
     // Dictionary KV pairs for the JSON data variables
     var usernameAndPasswordDict = [String: String]()
@@ -54,11 +61,22 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var username_Dict_userId = [String: Int]()
     var username_Dict_securityQuestion = [String: Int]()
     var username_Dict_securityAnswer = [String: String]()
+    var userId_Dict_logDate = [Int: Int]()
+    var userId_Dict_miles = [Int: Int]()
+    var userId_Dict_steps = [Int: Int]()
+    var userId_Dict_caloriesIn = [Int: Int]()
+    var userId_Dict_caloriesOut = [Int: Int]()
     
     var isLoggedIn = false
     
     var usernameEntered = ""
     var usernameSaved = ""
+    
+    var userIdArrayFromProgress = [Int]()
+    var doesProgressHaveId = false
+    
+    let calendar = NSCalendar.currentCalendar()
+    var epochArray = [Int]()
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -73,14 +91,103 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.cornerRadius = 8
         signupButton.layer.cornerRadius = 8
         parseJSONForUserAccountAuthorization()
+
+        parseProgressJson()
+        
+        var date = calendar.startOfDayForDate(NSDate())
+        
+        // Grabs the last 6 days from the current time as now
+        for _ in 1 ... 30 {
+            
+            let epochTimeStamp = Int(floor(date.timeIntervalSince1970))
+            epochArray.append(epochTimeStamp)
+            
+            date = calendar.dateByAddingUnit(.NSDayCalendarUnit, value: -1, toDate: date, options: [])!
+        }
+        
+
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(true)
         parseJSONForUserAccountAuthorization()
-        //print(username_Dict_firstName)
-        //print(usernameAndPasswordDict)
+    }
+    
+    func parseProgressJson()
+    {
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                
+                var jsonDataDictInfo: NSDictionary = NSDictionary()
+                var id = 0
+                
+                var i = 0
+                while (i < jsonDataArray.count)
+                {
+                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
+                    id = jsonDataDictInfo["userId"] as! Int
+                    userIdArrayFromProgress.append(jsonDataDictInfo["userId"] as! Int)
+                    
+                    caloriesIn = jsonDataDictInfo["caloriesIn"] as! Int
+                    caloriesOut = jsonDataDictInfo["caloriesOut"] as! Int
+                    miles = jsonDataDictInfo["miles"] as! Int
+                    steps = jsonDataDictInfo["steps"] as! Int
+                    
+                    userId_Dict_logDate[id] = jsonDataDictInfo["logDate"] as? Int
+                    userId_Dict_steps[id] = steps
+                    userId_Dict_caloriesIn[id] = caloriesIn
+                    userId_Dict_caloriesOut[id] = caloriesOut
+                    userId_Dict_miles[id] = miles
+                    
+                    i += 1
+                }
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+
     }
     
     // This method calls from BetterU's REST API and parses its JSON information.
@@ -335,6 +442,105 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 applicationDelegate.userAccountInfo.setObject(securityQuestion, forKey: "Security Question")
                 applicationDelegate.userAccountInfo.setObject(securityAnswer, forKey: "Security Answer")
                 
+                if let logDateValue = userId_Dict_logDate[userId]
+                {
+                    logDate = logDateValue
+                }
+                
+                if let milesValue = userId_Dict_miles[userId]
+                {
+                    miles = milesValue
+                }
+                
+                if let caloriesInValue = userId_Dict_caloriesIn[userId]
+                {
+                    caloriesIn = caloriesInValue
+                }
+                
+                if let caloriesOutValue = userId_Dict_caloriesOut[userId]
+                {
+                    caloriesOut = caloriesOutValue
+                }
+                
+                if let stepsValue = userId_Dict_steps[userId]
+                {
+                    steps = stepsValue
+                }
+                
+                doesProgressHaveId = false
+                
+                var i = 0
+                while (i < userIdArrayFromProgress.count)
+                {
+                    if userIdArrayFromProgress[i] == userId
+                    {
+                        doesProgressHaveId = true
+                        break
+                    }
+                    i = i + 1
+                }
+                
+                // Only execute and create new progress entries if the user id wasn't in the progress database
+                if !doesProgressHaveId
+                {
+                    var i = 0
+                    while (i < epochArray.count) {
+                        //endpoint to database you want to post to
+                        let postToProgressEndPoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+                        
+                        //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+                        //Format is = "Field": value
+                        let newPostForProgress = ["caloriesIn": 0, "caloriesOut": 0, "logDate": epochArray[i], "miles": 0, "steps": 0, "userId": userId, "weight": Double(weight)]
+                        
+                        //Creating the request to post the newPost JSON var.
+                        Alamofire.request(.POST, postToProgressEndPoint, parameters: newPostForProgress as? [String : AnyObject], encoding: .JSON)
+                            .responseJSON { response in
+                                guard response.result.error == nil else {
+                                    // got an error in getting the data, need to handle it
+                                    print("error calling GET on /posts/1")
+                                    print(response.result.error!)
+                                    return
+                                }
+                                
+                                if let value: AnyObject = response.result.value {
+                                    // handle the results as JSON, without a bunch of nested if loops
+                                    // this might not return anything here, but check the DB just in case. It might post anyway
+                                    let post = JSON(value)
+                                    print("The post is: " + post.description)
+                                }
+                        }
+                        i = i + 1
+                    }
+                }
+                
+//                // Adds a new entry to the progress table everyday for that specific user
+//                if (doesProgressHaveId && logDate != epochArray[0])
+//                {
+//                    //endpoint to database you want to post to
+//                    let postToProgressEndPoints: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+//                    
+//                    //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+//                    //Format is = "Field": value
+//                    let existedPostForProgress = ["caloriesIn": caloriesIn, "caloriesOut": caloriesOut, "logDate": epochArray[0], "miles": miles, "steps": steps, "userId": userId, "weight": Double(weight)]
+//
+//                    //Creating the request to post the newPost JSON var.
+//                    Alamofire.request(.POST, postToProgressEndPoints, parameters: existedPostForProgress as? [String : AnyObject], encoding: .JSON)
+//                        .responseJSON { response in
+//                            guard response.result.error == nil else {
+//                                // got an error in getting the data, need to handle it
+//                                print("error calling GET on /posts/1")
+//                                print(response.result.error!)
+//                                return
+//                            }
+//                            
+//                            if let value: AnyObject = response.result.value {
+//                                // handle the results as JSON, without a bunch of nested if loops
+//                                // this might not return anything here, but check the DB just in case. It might post anyway
+//                                let post = JSON(value)
+//                                print("The post is: " + post.description)
+//                            }
+//                    }
+//                }
                 
                 isLoggedIn = true
                 self.performSegueWithIdentifier("homeView", sender: self);

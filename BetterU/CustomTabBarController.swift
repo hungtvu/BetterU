@@ -40,7 +40,7 @@ class CustomTabBarController: UITabBarController {
     // Exploding menu elements
     var menuButton: UIButton!
     var progressButton: UIButton!
-    var waterButton: UIButton!
+    var challengesButton: UIButton!
     var foodButton: UIButton!
     var exerciseButton: UIButton!
     var weightButton: UIButton!
@@ -101,12 +101,12 @@ class CustomTabBarController: UITabBarController {
         singleTap.numberOfTapsRequired = 1
         progressButton.addGestureRecognizer(progressTap)
         
-        waterButton = UIButton(frame: CGRect(x: viewWidth / 2 - menuItemSize / 2, y: viewHeight - menuButtonSize * 1.05, width: menuItemSize, height: menuItemSize))
-        waterButton.setImage(UIImage(named: "Challenges"), forState: UIControlState.Normal)
+        challengesButton = UIButton(frame: CGRect(x: viewWidth / 2 - menuItemSize / 2, y: viewHeight - menuButtonSize * 1.05, width: menuItemSize, height: menuItemSize))
+        challengesButton.setImage(UIImage(named: "Challenges"), forState: UIControlState.Normal)
         
-        let waterTap = UITapGestureRecognizer(target: self, action: #selector(CustomTabBarController.waterTapped(_:)))
-        waterTap.numberOfTapsRequired = 1
-        waterButton.addGestureRecognizer(waterTap)
+        let challengesTap = UITapGestureRecognizer(target: self, action: #selector(CustomTabBarController.challengesTapped(_:)))
+        challengesTap.numberOfTapsRequired = 1
+        challengesButton.addGestureRecognizer(challengesTap)
         
         foodButton = UIButton(frame: CGRect(x: viewWidth / 2 - menuItemSize / 2, y: viewHeight - menuButtonSize * 1.05, width: menuItemSize, height: menuItemSize))
         foodButton.setImage(UIImage(named: "Food"), forState: UIControlState.Normal)
@@ -177,7 +177,7 @@ class CustomTabBarController: UITabBarController {
         // Add the customTabBar and exploding menu elements
         view.addSubview(customTabBar)
         view.addSubview(progressButton)
-        view.addSubview(waterButton)
+        view.addSubview(challengesButton)
         view.addSubview(foodButton)
         view.addSubview(exerciseButton)
         view.addSubview(weightButton)
@@ -256,7 +256,7 @@ class CustomTabBarController: UITabBarController {
         // Animate fading out the other buttons and opening the custom alert view
         UIView.animateWithDuration(0.15, animations: {
             
-            self.waterButton.alpha = 0.0
+            self.challengesButton.alpha = 0.0
             self.foodButton.alpha = 0.0
             self.exerciseButton.alpha = 0.0
             self.weightButton.alpha = 0.0
@@ -268,8 +268,8 @@ class CustomTabBarController: UITabBarController {
         })
     }
     
-    // This method is invoked when the water button is tapped
-    func waterTapped(gestureRecognizer: UIGestureRecognizer) {
+    // This method is invoked when the challenges button is tapped
+    func challengesTapped(gestureRecognizer: UIGestureRecognizer) {
         
         // Animate fading out the other buttons and opening the custom alert view
         UIView.animateWithDuration(0.15, animations: {
@@ -282,7 +282,7 @@ class CustomTabBarController: UITabBarController {
                 
                 self.menuEnabled = false
                 self.closeMenu(false)
-                self.openCustomAlertView() // make this unique for a more interesting user interface
+                self.openChallengesAlertView() // make this unique for a more interesting user interface
         })
     }
     
@@ -293,7 +293,7 @@ class CustomTabBarController: UITabBarController {
         UIView.animateWithDuration(0.15, animations: {
             
             self.progressButton.alpha = 0.0
-            self.waterButton.alpha = 0.0
+            self.challengesButton.alpha = 0.0
             self.exerciseButton.alpha = 0.0
             self.weightButton.alpha = 0.0
             }, completion: { (value: Bool) in
@@ -311,7 +311,7 @@ class CustomTabBarController: UITabBarController {
         UIView.animateWithDuration(0.15, animations: {
             
             self.progressButton.alpha = 0.0
-            self.waterButton.alpha = 0.0
+            self.challengesButton.alpha = 0.0
             self.foodButton.alpha = 0.0
             self.weightButton.alpha = 0.0
             }, completion: { (value: Bool) in
@@ -330,7 +330,7 @@ class CustomTabBarController: UITabBarController {
         UIView.animateWithDuration(0.15, animations: {
             
             self.progressButton.alpha = 0.0
-            self.waterButton.alpha = 0.0
+            self.challengesButton.alpha = 0.0
             self.foodButton.alpha = 0.0
             self.exerciseButton.alpha = 0.0
             }, completion: { (value: Bool) in
@@ -348,7 +348,7 @@ class CustomTabBarController: UITabBarController {
         
         // Restore the opaqueness of all the buttons
         self.progressButton.alpha = 1.0
-        self.waterButton.alpha = 1.0
+        self.challengesButton.alpha = 1.0
         self.foodButton.alpha = 1.0
         self.exerciseButton.alpha = 1.0
         self.weightButton.alpha = 1.0
@@ -356,7 +356,7 @@ class CustomTabBarController: UITabBarController {
         // Bring the buttons and fadeView to front such that the fadeView covers everything EXCEPT the buttons
         self.view.bringSubviewToFront(self.fadeView)
         self.view.bringSubviewToFront(self.progressButton)
-        self.view.bringSubviewToFront(self.waterButton)
+        self.view.bringSubviewToFront(self.challengesButton)
         self.view.bringSubviewToFront(self.foodButton)
         self.view.bringSubviewToFront(self.exerciseButton)
         self.view.bringSubviewToFront(self.weightButton)
@@ -373,7 +373,7 @@ class CustomTabBarController: UITabBarController {
         UIView.animateWithDuration(0.8, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
             
             self.progressButton.transform = CGAffineTransformMakeTranslation(-0.3 * self.viewWidth, -0.125 * self.viewHeight)
-            self.waterButton.transform = CGAffineTransformMakeTranslation(-0.18 * self.viewWidth, -0.22 * self.viewHeight)
+            self.challengesButton.transform = CGAffineTransformMakeTranslation(-0.18 * self.viewWidth, -0.22 * self.viewHeight)
             self.foodButton.transform = CGAffineTransformMakeTranslation(0, -0.25 * self.viewHeight)
             self.exerciseButton.transform = CGAffineTransformMakeTranslation(0.18 * self.viewWidth, -0.22 * self.viewHeight)
             self.weightButton.transform = CGAffineTransformMakeTranslation(0.3 * self.viewWidth, -0.125 * self.viewHeight)
@@ -394,7 +394,7 @@ class CustomTabBarController: UITabBarController {
             
             self.menuButton.transform = CGAffineTransformMakeRotation(0.0)
             self.progressButton.transform = CGAffineTransformMakeTranslation(0, 0)
-            self.waterButton.transform = CGAffineTransformMakeTranslation(0, 0)
+            self.challengesButton.transform = CGAffineTransformMakeTranslation(0, 0)
             self.foodButton.transform = CGAffineTransformMakeTranslation(0, 0)
             self.exerciseButton.transform = CGAffineTransformMakeTranslation(0, 0)
             self.weightButton.transform = CGAffineTransformMakeTranslation(0, 0)
@@ -446,6 +446,13 @@ class CustomTabBarController: UITabBarController {
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    func openChallengesAlertView()
+    {
+        let alert = storyboard?.instantiateViewControllerWithIdentifier("alertChallenges") as! CurrentChallengesAlertViewController
+        alert.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func segueToLogExericse()
     {
         self.performSegueWithIdentifier("showLogExercise", sender: self)
@@ -483,24 +490,11 @@ class CustomTabBarController: UITabBarController {
     
     // MARK: - Custom Navigation
     
-    // Called downstream to handle custom alert view's selection
-    func segueToDetailTableViewController() {
-        
-        self.performSegueWithIdentifier("alertViewRowSelected", sender: self)
-    }
-    
     // MARK: - Prepare for Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "alertViewRowSelected" {
-            let detailController = segue.destinationViewController as! DetailTableViewController
-            // Pass the selection downstream
-            detailController.selection = selection
-            self.fadeView.alpha = 0.0
-            self.view.sendSubviewToBack(self.fadeView)
-        }
-        else if segue.identifier == "showStepsTaken"
+        if segue.identifier == "showStepsTaken"
         {
             let stepsTakenController = segue.destinationViewController as! StepsTakenViewController
             stepsTakenController.hasOpenedProgress = self.hasOpenedProgress

@@ -293,7 +293,7 @@ class ExerciseViewController: UIViewController, UITableViewDelegate, UITableView
      */
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "LogExercise"
+        if segue.identifier == "LogExercise" && hasTouchedRow
         {
             let logExerciseViewController: LogExerciseViewController = segue.destinationViewController as! LogExerciseViewController
             

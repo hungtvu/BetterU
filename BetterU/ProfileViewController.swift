@@ -37,6 +37,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var lastName: String = ""
     var email: String = ""
     var id = 0
+    var points = 0
+    var level = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +53,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
-        levelLabel!.text = "Level 1"
+        levelLabel!.text = "Level \(level)"
         
         // Adding in rounded corners to the buttons
         editProfileButton.layer.cornerRadius = 8;
@@ -82,7 +84,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         firstNameLabel.text = firstName
         lastNameLabel.text = lastName
         emailLabel.text = email
-        levelLabel!.text = "Level 1"
+        
+        let remainder = points % 100
+        level = (points - remainder)/100
+        
+        progressView.progress = Float(remainder)/100
+
+        levelLabel!.text = "Level " + String(level)
+        levelPercentLabel!.text = String(remainder) + "%"
     }
     
     /*
@@ -159,7 +168,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             // Perform the segue named advancedSettingsView
             performSegueWithIdentifier("advancedSettingsView", sender: self)
         }
-        
+            
         else
         {
             // Perform the segue named contactInfoView
@@ -247,7 +256,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 firstName = jsonDataDictInfo["firstName"] as! String
                 lastName = jsonDataDictInfo["lastName"] as! String
                 email = jsonDataDictInfo["email"] as! String
-              
+                points = jsonDataDictInfo["points"] as! Int
+                
                 
             }catch let error as NSError
             {

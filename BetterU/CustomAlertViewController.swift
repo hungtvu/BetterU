@@ -96,13 +96,8 @@ class CustomAlertViewController: UIViewController, UITableViewDataSource, UITabl
             
             // Set the selection upstream and call "segueToDetailViewController"
             if ((self.sender) != nil) {
-                self.sender.selection = self.selection
-                self.sender.segueToDetailTableViewController()
-            }
-            else
-            {
-                self.sender2.selection = self.selection
-                self.sender2.popToScheduleViewController()
+            self.sender2.selection = self.selection
+            self.sender2.popToScheduleViewController()
             }
             
         })

@@ -10,12 +10,14 @@ import Foundation
 import SwiftChart
 import UIKit
 import YLProgressBar
+import Alamofire
+import SwiftyJSON
 
 
 class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var chart: Chart!
-
+    
     @IBOutlet var progress: YLProgressBar!
     
     @IBOutlet var percentLabel: UILabel!
@@ -24,17 +26,23 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
     
     @IBOutlet weak var movingLabel: UILabel!
     private var labelLeadingMarginInitialConstant: CGFloat!
-
+    
     var username: String = ""
+    var userId: Int = 0
     var monthlySteps = [Float]()
     var monthlyCaloriesBurned = [Float]()
     var monthlyWeight = [Float]()
     var targetCalories: Int? = nil
     var goalWeight: Double = 0
     var currentWeight: Double = 0
+    var caloriesIn = [Int]()
+    var caloriesOut = [Int]()
+    var miles = [Double]()
+    var steps = [Int]()
+    var logDate = [Int]()
     
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+    
     
     override func viewWillAppear(animated: Bool) {
         self.title = "Weight"
@@ -44,43 +52,16 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         NSThread.sleepForTimeInterval(0.05)
         super.viewDidLoad()
         parseJSONForGoalWeight()
-        
-//        monthlySteps.append(2522)
-//        monthlySteps.append(3000)
-//        monthlySteps.append(5000)
-//        monthlySteps.append(3500)
-//        monthlySteps.append(4000)
-//        monthlySteps.append(4500)
-//        monthlySteps.append(5700)
-//        monthlySteps.append(3200)
-//        monthlySteps.append(9000)
-//        monthlySteps.append(3600)
-//        monthlySteps.append(2522)
-//        monthlySteps.append(3000)
-//        monthlySteps.append(5000)
-//        monthlySteps.append(3500)
-//        monthlySteps.append(4000)
-//        monthlySteps.append(4500)
-//        monthlySteps.append(5700)
-//        monthlySteps.append(3200)
-//        monthlySteps.append(9000)
-//        monthlySteps.append(3600)
-//        monthlySteps.append(2522)
-//        monthlySteps.append(3000)
-//        monthlySteps.append(5000)
-//        monthlySteps.append(3500)
-//        monthlySteps.append(4000)
-//        monthlySteps.append(4500)
-//        monthlySteps.append(5700)
-//        monthlySteps.append(3200)
-//        monthlySteps.append(9000)
-//        monthlySteps.append(3600)
-        
+        parseProgressTable()
+
         computeCaloriesBurned()
         computeMonthlyWeight()
         
+        postWeightToProgress()
+        
+        
         init_progress_bar()
-
+        
         //init chart
         chart.delegate = self
         let series = ChartSeries(monthlyWeight)
@@ -95,13 +76,15 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         dataOutputMonth()
         NSThread.sleepForTimeInterval(0.05)
+        
+        
     }
     
     
@@ -194,7 +177,7 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
     
     func dataOutputMonth()->[Float]
     {
-                
+        
         HealthKitHelper().monthlySteps1() { stepLog, error in
             
             // Since there are 2112 steps in one mile, we will divide steps taken by 2112
@@ -324,6 +307,7 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                         targetCalories = jsonDataDictInfo["targetCalories"] as? Int
                         goalWeight = jsonDataDictInfo["goalWeight"] as! Double
                         currentWeight = jsonDataDictInfo["weight"] as! Double
+                        userId = jsonDataDictInfo["id"] as! Int
                     }
                     
                     i += 1
@@ -343,6 +327,119 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         }
     }
     
+    func parseProgressTable(){
+        
+        
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                
+                var jsonDataDictInfo: NSDictionary = NSDictionary()
+                
+                var i = 0
+                while (i < jsonDataArray.count)
+                {
+                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
+                    
+                    if userId == jsonDataDictInfo["userId"] as? Int
+                    {
+                        // Grabs data from the JSON and stores it into the appropriate variable
+                        caloriesIn.append((jsonDataDictInfo["caloriesIn"] as? Int)!)
+                        caloriesOut.append((jsonDataDictInfo["caloriesOut"] as? Int)!)
+                        miles.append((jsonDataDictInfo["miles"] as? Double)!)
+                        steps.append((jsonDataDictInfo["steps"] as? Int)!)
+                        logDate.append((jsonDataDictInfo["logDate"] as? Int)!)
+                    }
+                    
+                    i += 1
+                    
+                }
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+        
+    }
+    
+    func postWeightToProgress(){
+        
+        var i = 0
+        while(i < logDate.count)
+        {
+        
+            let temp = Double(monthlyWeight[i])
+            let tempRounded = round(100 * temp)/100
+            
+            //endpoint to database you want to post to
+            let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(logDate[i])"
+            
+            //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+            //Format is = "Field": value
+            let newPost = ["caloriesIn": caloriesIn[i], "caloriesOut":caloriesOut[i],"logDate":logDate[i],"miles":miles[i],"steps":steps[i],"userId":userId,"weight":tempRounded]
+            
+            //Creating the request to post the newPost JSON var.
+            Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
+                .responseJSON { response in
+                    guard response.result.error == nil else {
+                        // got an error in getting the data, need to handle it
+                        print("error calling GET on /posts/1")
+                        print(response.result.error!)
+                        return
+                    }
+                    
+                    if let value: AnyObject = response.result.value {
+                        // handle the results as JSON, without a bunch of nested if loops
+                        // this might not return anything here, but check the DB just in case. It might post anyway
+                        let post = JSON(value)
+                        print("The post is: " + post.description)
+                    }
+            }
+            
+        i += 1
+        
+        }
+    }
+    
     func init_progress_bar(){
         progress.type = YLProgressBarType.Rounded
         progress.progressTintColor  = UIColor(red: 41/255, green: 128/255, blue: 186/255, alpha: 1)
@@ -354,8 +451,8 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         
         let percentageNeeded = 100 - percentageCompleted
         percentLabel.text = "You are " + String(Int(percentageNeeded)) + "% away from your goal weight!"
-
-     
+        
+        
     }
     
     func calculatePercentageCompleted()->Double{
@@ -363,6 +460,11 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
             return currentWeight/goalWeight
         }
         return goalWeight/currentWeight
+    }
+    
+    func roundToPlaces(value: Double, decimalPlaces: Int) -> Double {
+        let divisor = pow(10.0, Double(decimalPlaces))
+        return round(value * divisor) / divisor
     }
     
 }

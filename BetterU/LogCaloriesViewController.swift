@@ -18,6 +18,9 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var nutritionFoodTableView: UITableView!
     @IBOutlet var barcodeButton: UIButton!
     
+    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
+    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     // These are API Keys from the USDA API. Free keys are available on their website.
     let usdaApiKey = "4niv8KdOlh2eILltqqldVhCoNsw62qKN6NiRPSo4"
     let usdaApiKey2 = "kpXNL7bTB0hPpWVSWNnPePhsHg0OnTforAKvJ7NE"
@@ -28,6 +31,17 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
     var itemNumberArray = [String]()
     var filteredFoodItemArray = [String]()
     var resultsSearchController = UISearchController()
+    
+    var userId = 0
+    
+    // Initialize variables for the PUT request
+    var caloriesIn = 0
+    var caloriesOut = 0
+    var miles = 0.0
+    var steps = 0
+    var weight = 0.0
+    var logDate = 0
+    var epochTime = 0
     
     var itemName = ""
     var itemNumber = ""
@@ -55,6 +69,9 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Grabs the user's ID upon entering the view
+        userId = applicationDelegate.userAccountInfo["id"] as! Int
+
         self.resultsSearchController = UISearchController(searchResultsController: nil)
         self.resultsSearchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
@@ -90,6 +107,13 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         refreshControl.subviews[0].frame = CGRectMake(screenWidth * 0.26, 30, 20, 20)
         
         removeLinesFromTable()
+        
+        let date: NSDate = NSDate()
+        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        
+        let newDate = cal.startOfDayForDate(date)
+        epochTime = Int(newDate.timeIntervalSince1970)
+        parseProgressForSpecificDate(epochTime)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -123,6 +147,63 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
+    func parseProgressForSpecificDate(dateInEpoch: Int)
+    {
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(dateInEpoch)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /*                  */
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                caloriesIn = jsonData["caloriesIn"] as! Int
+                caloriesOut = jsonData["caloriesOut"] as! Int
+                logDate = jsonData["logDate"] as! Int
+                miles = jsonData["miles"] as! Double
+                steps = jsonData["steps"] as! Int
+                weight = jsonData["weight"] as! Double
+
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+    }
     
     @IBAction func barcodeButtonTapped(sender: UIButton)
     {
@@ -357,7 +438,7 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
                         self.carbsValue = "0.0"
                     }
                     
-                    self.caloriesArray[i] = (self.setRecipeCalories(Double(self.proteinValue)!, fatValue: Double(self.fatValue)!, carbsValue: Double(self.carbsValue)!))
+                    self.caloriesArray[i] = (self.setFoodCalories(Double(self.proteinValue)!, fatValue: Double(self.fatValue)!, carbsValue: Double(self.carbsValue)!))
        
                     
                 }catch let error as NSError
@@ -387,14 +468,16 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
             caloriesEntered = String(0)
         }
         
+        caloriesEntered = String(Int(caloriesEntered)! + caloriesIn)
+        
         //don't forget to import Alamofire and SwiftyJSON
         
         //endpoint to database you want to post to
-        let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/5/1461110400"
+        let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(logDate)"
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["caloriesIn": caloriesEntered, "caloriesOut":200,"logDate":1461110400,"miles":2,"steps":2700,"userId":5,"weight":157]
+        let newPost = ["caloriesIn": caloriesEntered, "caloriesOut":caloriesOut,"logDate":logDate,"miles":miles,"steps":steps,"userId":userId,"weight":weight]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -414,16 +497,18 @@ class LogCaloriesViewController: UIViewController, UITableViewDelegate, UITableV
                 }
         }
         
+        self.tabBarController?.selectedIndex = 0
+        
     }
 
     
        
     //--------------------
-    // Set Recipe Calories
+    // Set Food Calories
     //--------------------
     
     // This function calculates the total calories per serving in a formula
-    func setRecipeCalories(proteinValue: Double, fatValue: Double, carbsValue: Double) -> String
+    func setFoodCalories(proteinValue: Double, fatValue: Double, carbsValue: Double) -> String
     {
         // Calculate the calories per serving from those 3 values
         var caloriesPerServing = 0.0

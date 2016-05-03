@@ -22,6 +22,16 @@ class HomeTableViewController: UITableViewController {
     
     var context: NSManagedObjectContext!
     var isAscending = true
+
+    // Initialize variables for the PUT request
+    var caloriesIn = 0
+    var caloriesOut = 0
+    var miles = 0.0
+    var steps = 0
+    var weight = 0.0
+    var logDate = 0
+    var epochTime = 0
+
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -32,6 +42,13 @@ class HomeTableViewController: UITableViewController {
         self.title = "Home"
         
         id = applicationDelegate.userAccountInfo["id"] as! Int
+        
+        let date: NSDate = NSDate()
+        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        
+        let newDate = cal.startOfDayForDate(date)
+        epochTime = Int(newDate.timeIntervalSince1970)
+        parseProgressForSpecificDate(epochTime)
         
         HealthKitHelper().recentSteps() { steps, error in
             
@@ -47,7 +64,7 @@ class HomeTableViewController: UITableViewController {
             let caloriesPerStep = caloriesBurnedPerMile/2112
             
             // Calculating calories burned by multiplying the total steps to calories burned per steps
-            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
+            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep + Double(self.caloriesOut)
             
             // Grabbing the necessary values and assigning it to a variable
             self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
@@ -58,6 +75,8 @@ class HomeTableViewController: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(HomeTableViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
+        
+       
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -154,11 +173,78 @@ class HomeTableViewController: UITableViewController {
         }
         
     }
+    
+    func parseProgressForSpecificDate(dateInEpoch: Int)
+    {
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(id)/\(dateInEpoch)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /*                  */
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                caloriesIn = jsonData["caloriesIn"] as! Int
+                caloriesOut = jsonData["caloriesOut"] as! Int
+                logDate = jsonData["logDate"] as! Int
+                miles = jsonData["miles"] as! Double
+                steps = jsonData["steps"] as! Int
+                weight = jsonData["weight"] as! Double
+                
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+    }
+
 
     
     func reloadTable(sender: AnyObject)
     {
         parseJson()
+        
+        let date: NSDate = NSDate()
+        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        
+        let newDate = cal.startOfDayForDate(date)
+        epochTime = Int(newDate.timeIntervalSince1970)
+        parseProgressForSpecificDate(epochTime)
         
         HealthKitHelper().recentSteps() { steps, error in
             
@@ -174,7 +260,7 @@ class HomeTableViewController: UITableViewController {
             let caloriesPerStep = caloriesBurnedPerMile/2112
             
             // Calculating calories burned by multiplying the total steps to calories burned per steps
-            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
+            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep + Double(self.caloriesOut)
             
             // Grabbing the necessary values and assigning it to a variable
             self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
@@ -286,6 +372,8 @@ class HomeTableViewController: UITableViewController {
             cell.valueLabel!.text = String(weightInLbs)
             cell.metricLabel!.text = "lbs"
             
+            cell.setNeedsLayout()
+            
             return cell
         }
         
@@ -295,8 +383,10 @@ class HomeTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("CaloricIntake")! as! CaloricIntakeTableViewCell
             
             cell.thumbnailImage!.image = UIImage(named: "bananaIcon")
-            cell.valueLabel!.text = String(0.0)
+            cell.valueLabel!.text = String(caloriesIn)
             cell.metricLabel!.text = "In"
+            
+            cell.setNeedsLayout()
             
             return cell
         }

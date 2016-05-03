@@ -40,6 +40,8 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
     var currentChallengesArray = [[String]]()
     var pastChallengesArray = [[String]]()
     
+    var refreshControl: UIRefreshControl!
+    
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -54,8 +56,20 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
         sectionSelected.append(false)
         sectionSelected.append(false)
         
-        parseDailyChallengesJson(0)
-        parseWeeklyChallengesJson(0)
+        if (dailyChallengeArray.count == 1)
+        {
+            parseDailyChallengesJson(1)
+        }
+        
+        if (dailyChallengeArray.count == 0)
+        {
+            parseDailyChallengesJson(0)
+        }
+        
+        if (weeklyChallengeArray.count < 1)
+        {
+            parseWeeklyChallengesJson()
+        }
         
         // Grabs the current and past challenges info from the plist
         var currentChallengesArrayFromPlist = applicationDelegate.savedChallengesDict["Current Challenges"] as! [[String]]
@@ -82,7 +96,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
             var p = 0
             while(p < currentChallengesArrayFromPlist[2].count)
             {
-      
+                
                 currentChallengePoints.append(Int(currentChallengesArrayFromPlist[2][p])!)
                 p = p + 1
             }
@@ -115,19 +129,214 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                 p = p + 1
             }
         }
+
+        let screenRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenRect.size.width;
+        refreshControl = UIRefreshControl(frame: CGRectMake(0, 0, 20, 20))
+        refreshControl.tintColor = UIColor(red: 41/255, green: 128/255, blue: 186/255, alpha: 1)
+        
+        refreshControl.addTarget(self, action: #selector(ChallengesViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(self.refreshControl)
+        
+        refreshControl.subviews[0].frame = CGRectMake(screenWidth * 0.25, 7, 20, 20)
+
+
+     
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
+        // Grabs the current and past challenges info from the plist
+        var currentChallengesArrayFromPlist = applicationDelegate.savedChallengesDict["Current Challenges"] as! [[String]]
+        var pastChallengesArrayFromPlist = applicationDelegate.savedChallengesDict["Past Challenges"] as! [[String]]
         
-        // If daily challenges have duplicates
-        while (self.dailyChallengeArray[0] == self.dailyChallengeArray[1])
+        currentChallengeArray.removeAll(keepCapacity: false)
+        currentChallengePoints.removeAll(keepCapacity: false)
+        currentChallengeType.removeAll(keepCapacity: false)
+        
+        pastChallengeArray.removeAll(keepCapacity: false)
+        pastChallengePoints.removeAll(keepCapacity: false)
+        pastChallengeType.removeAll(keepCapacity: false)
+        
+        // Only execute if there are items in the current challenges dictionary
+        if currentChallengesArrayFromPlist.count > 0
         {
-            self.dailyChallengeArray.removeAtIndex(1)
-            self.dailyChallengeType.removeAtIndex(1)
-            self.dailyChallengePoints.removeAtIndex(1)
-            self.parseDailyChallengesJson(1)
+            /* These actions executes by doing a loop within the dictionary and appends the item to the appropriate field */
+            var j = 0
+            while(j < currentChallengesArrayFromPlist[0].count)
+            {
+                currentChallengeArray.append(currentChallengesArrayFromPlist[0][j])
+                j = j + 1
+            }
+            
+            var k = 0
+            while(k < currentChallengesArrayFromPlist[1].count)
+            {
+                currentChallengeType.append(currentChallengesArrayFromPlist[1][k])
+                k = k + 1
+            }
+            
+            var p = 0
+            while(p < currentChallengesArrayFromPlist[2].count)
+            {
+                
+                currentChallengePoints.append(Int(currentChallengesArrayFromPlist[2][p])!)
+                p = p + 1
+            }
+            
         }
+        
+        // Only execute if the user has any items in the past challenges table
+        if pastChallengesArrayFromPlist.count > 0
+        {
+            /* These actions executes by doing a loop within the dictionary and appends the item to the appropriate field */
+            var j = 0
+            while(j < pastChallengesArrayFromPlist[0].count)
+            {
+                pastChallengeArray.append(pastChallengesArrayFromPlist[0][j])
+                j = j + 1
+            }
+            
+            var k = 0
+            while(k < pastChallengesArrayFromPlist[1].count)
+            {
+                pastChallengeType.append(pastChallengesArrayFromPlist[1][k])
+                k = k + 1
+            }
+            
+            var p = 0
+            while(p < pastChallengesArrayFromPlist[2].count)
+            {
+                
+                pastChallengePoints.append(Int(pastChallengesArrayFromPlist[2][p])!)
+                p = p + 1
+            }
+        }
+        
+        if (self.dailyChallengeArray.count > 1)
+        {
+            // If daily challenges have duplicates
+            while (self.dailyChallengeArray[0] == self.dailyChallengeArray[1])
+            {
+                self.dailyChallengeArray.removeAtIndex(1)
+                self.dailyChallengeType.removeAtIndex(1)
+                self.dailyChallengePoints.removeAtIndex(1)
+                self.parseDailyChallengesJson(1)
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(),
+        {
+            self.tableView.reloadData()
+        })
+    }
+    
+    func reloadTable(sender: AnyObject)
+    {
+        // Grabs the current and past challenges info from the plist
+        var currentChallengesArrayFromPlist = applicationDelegate.savedChallengesDict["Current Challenges"] as! [[String]]
+        var pastChallengesArrayFromPlist = applicationDelegate.savedChallengesDict["Past Challenges"] as! [[String]]
+        
+        currentChallengeArray.removeAll(keepCapacity: false)
+        currentChallengePoints.removeAll(keepCapacity: false)
+        currentChallengeType.removeAll(keepCapacity: false)
+        
+        pastChallengeArray.removeAll(keepCapacity: false)
+        pastChallengePoints.removeAll(keepCapacity: false)
+        pastChallengeType.removeAll(keepCapacity: false)
+        
+        // Only execute if there are items in the current challenges dictionary
+        if currentChallengesArrayFromPlist.count > 0
+        {
+            /* These actions executes by doing a loop within the dictionary and appends the item to the appropriate field */
+            var j = 0
+            while(j < currentChallengesArrayFromPlist[0].count)
+            {
+                currentChallengeArray.append(currentChallengesArrayFromPlist[0][j])
+                j = j + 1
+            }
+            
+            var k = 0
+            while(k < currentChallengesArrayFromPlist[1].count)
+            {
+                currentChallengeType.append(currentChallengesArrayFromPlist[1][k])
+                k = k + 1
+            }
+            
+            var p = 0
+            while(p < currentChallengesArrayFromPlist[2].count)
+            {
+                
+                currentChallengePoints.append(Int(currentChallengesArrayFromPlist[2][p])!)
+                p = p + 1
+            }
+            
+        }
+        
+        // Only execute if the user has any items in the past challenges table
+        if pastChallengesArrayFromPlist.count > 0
+        {
+            /* These actions executes by doing a loop within the dictionary and appends the item to the appropriate field */
+            var j = 0
+            while(j < pastChallengesArrayFromPlist[0].count)
+            {
+                pastChallengeArray.append(pastChallengesArrayFromPlist[0][j])
+                j = j + 1
+            }
+            
+            var k = 0
+            while(k < pastChallengesArrayFromPlist[1].count)
+            {
+                pastChallengeType.append(pastChallengesArrayFromPlist[1][k])
+                k = k + 1
+            }
+            
+            var p = 0
+            while(p < pastChallengesArrayFromPlist[2].count)
+            {
+                
+                pastChallengePoints.append(Int(pastChallengesArrayFromPlist[2][p])!)
+                p = p + 1
+            }
+        }
+        
+        if (weeklyChallengeArray.count < 1)
+        {
+            parseWeeklyChallengesJson()
+        }
+        
+        if (dailyChallengeArray.count == 1)
+        {
+            parseDailyChallengesJson(1)
+        }
+        
+        if (dailyChallengeArray.count == 0)
+        {
+            parseDailyChallengesJson(0)
+        }
+        
+        if (self.dailyChallengeArray.count > 1)
+        {
+            // If daily challenges have duplicates
+            while (self.dailyChallengeArray[0] == self.dailyChallengeArray[1])
+            {
+                self.dailyChallengeArray.removeAtIndex(1)
+                self.dailyChallengeType.removeAtIndex(1)
+                self.dailyChallengePoints.removeAtIndex(1)
+                self.parseDailyChallengesJson(1)
+            }
+        }
+
+        dispatch_async(dispatch_get_main_queue(),
+        {
+            self.tableView.reloadData()
+            
+            if (self.refreshControl.refreshing)
+            {
+                self.refreshControl.endRefreshing()
+            }
+        
+        })
     }
     
     func createUserChallengesData()
@@ -151,6 +360,89 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
             return
         }
         
+    }
+    
+    func completeChallengeCall(challengeType: String)
+    {
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.service.challenges.userindex/completeChallengeForUserId=\(userId)_\(challengeType)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+    }
+    
+    func vetoDailyChallengeCall(challengeType: String)
+    {
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.service.challenges.userindex/vetoDailyChallengeForUserId=\(userId)_\(challengeType)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /*                  */
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                if (dailyChallengeArray.count < 2)
+                {
+                    dailyChallengeArray.append(jsonData["description"] as! String)
+                    dailyChallengePoints.append(jsonData["pointsAwarded"] as! Int)
+                    dailyChallengeType.append(jsonData["challengeType"] as! String)
+                }
+                
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+
+
     }
     
     func parseDailyChallengesJson(limit: Int)
@@ -214,65 +506,61 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func parseWeeklyChallengesJson(limit: Int)
+    func parseWeeklyChallengesJson()
     {
-        var i = limit
-        while (i < 2) {
-            // Instantiate an API URL to return the JSON data
-            let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.service.challenges.userindex/setNextWeeklyChallengeForUserId=\(userId)"
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.service.challenges.userindex/setNextWeeklyChallengeForUserId=\(userId)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
             
-            // Convert URL to NSURL
-            let url = NSURL(string: restApiUrl)
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
             
-            var jsonData: NSData?
-            
-            do {
-                /*
-                 Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
-                 DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
-                 */
-                jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-            } catch let error as NSError
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /*                  */
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                //print(jsonData)
+                
+                weeklyChallengeArray.append(jsonData["description"] as! String)
+                weeklyChallengePoints.append(jsonData["pointsAwarded"] as! Int)
+                
+                
+            }catch let error as NSError
             {
                 print("Error in retrieving JSON data: \(error.localizedDescription)")
                 return
             }
+        }
             
-            if let jsonDataFromApiURL = jsonData
-            {
-                // The JSON data is successfully obtained from the API
-                
-                /*
-                 NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
-                 NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
-                 */
-                
-                do
-                {
-                    // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
-                    // any info from inside of the JSON.
-                    
-                    /*                  */
-                    let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-                    
-                    //print(jsonData)
-                    
-                    weeklyChallengeArray.append(jsonData["description"] as! String)
-                    weeklyChallengePoints.append(jsonData["pointsAwarded"] as! Int)
-                    
-                    
-                }catch let error as NSError
-                {
-                    print("Error in retrieving JSON data: \(error.localizedDescription)")
-                    return
-                }
-            }
-                
-            else
-            {
-                print("Error in retrieving JSON data!")
-            }
-            i = i + 1
+        else
+        {
+            print("Error in retrieving JSON data!")
         }
     }
     
@@ -314,6 +602,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
         return 1
     }
     
+    // Displays the cell information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let section: Int = indexPath.section
         let row: Int = indexPath.row
@@ -349,7 +638,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     cell.challengeTypeImg.image = UIImage(named: "absIcon")
                     break
                     
-                case "weekly":
+                case "Weekly":
                     cell.challengeTypeImg.image = UIImage(named: "weeklyChallengesIcon")
                     break
                     
@@ -417,7 +706,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     cell.challengeTypeImg.image = UIImage(named: "absIcon")
                     break
                     
-                case "weekly":
+                case "Weekly":
                     cell.challengeTypeImg.image = UIImage(named: "weeklyChallengesIcon")
                     break
                     
@@ -511,6 +800,20 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     self.applicationDelegate.savedChallengesDict.setValue(self.pastChallengesArray, forKey: "Past Challenges")
                     self.applicationDelegate.savedChallengesDict.setValue(self.currentChallengesArray, forKey: "Current Challenges")
                     
+                    if (challengeType == "Weekly" && self.weeklyChallengeArray.count < 1)
+                    {
+                        self.completeChallengeCall(challengeType)
+                        self.parseWeeklyChallengesJson()
+                    }
+                    else
+                    {
+                        if (self.dailyChallengeArray.count < 2)
+                        {
+                            self.completeChallengeCall(challengeType)
+                            self.parseDailyChallengesJson(1)
+                        }
+                    }
+                    
                     UIView.transitionWithView(tableView,
                         duration: 0.30,
                         options: .TransitionCrossDissolve,
@@ -525,7 +828,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                 // and the backend will let them grab a new one
                 alertController.addAction(UIAlertAction(title: "Remove it", style: .Default, handler: { (action: UIAlertAction!) in
                     self.currentChallengeArray.removeAtIndex(indexPath.row - 1)
-                    self.currentChallengeType.removeAtIndex(indexPath.row - 1)
+                    challengeType = self.currentChallengeType.removeAtIndex(indexPath.row - 1)
                     self.currentChallengePoints.removeAtIndex(indexPath.row - 1)
                     
                     if self.currentChallengesArray.count > 0
@@ -537,6 +840,12 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     
                     self.applicationDelegate.savedChallengesDict.setValue(self.currentChallengesArray, forKey: "Current Challenges")
 
+                    self.vetoDailyChallengeCall(challengeType)
+                    
+                    if (challengeType == "Weekly" && self.weeklyChallengeArray.count < 1)
+                    {
+                        self.parseWeeklyChallengesJson()
+                    }
                     
                     UIView.transitionWithView(tableView,
                         duration: 0.30,
@@ -590,17 +899,6 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     
                     self.sectionSelected[0] = true
                     
-                    self.parseDailyChallengesJson(1)
-                    
-                    // If daily challenges have duplicates
-                    while (self.dailyChallengeArray[0] == self.dailyChallengeArray[1])
-                    {
-                        self.dailyChallengeArray.removeAtIndex(1)
-                        self.dailyChallengeType.removeAtIndex(1)
-                        self.dailyChallengePoints.removeAtIndex(1)
-                        self.parseDailyChallengesJson(1)
-                    }
-                    
                     UIView.transitionWithView(tableView,
                         duration: 0.30,
                         options: .TransitionCrossDissolve,
@@ -618,7 +916,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
                 
-                // Weekly challenges cell
+            // Weekly challenges cell
             else if section == 2
             {
                 
@@ -631,7 +929,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     
                     // Removes the daily challenges from the index
                     challengeName = self.weeklyChallengeArray.removeAtIndex(indexPath.row - 1)
-                    challengeType = "weekly"
+                    challengeType = "Weekly"
                     challengePoints = String(self.weeklyChallengePoints.removeAtIndex(indexPath.row - 1))
                     
                     self.currentChallengeArray.append(challengeName)
@@ -643,9 +941,9 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     self.currentChallengesArray.append(self.currentChallengeType)
                     
                     let stringArray = self.currentChallengePoints.map(
-                        {
-                            (number: Int) -> String in
-                            return String(number)
+                    {
+                        (number: Int) -> String in
+                        return String(number)
                     })
                     
                     self.currentChallengesArray.append(stringArray)
@@ -653,7 +951,7 @@ class ChallengesViewController: UIViewController, UITableViewDataSource, UITable
                     self.applicationDelegate.savedChallengesDict.setValue(self.currentChallengesArray, forKey: "Current Challenges")
                     
                     self.sectionSelected[0] = true
-                    self.parseWeeklyChallengesJson(1)
+                    //self.parseWeeklyChallengesJson()
                     
                     UIView.transitionWithView(tableView,
                         duration: 0.30,

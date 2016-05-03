@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
 class NutritionDataFromBarcodeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate {
 
@@ -68,8 +70,25 @@ class NutritionDataFromBarcodeViewController: UIViewController, UITableViewDeleg
     
     var barcode = ""
     
+    // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
+    let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var userId = 0
+    
+    // Initialize variables for the PUT request
+    var caloriesIn = 0
+    var caloriesOut = 0
+    var miles = 0.0
+    var steps = 0
+    var weight = 0.0
+    var logDate = 0
+    var epochTime = 0
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userId = applicationDelegate.userAccountInfo["id"] as! Int
         
         // Adds a tap gesture to the scroll view to allow the keyboard's dismissal when tapping on the background
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NutritionDataFromBarcodeViewController.hideKeyboard(_:)))
@@ -138,12 +157,107 @@ class NutritionDataFromBarcodeViewController: UIViewController, UITableViewDeleg
         rightBarButton.customView = btnName
         self.customNavigationItem.rightBarButtonItem = rightBarButton
         
+        let date: NSDate = NSDate()
+        let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        
+        let newDate = cal.startOfDayForDate(date)
+        epochTime = Int(newDate.timeIntervalSince1970)
+        parseProgressForSpecificDate(epochTime)
+        
     }
+    
+    func parseProgressForSpecificDate(dateInEpoch: Int)
+    {
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(dateInEpoch)"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                /*                  */
+                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                caloriesIn = jsonData["caloriesIn"] as! Int
+                caloriesOut = jsonData["caloriesOut"] as! Int
+                logDate = jsonData["logDate"] as! Int
+                miles = jsonData["miles"] as! Double
+                steps = jsonData["steps"] as! Int
+                weight = jsonData["weight"] as! Double
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+    }
+
     
     // When the checkmark button is tapped, the user will be able to update their caloric intake
     func addCalories(sender: AnyObject)
     {
+        //endpoint to database you want to post to
+        let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(epochTime)"
+        
+        caloriesIn += Int(calories)!
+       
+        
+        //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+        //Format is = "Field": value
+        let newPost = ["caloriesIn": caloriesIn, "caloriesOut":caloriesOut,"logDate":logDate,"miles":miles,"steps":steps,"userId":userId,"weight":weight]
+        
+        //Creating the request to post the newPost JSON var.
+        Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
+            .responseJSON { response in
+                guard response.result.error == nil else {
+                    // got an error in getting the data, need to handle it
+                    print("error calling GET on /posts/1")
+                    print(response.result.error!)
+                    return
+                }
+                
+                if let value: AnyObject = response.result.value {
+                    // handle the results as JSON, without a bunch of nested if loops
+                    // this might not return anything here, but check the DB just in case. It might post anyway
+                    let post = JSON(value)
+                    print("The post is: " + post.description)
+                }
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
+
     }
 
     // Updates the nutritional table once the textfield has resigned to first responder
