@@ -1,8 +1,8 @@
 //
-//  WeeklyCaloricIntakeViewController.swift
+//  DailyCaloricIntakeViewController.swift
 //  BetterU
 //
-//  Created by Allan Chua on 4/19/16.
+//  Created by Allan Chua on 5/1/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ import UIKit
 import HealthKit
 
 
-class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITableViewDataSource, UITableViewDelegate {
+class DailyCaloricIntakeViewController: UIViewController, ChartDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var chart: Chart!
     @IBOutlet weak var progress: KDCircularProgress!
@@ -27,20 +27,25 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
     
     var calsIn: Float = 0
     var calsOut: Float = 0
-
+    
     var selectedChart = 0
     
     var CoolBeans = [Float]()
     var CoolBeans2 = [Float]()
-
+    
     var userId = 0
     var sumCalories: Float = 0
     
     var targetCalories: Double = 0
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    let startOfToday = NSCalendar.currentCalendar().startOfDayForDate(NSDate())
+    //print(dateFromString(startOfToday))
+    
     override func viewWillAppear(animated: Bool) {
         
+        //var CoolBeans:[Float] = [1000, 1200, 1400, 1300, 1400] //test set
+        //var CoolBeans2:[Float] = [1200, 900, 600, 700, 800] // test set
         //dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
@@ -59,22 +64,25 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         series.color = ChartColors.greenColor()
         series2.color = ChartColors.orangeColor()
         
-        series.area = true //Shading
+        series.area = true  //Shading
         series2.area = true
-        
+
         chart.addSeries(series)
         chart.addSeries(series2)
         
-        //  chart.xLabelsFormatter = "Day"
-        let labelsAsString = weekLabel()
         
-                    chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+        let labels: Array<Float> = [0,1,2,3]
+        chart.xLabels = labels
+        chart.labelFont = UIFont.systemFontOfSize(12)
+        chart.xLabelsTextAlignment = .Center
+        let labelsAsString = ["12AM", "6AM", "12PM", "6PM"]
+        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
         
         init_progress_bar()
+        
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,19 +91,20 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         
         userId = applicationDelegate.userAccountInfo["id"] as! Int
         
-        dataOutputWeek()
+        //targetCaloriesTest = applicationDelegate.userAccountInfo["Target Calories"] as! Int // added this
+        
+        dataOutputMonth()
         NSThread.sleepForTimeInterval(0.05)
         
         parseJSONForCaloriesIn()
         parseJSONForTargetCalories()
-        //init_progress_bar()
         
     }
     
     override func viewDidAppear(animated: Bool) {
         
     }
-    
+
     func init_progress_bar(){
         progress.startAngle = -90
         progress.progressThickness = 0.2
@@ -115,23 +124,22 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         progress.glowMode = .Forward
         progress.angle = 300
         
-
         let percentageCompleted = calculatePercentageCompleted() * 100
-        var weeklySumCalories:Double = Double(sumCalories)
-        percentShort.text = String(Int(weeklySumCalories)) + " / " + String(Int(targetCalories * 7))
+        var dailySumCalories:Double = Double(sumCalories)
+        percentShort.text = String(Int(dailySumCalories)) + " / " + String(Int(targetCalories))
         
         let calculatedAngle = (percentageCompleted/100) * 360
-        let calDifference = abs(targetCalories * 7 - weeklySumCalories)
+        let calDifference = abs(targetCalories - dailySumCalories)
         //If over 100%, then make graph red
         if(percentageCompleted > 100){
             progress.setColors(UIColor.redColor(), UIColor.whiteColor(), UIColor.redColor())
-            circleLabel.text = String(Int(calDifference)) + " calories over your weekly target"
-            
+            circleLabel.text = String(Int(calDifference)) + " calories over your daily target"
+
         } else{
             progress.setColors(UIColor.greenColor(), UIColor.whiteColor(), UIColor.greenColor())
-            circleLabel.text = String(Int(calDifference)) + " calories under your weekly target"
+            circleLabel.text = String(Int(calDifference)) + " calories under your daily target"
         }
-        
+
         //percent.text = "You are " + String(Int(percentageCompleted)) + "% away from your goal weight!"
         //view.addSubview(progress)
         //view.addSubview(percent)
@@ -146,6 +154,7 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                 print("animation stopped, was interrupted")
             }
         }
+        
     }
     
     func calculatePercentageCompleted()->Double{
@@ -153,9 +162,9 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         //   return currentWeight/goalWeight
         // }
         
-        var weeklySumCalories:Double = Double(sumCalories)
-   
-        return weeklySumCalories / (targetCalories * 7)
+        var dailySumCalories:Double = Double(sumCalories)
+        
+        return dailySumCalories / (targetCalories)
     }
     
     // This method calls from BetterU's REST API and parses its JSON information.
@@ -226,7 +235,7 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                 var jsonDataDictInfo: NSDictionary = NSDictionary()
                 
                 var i = 0
-                
+              
                 while (i < jsonDataArray.count)
                 {
                     jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
@@ -240,8 +249,9 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                             break
                         }
                     }
-                    
+
                     i += 1
+              
                 }
                 
             }catch let error as NSError
@@ -308,23 +318,37 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                     jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
                     
                     // Grabs data from the JSON and stores it into the appropriate variable
-                    
                     if(userId == (jsonDataDictInfo["userId"] as! Int) ){
+                        //startOfToday
+                        var dateIndex = (jsonDataDictInfo["logDate"] as! Double)
+                        var date = NSDate(timeIntervalSince1970: dateIndex)
                         
-                        calsIn = (Float)(jsonDataDictInfo["caloriesIn"] as! Double)
-                        calsOut = (Float)(jsonDataDictInfo["caloriesOut"] as! Double)
-                        
-                        calsInArray.append(calsIn)
-                        calsOutArray.append(calsOut)
-                        
-                        sumCalories += calsIn
-                        foundCount += 1
-                        
+                        //print(dateFromString(date))
+                        //print(dateFromString(startOfToday))
+                        //Only grabs data from today's date
+                        if(dateFromString(date) == dateFromString(startOfToday)){
+                            
+                            calsIn = (Float)(jsonDataDictInfo["caloriesIn"] as! Double)
+                            calsOut = (Float)(jsonDataDictInfo["caloriesOut"] as! Double)
+                            //calsInArray.append(calsIn)
+                            //calsOutArray.append(calsOut)
+                            sumCalories += calsIn
+                            foundCount += 1
+                            
+                            var j: Float = 1
+                            while(j <= 5){
+                                calsInArray.append(calsIn/5 * j)
+                                calsOutArray.append(calsOut/5 * j)
+                                j += 1
+                                print(calsInArray)
+                                print(calsOutArray)
+                            }
+                        }
                     }
                     
                     i += 1
                     
-                    if(i == jsonDataArray.count - 1){
+                    if(i == jsonDataArray.count){
                         break
                     }
                 }
@@ -332,9 +356,6 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                 CoolBeans = calsInArray
                 CoolBeans2 = calsOutArray
                 
-                //print(CoolBeans)
-                //print(CoolBeans2) 
-
             }catch let error as NSError
             {
                 print("Error in retrieving JSON data: \(error.localizedDescription)")
@@ -348,7 +369,7 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         }
         
     }
-
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -380,7 +401,7 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                 else{
                     label.text = numberFormatter.stringFromNumber(Int(abs(difference)))! + " calories gained"
                 }
-   
+                
                 // Align the label to the touch left position, centered
                 //var constant = labelLeadingMarginInitialConstant + left - (label.frame.width / 2)
                 
@@ -390,23 +411,22 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
                 //}
                 
                 // Avoid placing the label on the right of the chart
-             //   let rightMargin = chart.frame.width - label.frame.width
-             //   if constant > rightMargin {
-            //        constant = rightMargin
-            //    }
+                //   let rightMargin = chart.frame.width - label.frame.width
+                //   if constant > rightMargin {
+                //        constant = rightMargin
+                //    }
                 
                 //labelLeadingMarginConstraint.constant = constant
                 
             }
         }
-
+        
     }
     
     func didFinishTouchingChart(chart: Chart){
         label.text = ""
         //labelLeadingMarginConstraint.constant = labelLeadingMarginInitialConstant
     }
-    
     
     func dataOutputWeek()->[Float]
     {
@@ -496,14 +516,10 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
             let calendar = NSCalendar.currentCalendar()
             let startDate = calendar.dateByAddingUnit(.Day, value: count, toDate: NSDate().endOf(.Day), options: [])
             output.append(dateFromString(startDate!))
-            count += 7
+            count += 1
             
         }
         return output
     }
     
 }
-
-
-
-

@@ -487,6 +487,11 @@ class CustomTabBarController: UITabBarController {
         self.performSegueWithIdentifier("showWeightProgress", sender: self)
     }
     
+    func segueToCaloricIntakeProgressView()
+    {
+        hasOpenedProgress = true
+        self.performSegueWithIdentifier("showCaloricIntake", sender: self)
+    }
     
     // MARK: - Custom Navigation
     
@@ -517,6 +522,12 @@ class CustomTabBarController: UITabBarController {
         {
             let weightProgressViewController = segue.destinationViewController as! WeightViewController
             weightProgressViewController.hasOpenedProgress = self.hasOpenedProgress
+        }
+        
+        else if segue.identifier == "showCaloricIntake"
+        {
+            let caloricProgressView = segue.destinationViewController as! CaloricIntakeViewController
+            caloricProgressView.hasOpenedProgress = self.hasOpenedProgress
         }
     }
 }

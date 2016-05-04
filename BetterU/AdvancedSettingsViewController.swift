@@ -320,23 +320,12 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     {
         let row = indexPath.row
         
-        if row == 0
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier("pushNotifCell") as! PushNotificationTableViewCell
-            
-            cell.titleLabel!.text = "Push Notification"
-            
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("setActLvlCell")! as UITableViewCell
         
-        else
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier("setActLvlCell")! as UITableViewCell
-            
-            cell.textLabel!.text = "Set Activity Level"
-            
-            return cell
-        }
+        cell.textLabel!.text = "Set Activity Level"
+        
+        return cell
+    
         
     }
     

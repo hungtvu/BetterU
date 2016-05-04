@@ -403,40 +403,48 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
     
     func postWeightToProgress(){
         
-        var i = 0
-        while(i < logDate.count)
+        while monthlyWeight.count < logDate.count
         {
+            monthlyWeight.append(monthlyWeight[monthlyWeight.count - 1])
+        }
         
-            let temp = Double(monthlyWeight[i])
-            let tempRounded = round(100 * temp)/100
+        if monthlyWeight.count >= logDate.count {
+        
+            var i = 0
+            while(i < logDate.count)
+            {
             
-            //endpoint to database you want to post to
-            let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(logDate[i])"
+                let temp = Double(monthlyWeight[i])
+                let tempRounded = round(100 * temp)/100
+                
+                //endpoint to database you want to post to
+                let postsEndpoint: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress/\(userId)/\(logDate[i])"
+                
+                //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+                //Format is = "Field": value
+                let newPost = ["caloriesIn": caloriesIn[i], "caloriesOut":caloriesOut[i],"logDate":logDate[i],"miles":miles[i],"steps":steps[i],"userId":userId,"weight":tempRounded]
+                
+                //Creating the request to post the newPost JSON var.
+                Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
+                    .responseJSON { response in
+                        guard response.result.error == nil else {
+                            // got an error in getting the data, need to handle it
+                            print("error calling GET on /posts/1")
+                            print(response.result.error!)
+                            return
+                        }
+                        
+                        if let value: AnyObject = response.result.value {
+                            // handle the results as JSON, without a bunch of nested if loops
+                            // this might not return anything here, but check the DB just in case. It might post anyway
+                            let post = JSON(value)
+                            print("The post is: " + post.description)
+                        }
+                }
+                
+            i += 1
             
-            //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
-            //Format is = "Field": value
-            let newPost = ["caloriesIn": caloriesIn[i], "caloriesOut":caloriesOut[i],"logDate":logDate[i],"miles":miles[i],"steps":steps[i],"userId":userId,"weight":tempRounded]
-            
-            //Creating the request to post the newPost JSON var.
-            Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
-                .responseJSON { response in
-                    guard response.result.error == nil else {
-                        // got an error in getting the data, need to handle it
-                        print("error calling GET on /posts/1")
-                        print(response.result.error!)
-                        return
-                    }
-                    
-                    if let value: AnyObject = response.result.value {
-                        // handle the results as JSON, without a bunch of nested if loops
-                        // this might not return anything here, but check the DB just in case. It might post anyway
-                        let post = JSON(value)
-                        print("The post is: " + post.description)
-                    }
             }
-            
-        i += 1
-        
         }
     }
     

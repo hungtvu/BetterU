@@ -46,18 +46,23 @@ class CustomAlertProgressViewController: UIViewController, UITableViewDelegate, 
         switch(row) {
         case 0:
             cell!.textLabel!.text = "Calories Burned"
+            cell!.imageView?.image = UIImage(named: "CaloriesBurnedIcon")
             break
         case 1:
             cell!.textLabel!.text = "Steps Taken"
+            cell!.imageView?.image = UIImage(named: "StepsIcon")
             break
         case 2:
             cell!.textLabel!.text = "Miles Walked"
+            cell!.imageView?.image = UIImage(named: "runningManIcon")
             break
         case 3:
             cell!.textLabel!.text = "Weight"
+            cell!.imageView?.image = UIImage(named: "weightIcon")
             break
         case 4:
             cell!.textLabel!.text = "Caloric Intake"
+            cell!.imageView?.image = UIImage(named: "bananaIcon")
         default:
             cell!.textLabel!.text = "Error"
             break
@@ -117,7 +122,7 @@ class CustomAlertProgressViewController: UIViewController, UITableViewDelegate, 
                 }
                 else {
                     self.sender.selection = self.selection
-                    self.sender.segueToMilesWalkedProgressView()
+                    self.sender.segueToCaloricIntakeProgressView()
                 }
             }
         })

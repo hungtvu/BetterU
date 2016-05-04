@@ -54,10 +54,10 @@ class NutritionDataFromBarcodeViewController: UIViewController, UITableViewDeleg
     var calories = ""
     
     /* These API keys are generated from the nutritionIX API. We will need to use that API in order to get nutritional data from barcodes. */
-//    var appID = "53b1fdec"
-//    var apiKey = "6b5bad5a01843e74a28b2570ce697e84"
-    var appID = "5762d638"
-    var apiKey = "3b1bc72f9763713d5890af352c9dca56"
+    var appID = "53b1fdec"
+    var apiKey = "6b5bad5a01843e74a28b2570ce697e84"
+ //   var appID = "5762d638"
+  //  var apiKey = "3b1bc72f9763713d5890af352c9dca56"
     
     // Create and initialize instance variables
     var foodName: String = ""

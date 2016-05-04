@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */; };
 		0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */; };
-		0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */; };
 		0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0A63191CB38C0B00694CFC /* JournalViewController.swift */; };
 		0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A64A71CAEFC2500598EA0 /* HealthKitHelper.swift */; };
 		0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CF7CC1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift */; };
@@ -28,7 +27,6 @@
 		0A79C7961CADB85400DE9CD8 /* BetterUUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7951CADB85400DE9CD8 /* BetterUUITests.swift */; };
 		0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */; };
 		0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */; };
-		0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A79C7A91CADD59200DE9CD8 /* Main.storyboard */; };
 		0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */; };
 		0A92EAF31CC183B900A0275E /* FoodNutritionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EAF21CC183B800A0275E /* FoodNutritionViewController.swift */; };
 		0A92EAF51CC3168E00A0275E /* FoodBarcodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92EAF41CC3168E00A0275E /* FoodBarcodeReaderViewController.swift */; };
@@ -71,8 +69,6 @@
 		0AAD8C1C1CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C161CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift */; };
 		0AAD8C1D1CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C171CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift */; };
 		0AAD8C1E1CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C181CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift */; };
-		0AAD8C241CCF33C200AB039A /* CaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C221CCF33C200AB039A /* CaloricIntakeViewController.swift */; };
-		0AAD8C251CCF33C200AB039A /* WeeklyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C231CCF33C200AB039A /* WeeklyCaloricIntakeViewController.swift */; };
 		0AAD8C271CCFC40D00AB039A /* DailyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C261CCFC40D00AB039A /* DailyCaloriesViewController.swift */; };
 		0AAD8C291CCFC41800AB039A /* DailyCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C281CCFC41800AB039A /* DailyCaloriesTableViewCell.swift */; };
 		0AAD8C301CCFC44500AB039A /* StepsTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2A1CCFC44500AB039A /* StepsTakenViewController.swift */; };
@@ -90,6 +86,11 @@
 		0AAD8C481CD427FC00AB039A /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C451CD427FC00AB039A /* HeaderCell.swift */; };
 		0AAD8C4B1CD6797C00AB039A /* CurrentChallengesAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C4A1CD6797B00AB039A /* CurrentChallengesAlertViewController.swift */; };
 		0AAD8C4D1CD8013D00AB039A /* background_1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0AAD8C4C1CD8013D00AB039A /* background_1.mp4 */; };
+		0AAD8C571CDA5A6400AB039A /* CaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C521CDA5A6400AB039A /* CaloricIntakeViewController.swift */; };
+		0AAD8C581CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C531CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift */; };
+		0AAD8C591CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C541CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift */; };
+		0AAD8C5A1CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C551CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift */; };
+		0AAD8C5D1CDA5D6A00AB039A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AAD8C5C1CDA5D6A00AB039A /* Main.storyboard */; };
 		0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */; };
 		0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */; };
 		0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */; };
@@ -126,7 +127,6 @@
 /* Begin PBXFileReference section */
 		0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
-		0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		0A0A63191CB38C0B00694CFC /* JournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
 		0A4A64A41CAE582500598EA0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		0A4A64A61CAE582500598EA0 /* BetterU.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BetterU.entitlements; sourceTree = "<group>"; };
@@ -153,7 +153,6 @@
 		0A79C7971CADB85400DE9CD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A79C7A31CADCBD100DE9CD8 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		0A79C7A51CADCC6300DE9CD8 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
-		0A79C7A91CADD59200DE9CD8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0A79C7AB1CADDC4F00DE9CD8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		0A92EAF21CC183B800A0275E /* FoodNutritionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodNutritionViewController.swift; sourceTree = "<group>"; };
 		0A92EAF41CC3168E00A0275E /* FoodBarcodeReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodBarcodeReaderViewController.swift; sourceTree = "<group>"; };
@@ -198,8 +197,6 @@
 		0AAD8C161CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekCaloriesTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8C171CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCaloriesViewController.swift; sourceTree = "<group>"; };
 		0AAD8C181CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCaloriesViewController.swift; sourceTree = "<group>"; };
-		0AAD8C221CCF33C200AB039A /* CaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloricIntakeViewController.swift; sourceTree = "<group>"; };
-		0AAD8C231CCF33C200AB039A /* WeeklyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
 		0AAD8C261CCFC40D00AB039A /* DailyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesViewController.swift; sourceTree = "<group>"; };
 		0AAD8C281CCFC41800AB039A /* DailyCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8C2A1CCFC44500AB039A /* StepsTakenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTakenViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +214,11 @@
 		0AAD8C451CD427FC00AB039A /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		0AAD8C4A1CD6797B00AB039A /* CurrentChallengesAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentChallengesAlertViewController.swift; sourceTree = "<group>"; };
 		0AAD8C4C1CD8013D00AB039A /* background_1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background_1.mp4; sourceTree = "<group>"; };
+		0AAD8C521CDA5A6400AB039A /* CaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloricIntakeViewController.swift; sourceTree = "<group>"; };
+		0AAD8C531CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
+		0AAD8C541CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
+		0AAD8C551CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
+		0AAD8C5C1CDA5D6A00AB039A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealPlanViewController.swift; sourceTree = "<group>"; };
@@ -379,9 +381,9 @@
 				0AA2E55E1CB3170D005AA390 /* Profile Tab */,
 				0AAD8BFF1CCF1EFD00AB039A /* Challenges Tab */,
 				0A0A63181CB38BEF00694CFC /* Journal Tab */,
-				0A79C7A91CADD59200DE9CD8 /* Main.storyboard */,
 				0A79C77C1CADB85400DE9CD8 /* Assets.xcassets */,
 				0A79C77E1CADB85400DE9CD8 /* LaunchScreen.storyboard */,
+				0AAD8C5C1CDA5D6A00AB039A /* Main.storyboard */,
 				0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */,
 				0A5CF7CF1CB71F61005D1C4F /* SavedRecipes.plist */,
 				0AAD8C411CD427B200AB039A /* Challenges.plist */,
@@ -489,7 +491,6 @@
 				0AA2E55F1CB3172F005AA390 /* ProfileViewController.swift */,
 				0A0A63121CB341FD00694CFC /* EditProfileViewController.swift */,
 				0A0A63141CB3644800694CFC /* AdvancedSettingsViewController.swift */,
-				0A0A63161CB3686F00694CFC /* PushNotificationTableViewCell.swift */,
 				0A5CF7E11CBB1B05005D1C4F /* SetActivityLevelViewController.swift */,
 			);
 			name = "Profile Tab";
@@ -547,8 +548,10 @@
 		0AAD8C211CCF331500AB039A /* Caloric Intake View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0AAD8C221CCF33C200AB039A /* CaloricIntakeViewController.swift */,
-				0AAD8C231CCF33C200AB039A /* WeeklyCaloricIntakeViewController.swift */,
+				0AAD8C521CDA5A6400AB039A /* CaloricIntakeViewController.swift */,
+				0AAD8C531CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift */,
+				0AAD8C541CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift */,
+				0AAD8C551CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift */,
 			);
 			name = "Caloric Intake View Controllers";
 			sourceTree = "<group>";
@@ -726,7 +729,7 @@
 				0A92EB001CC4919F00A0275E /* SavedLoggedExercises.plist in Resources */,
 				0AAD8C421CD427B200AB039A /* Challenges.plist in Resources */,
 				0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */,
-				0A79C7AA1CADD59200DE9CD8 /* Main.storyboard in Resources */,
+				0AAD8C5D1CDA5D6A00AB039A /* Main.storyboard in Resources */,
 				0A92EB131CC9219F00A0275E /* SavedRecommendedExercises.plist in Resources */,
 				0AAD8C4D1CD8013D00AB039A /* background_1.mp4 in Resources */,
 				0A92EB291CCC7B7B00A0275E /* InfiniteCollectionViewCell.xib in Resources */,
@@ -805,8 +808,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AAD8C1D1CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift in Sources */,
-				0A0A63171CB3686F00694CFC /* PushNotificationTableViewCell.swift in Sources */,
-				0AAD8C241CCF33C200AB039A /* CaloricIntakeViewController.swift in Sources */,
 				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
 				0AEA2EEE1CB5A10B0058CCAD /* RecipeInfoViewController.swift in Sources */,
 				0AAD8C341CCFC44500AB039A /* WeekStepsTableViewCell.swift in Sources */,
@@ -816,6 +817,7 @@
 				0A92EB0E1CC816B100A0275E /* ExerciseMuscleViewController.swift in Sources */,
 				0A92EAFC1CC483F400A0275E /* ExerciseViewController.swift in Sources */,
 				0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */,
+				0AAD8C571CDA5A6400AB039A /* CaloricIntakeViewController.swift in Sources */,
 				0A92EB081CC8115200A0275E /* ParentExerciseInfoViewController.swift in Sources */,
 				1F782ED31CB314140073AA90 /* WelcomeScreenViewController.swift in Sources */,
 				0AA2E5521CB08F1B005AA390 /* StepsTableViewCell.swift in Sources */,
@@ -823,6 +825,7 @@
 				0A92EB021CC5864200A0275E /* MuscleGroupViewController.swift in Sources */,
 				0A5CF7F41CBC87B2005D1C4F /* LogCaloriesViewController.swift in Sources */,
 				0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */,
+				0AAD8C581CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift in Sources */,
 				0ADBAF881CB43AFE008D4C72 /* RecommendMealViewController.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
 				0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */,
@@ -862,6 +865,7 @@
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
 				0AA53C0C1CCF0EA300382F4D /* MonthMilesTableViewCell.swift in Sources */,
 				0AAD8C291CCFC41800AB039A /* DailyCaloriesTableViewCell.swift in Sources */,
+				0AAD8C591CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift in Sources */,
 				0A92EB1E1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift in Sources */,
 				0AAD8C321CCFC44500AB039A /* MonthlyStepsViewController.swift in Sources */,
 				0AAD8C271CCFC40D00AB039A /* DailyCaloriesViewController.swift in Sources */,
@@ -871,8 +875,8 @@
 				0A92EB061CC5BA6300A0275E /* ExercisesFromMuscleGroupTableViewController.swift in Sources */,
 				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,
 				0AA53C081CCF0E9000382F4D /* WeekMilesTableViewCell.swift in Sources */,
-				0AAD8C251CCF33C200AB039A /* WeeklyCaloricIntakeViewController.swift in Sources */,
 				0AAD8C0F1CCF212000AB039A /* WeeklyWeightViewController.swift in Sources */,
+				0AAD8C5A1CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift in Sources */,
 				0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */,
 				0AAD8C111CCF212000AB039A /* WeeklyWeightTableViewCell.swift in Sources */,
 				0AAD8C141CCF270500AB039A /* AccountDetailsViewController.swift in Sources */,

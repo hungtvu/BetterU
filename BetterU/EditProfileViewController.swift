@@ -46,6 +46,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     var gender = ""
     var heightFtCalculated = 0
     var heightInCalculated = 0
+    var points = 0
     
     // Initialize variables that are NOT needed to update from textfields. These, however, are required
     // to post back the accurate data that was unchanged to the backend database
@@ -346,6 +347,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
                 recipeIdSnacks = jsonDataDictInfo["snack"] as! String
                 recipeIdDinner = jsonDataDictInfo["dinner"] as! String
                 recipeIdLunch = jsonDataDictInfo["lunch"] as! String
+                points = jsonDataDictInfo["points"] as! Int
                 
             }catch let error as NSError
             {
@@ -361,7 +363,9 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
 
     }
     
-    @IBAction func editPhotoButtonTapped(sender: UIButton) {
+    @IBAction func editPhotoButtonTapped(sender: UIButton)
+    {
+       // performSegueWithIdentifier("ChoosePhoto", sender: self)
     }
    
     @IBAction func saveButtonTapped(sender: UIButton)
@@ -452,7 +456,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": points, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -474,6 +478,8 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         applicationDelegate.userAccountInfo.setValue(Int(weightToUse), forKey: "User Weight")
         self.navigationController?.popToRootViewControllerAnimated(true)
     }
+    
+    
     
     /*
      --------------------------------------------------
