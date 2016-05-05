@@ -50,17 +50,18 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     var recipeIdDinner = ""
     var recipeIdSnacks = ""
     var recipeIdLunch = ""
-    
+    var points = 0
+    var goalType = 0
+    var targetCalories = 0
     var heightInches = ""
     var heightFt = ""
+    var photo = ""
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         saveButton.layer.cornerRadius = 8
-        
-        
         
         // Grabbing variables from the plist
         email = applicationDelegate.userAccountInfo["Email"] as! String
@@ -185,6 +186,10 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
                 recipeIdSnacks = jsonDataDictInfo["snack"] as! String
                 recipeIdDinner = jsonDataDictInfo["dinner"] as! String
                 recipeIdLunch = jsonDataDictInfo["lunch"] as! String
+                points = jsonDataDictInfo["points"] as! Int
+                targetCalories = jsonDataDictInfo["targetCalories"] as! Int
+                goalType = jsonDataDictInfo["goalType"] as! Int
+                photo = jsonDataDictInfo["photo"] as! String
  
                 
             }catch let error as NSError
@@ -260,7 +265,7 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": emailToUse, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeightToUse, "height": height, "id": id, "lastName": lastName, "password": newPasswordToUse, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weight, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": emailToUse, "firstName": firstName, "gender": gender, "goalType": goalType, "goalWeight": goalWeightToUse, "height": height, "id": id, "lastName": lastName, "password": newPasswordToUse, "points": points, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": targetCalories, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weight, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks, "photo": photo]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)
@@ -309,7 +314,7 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     // Number of rows in a given country (section) = Number of Cities in the given country (section)
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 2
+        return 1
     }
     
     //-------------------------------------
@@ -318,15 +323,11 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let row = indexPath.row
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("setActLvlCell")! as UITableViewCell
         
         cell.textLabel!.text = "Set Activity Level"
         
         return cell
-    
-        
     }
     
     /*
@@ -342,12 +343,7 @@ class AdvancedSettingsViewController: UIViewController, UITextFieldDelegate {
     // Tapping a row displays another view
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let row = indexPath.row
-        
-        if row == 1
-        {
-            performSegueWithIdentifier("setActivityLevel", sender: self)
-        }
+        performSegueWithIdentifier("setActivityLevel", sender: self)
     }
 
     

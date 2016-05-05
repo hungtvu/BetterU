@@ -17,7 +17,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     @IBOutlet weak var chart: Chart!
     
     @IBOutlet var progress: YLProgressBar!
-
+    
     
     @IBOutlet var progressLabel: UILabel!
     
@@ -27,7 +27,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     var username: String = ""
     var goalWeight: Double = 0
     var currentWeight: Double = 0
-    var caloriesIn: Int? = nil
+    var caloriesIn = [Int]()
     var caloriesOut: Int? = nil
     var targetCalories: Int? = nil
     var date: String? = nil
@@ -36,7 +36,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     var weeklyCaloriesBurned = [Float]()
     var weeklyCaloriesConsumed = [Float]()
     private var labelLeadingMarginInitialConstant: CGFloat!
-
+    
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet var labelLeadingMarginConstraint: NSLayoutConstraint!
@@ -45,29 +45,34 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     @IBOutlet weak var movingLabel: UILabel!
     
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+    
     
     
     override func viewDidLoad() {
-        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
-
         super.viewDidLoad()
-        
-        self.title = "Weight"
-        
-    
-        username = applicationDelegate.userAccountInfo.valueForKey("Username") as! String
-        userId = applicationDelegate.userAccountInfo["id"] as! Int
-        
-        parseJSONForWeight()
-        
-        progress.setProgress(0, animated: true)
-        init_progress_bar()
-        
         computeWeeklySteps()
         NSThread.sleepForTimeInterval(0.05)
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.title = "Weight"
+        username = applicationDelegate.userAccountInfo.valueForKey("Username") as! String
+        userId = applicationDelegate.userAccountInfo["id"] as! Int
+        computeWeeklySteps()
+        labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
+        NSThread.sleepForTimeInterval(0.05)
+        super.viewDidLoad()
+        currentWeight = Double(applicationDelegate.userAccountInfo.valueForKey("User Weight") as! NSNumber)
+        parseJSONForWeight()
+        parseProgressTable()
+        
+        //progress.setProgress(0, animated: true)
+        
         computeCaloriesBurned()
         computeWeeklyWeight()
+        
+        init_progress_bar()
         
         //init chart
         chart.delegate = self
@@ -99,7 +104,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         
         let percentageNeeded = 100 - percentageCompleted
         progressLabel.text = "You are " + String(Int(percentageNeeded)) + "% away from your goal weight!"
-
+        
     }
     
     func calculatePercentageCompleted()->Double{
@@ -113,7 +118,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     func parseJSONForWeight()
     {
         // Instantiate an API URL to return the JSON data
-        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user/\(userId)"
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.user"
         
         // Convert URL to NSURL
         let url = NSURL(string: restApiUrl)
@@ -172,14 +177,24 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
                  weight = 155;
                  },
                  */
-                let jsonDataDictInfo = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
                 
+                var jsonDataDictInfo: NSDictionary = NSDictionary()
+                
+                var i = 0
+                while (i < jsonDataArray.count)
+                {
+                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
                     
-                if username == jsonDataDictInfo!["username"] as? String {
-                    // Grabs data from the JSON and stores it into the appropriate variable
-                    targetCalories = jsonDataDictInfo!["targetCalories"] as? Int
-                    goalWeight = jsonDataDictInfo!["goalWeight"] as! Double
-                    currentWeight = jsonDataDictInfo!["weight"] as! Double
+                    if username == jsonDataDictInfo["username"] as! String {
+                        // Grabs data from the JSON and stores it into the appropriate variable
+                        targetCalories = jsonDataDictInfo["targetCalories"] as? Int
+                        goalWeight = jsonDataDictInfo["goalWeight"] as! Double
+                        userId = jsonDataDictInfo["id"] as! Int
+                    }
+                    
+                    i += 1
+                    
                 }
                 
             }catch let error as NSError
@@ -195,6 +210,82 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         }
     }
     
+    func parseProgressTable(){
+        
+        
+        // Instantiate an API URL to return the JSON data
+        let restApiUrl = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+        
+        // Convert URL to NSURL
+        let url = NSURL(string: restApiUrl)
+        
+        var jsonData: NSData?
+        
+        do {
+            /*
+             Try getting the JSON data from the URL and map it into virtual memory, if possible and safe.
+             DataReadingMappedIfSafe indicates that the file should be mapped into virtual memory, if possible and safe.
+             */
+            jsonData = try NSData(contentsOfURL: url!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError
+        {
+            print("Error in retrieving JSON data: \(error.localizedDescription)")
+            return
+        }
+        
+        if let jsonDataFromApiURL = jsonData
+        {
+            // The JSON data is successfully obtained from the API
+            
+            /*
+             NSJSONSerialization class is used to convert JSON and Foundation objects (e.g., NSDictionary) into each other.
+             NSJSONSerialization class's method JSONObjectWithData returns an NSDictionary object from the given JSON data.
+             */
+            
+            do
+            {
+                // Grabs all of the JSON data info as an array. NOTE, this stores ALL of the info, it does NOT have
+                // any info from inside of the JSON.
+                
+                let jsonDataArray = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                
+                var jsonDataDictInfo: NSDictionary = NSDictionary()
+                
+                var i = 0
+                var j = 0
+                while (i < jsonDataArray.count)
+                {
+                    jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
+                    
+                    if userId == jsonDataDictInfo["userId"] as? Int
+                    {
+                        if caloriesIn.count == 7 {
+                            break
+                        }
+                        // Grabs data from the JSON and stores it into the appropriate variable
+                        caloriesIn.append((jsonDataDictInfo["caloriesIn"] as? Int)!)
+                        j+=1
+                    }
+                    
+                    i += 1
+                    
+                }
+                
+            }catch let error as NSError
+            {
+                print("Error in retrieving JSON data: \(error.localizedDescription)")
+                return
+            }
+        }
+            
+        else
+        {
+            print("Error in retrieving JSON data!")
+        }
+        
+    }
+    
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -205,13 +296,12 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
         let cell: WeeklyWeightTableViewCell = tableView.dequeueReusableCellWithIdentifier("WeeklyWeightCell") as! WeeklyWeightTableViewCell
         
         let date = weekLabel()
-
+        
         //let weight = weeklyWeight[indexPath.row]
         let weight = weeklyWeight[weeklyWeight.count - 1 - indexPath.row]
         //cell.date.text = date[indexPath.row]
         cell.date.text = date[date.count - 1 - indexPath.row]
         cell.weight.text = String.localizedStringWithFormat("%.2f", weight) + "lbs"
-        
         
         return cell
     }
@@ -243,7 +333,7 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
                 
             }
         }
-
+        
         
     }
     
@@ -264,17 +354,21 @@ class WeeklyWeightViewController: UIViewController, ChartDelegate, UITableViewDa
     
     func computeWeeklyWeight(){
         
-        for caloriesBurned in weeklyCaloriesBurned{
-            
-            let calorieChange = Float(targetCalories!) - caloriesBurned
+        var i = 0
+        var weight = self.currentWeight
+        while i < weeklyCaloriesBurned.count {
+            let calorieChange = Float(caloriesIn[i]) - weeklyCaloriesBurned[i]
             let poundChange = abs(calorieChange)/3500
             if calorieChange < 0 {
-                currentWeight = currentWeight - Double(poundChange)
+                weight = weight - Double(poundChange)
             }else{
-                currentWeight = currentWeight + Double(poundChange)
+                weight = weight + Double(poundChange)
             }
-            weeklyWeight.append(Float(currentWeight))
+            weeklyWeight.append(Float(weight))
+            i+=1
         }
+        
+        //self.currentWeight = Double(weeklyWeight[weeklyWeight.count-1])
         
     }
     

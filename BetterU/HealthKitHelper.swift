@@ -304,6 +304,96 @@ class HealthKitHelper
         healthKitStore.executeQuery(query)
         
     }
+    func monthlySteps2(completion: ([Float], NSError?) -> ())
+    {
+        let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+        //  let calendarMid: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        //  let date: NSDate = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        var stepLog = [Float]()
+        
+        // let startDate = calendarMid.dateBySettingHour(0,minute: 0,second: 0,ofDate: date, options: NSCalendarOptions())!
+        let startDate1 = calendar.dateByAddingUnit(.Day, value: -120, toDate: NSDate().endOf(.Month), options: [])
+        
+        let interval = NSDateComponents()
+        interval.day = 7
+        
+        let predicate = HKQuery.predicateForSamplesWithStartDate(startDate1, endDate: NSDate().endOf(.Month), options: .StrictStartDate)
+        let query = HKStatisticsCollectionQuery(quantityType: type!, quantitySamplePredicate: predicate, options: [.CumulativeSum], anchorDate: NSDate().endOf(.Day), intervalComponents:interval)
+        
+        query.initialResultsHandler = { query, results, error in
+            
+            
+            let endDate = NSDate().endOf(.Month)
+            // let calendarMid: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let calendar = NSCalendar.currentCalendar()
+            //   let date = calendarMid.dateBySettingHour(0,minute: 0,second: 0,ofDate: NSDate(), options: NSCalendarOptions())!
+            let startDate = calendar.dateByAddingUnit(.Day, value: -120, toDate: NSDate().endOf(.Month), options: [])
+            if let myResults = results{
+                myResults.enumerateStatisticsFromDate(startDate!, toDate: endDate) {
+                    statistics, stop in
+                    
+                    if let quantity = statistics.sumQuantity() {
+                        
+                        //let date = statistics.startDate
+                        let steps = quantity.doubleValueForUnit(HKUnit.countUnit())
+                        stepLog.append(Float(steps))
+                        print(stepLog.count)
+                        //print("\(date): steps = \(steps)")
+                    }
+                }
+            }
+            completion(stepLog, error)
+        }
+        
+        healthKitStore.executeQuery(query)
+        
+    }
+    func monthlySteps3(completion: ([Float], NSError?) -> ())
+    {
+        let type = HKSampleType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+        //  let calendarMid: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        //  let date: NSDate = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        var stepLog = [Float]()
+        
+        // let startDate = calendarMid.dateBySettingHour(0,minute: 0,second: 0,ofDate: date, options: NSCalendarOptions())!
+        let startDate1 = calendar.dateByAddingUnit(.Day, value: -120, toDate: NSDate().endOf(.Month), options: [])
+        
+        let interval = NSDateComponents()
+        interval.day = 1
+        
+        let predicate = HKQuery.predicateForSamplesWithStartDate(startDate1, endDate: NSDate().endOf(.Month), options: .StrictStartDate)
+        let query = HKStatisticsCollectionQuery(quantityType: type!, quantitySamplePredicate: predicate, options: [.CumulativeSum], anchorDate: NSDate().endOf(.Day), intervalComponents:interval)
+        
+        query.initialResultsHandler = { query, results, error in
+            
+            
+            let endDate = NSDate().endOf(.Month)
+            // let calendarMid: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let calendar = NSCalendar.currentCalendar()
+            //   let date = calendarMid.dateBySettingHour(0,minute: 0,second: 0,ofDate: NSDate(), options: NSCalendarOptions())!
+            let startDate = calendar.dateByAddingUnit(.Day, value: -120, toDate: NSDate().endOf(.Month), options: [])
+            if let myResults = results{
+                myResults.enumerateStatisticsFromDate(startDate!, toDate: endDate) {
+                    statistics, stop in
+                    
+                    if let quantity = statistics.sumQuantity() {
+                        
+                        //let date = statistics.startDate
+                        let steps = quantity.doubleValueForUnit(HKUnit.countUnit())
+                        stepLog.append(Float(steps))
+                        print(stepLog.count)
+                        //print("\(date): steps = \(steps)")
+                    }
+                }
+            }
+            completion(stepLog, error)
+        }
+        
+        healthKitStore.executeQuery(query)
+        
+    }
     
     func weeklySteps(completion: ([Float], NSError?) -> ())
         

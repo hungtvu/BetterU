@@ -38,7 +38,7 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         
-        super.viewDidLoad()
+
         self.title = "Home"
         
         id = applicationDelegate.userAccountInfo["id"] as! Int
@@ -49,7 +49,7 @@ class HomeTableViewController: UITableViewController {
         let newDate = cal.startOfDayForDate(date)
         epochTime = Int(newDate.timeIntervalSince1970)
         parseProgressForSpecificDate(epochTime)
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),{
         HealthKitHelper().recentSteps() { steps, error in
             
             // Since there are 2112 steps in one mile, we will divide steps taken by 2112
@@ -70,14 +70,52 @@ class HomeTableViewController: UITableViewController {
             self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
             self.totalMilesWalked = round(milesFromSteps * 100)/100
             self.stepsCount = Int(steps)
+            NSThread.sleepForTimeInterval(0.1)
         }
+        })
+        HealthKitHelper().recentSteps() { steps, error in
+            
+            // Since there are 2112 steps in one mile, we will divide steps taken by 2112
+            let milesFromSteps: Double = steps/2112
+            
+            // Calculate the amount of calories burned per mile
+            // By multiplying the user's weight by 0.57, we can get that.
+            // That 0.57 is based on a formula that calculates calories when a person walks a casual pace of 2 mph
+            let caloriesBurnedPerMile = 0.57 * Double(self.weightInLbs)
+            
+            // Divide the number of calories that are burned per mile by number of steps to walk a mile
+            let caloriesPerStep = caloriesBurnedPerMile/2112
+            
+            // Calculating calories burned by multiplying the total steps to calories burned per steps
+            let totalCaloriesBurnedFromSteps = steps * caloriesPerStep + Double(self.caloriesOut)
+            
+            // Grabbing the necessary values and assigning it to a variable
+            self.totalCaloriesBurned = round(totalCaloriesBurnedFromSteps * 10)/10
+            self.totalMilesWalked = round(milesFromSteps * 100)/100
+            self.stepsCount = Int(steps)
+            NSThread.sleepForTimeInterval(0.1)
+        }
+        dispatch_async(dispatch_get_main_queue(),
+                       {
+                        
+                        self.tableView.reloadData()
+                        
+                        if (self.refreshControl!.refreshing)
+                        {
+                            self.refreshControl!.endRefreshing()
+                        }
+                        
+        })
+          NSThread.sleepForTimeInterval(0.1)
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(HomeTableViewController.reloadTable(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
-        
+         NSThread.sleepForTimeInterval(0.1)
+                super.viewDidLoad()
        
     }
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)

@@ -54,30 +54,13 @@
 		0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E5571CB0955B005AA390 /* CaloricIntakeTableViewCell.swift */; };
 		0AA2E55A1CB19BD7005AA390 /* UserAccountInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */; };
 		0AA2E5601CB3172F005AA390 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA2E55F1CB3172F005AA390 /* ProfileViewController.swift */; };
-		0AA53C041CCF0E7000382F4D /* DailyMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA53C031CCF0E7000382F4D /* DailyMilesTableViewCell.swift */; };
-		0AA53C061CCF0E8200382F4D /* WeeklyMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA53C051CCF0E8200382F4D /* WeeklyMilesViewController.swift */; };
-		0AA53C081CCF0E9000382F4D /* WeekMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA53C071CCF0E9000382F4D /* WeekMilesTableViewCell.swift */; };
-		0AA53C0A1CCF0E9D00382F4D /* MonthMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA53C091CCF0E9D00382F4D /* MonthMilesViewController.swift */; };
-		0AA53C0C1CCF0EA300382F4D /* MonthMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA53C0B1CCF0EA300382F4D /* MonthMilesTableViewCell.swift */; };
 		0AAD8C0E1CCF212000AB039A /* WeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C091CCF212000AB039A /* WeightViewController.swift */; };
 		0AAD8C0F1CCF212000AB039A /* WeeklyWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C0A1CCF212000AB039A /* WeeklyWeightViewController.swift */; };
 		0AAD8C101CCF212000AB039A /* MonthlyWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C0B1CCF212000AB039A /* MonthlyWeightViewController.swift */; };
 		0AAD8C111CCF212000AB039A /* WeeklyWeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C0C1CCF212000AB039A /* WeeklyWeightTableViewCell.swift */; };
 		0AAD8C121CCF212000AB039A /* MonthlyWeightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C0D1CCF212000AB039A /* MonthlyWeightTableViewCell.swift */; };
 		0AAD8C141CCF270500AB039A /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C131CCF270500AB039A /* AccountDetailsViewController.swift */; };
-		0AAD8C1B1CCF2CCA00AB039A /* MonthCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C151CCF2CCA00AB039A /* MonthCaloriesTableViewCell.swift */; };
-		0AAD8C1C1CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C161CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift */; };
-		0AAD8C1D1CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C171CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift */; };
-		0AAD8C1E1CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C181CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift */; };
-		0AAD8C271CCFC40D00AB039A /* DailyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C261CCFC40D00AB039A /* DailyCaloriesViewController.swift */; };
-		0AAD8C291CCFC41800AB039A /* DailyCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C281CCFC41800AB039A /* DailyCaloriesTableViewCell.swift */; };
 		0AAD8C301CCFC44500AB039A /* StepsTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2A1CCFC44500AB039A /* StepsTakenViewController.swift */; };
-		0AAD8C311CCFC44500AB039A /* WeeklyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2B1CCFC44500AB039A /* WeeklyStepsViewController.swift */; };
-		0AAD8C321CCFC44500AB039A /* MonthlyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2C1CCFC44500AB039A /* MonthlyStepsViewController.swift */; };
-		0AAD8C341CCFC44500AB039A /* WeekStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2E1CCFC44500AB039A /* WeekStepsTableViewCell.swift */; };
-		0AAD8C351CCFC44500AB039A /* MonthStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C2F1CCFC44500AB039A /* MonthStepsTableViewCell.swift */; };
-		0AAD8C371CCFC45C00AB039A /* DailyMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C361CCFC45C00AB039A /* DailyMilesViewController.swift */; };
-		0AAD8C391CCFD17100AB039A /* DailyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C381CCFD17100AB039A /* DailyStepsViewController.swift */; };
 		0AAD8C3B1CCFDB8300AB039A /* ChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C3A1CCFDB8300AB039A /* ChallengesViewController.swift */; };
 		0AAD8C401CD06C9C00AB039A /* CustomAlertProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C3F1CD06C9C00AB039A /* CustomAlertProgressViewController.swift */; };
 		0AAD8C421CD427B200AB039A /* Challenges.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AAD8C411CD427B200AB039A /* Challenges.plist */; };
@@ -91,6 +74,23 @@
 		0AAD8C591CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C541CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift */; };
 		0AAD8C5A1CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C551CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift */; };
 		0AAD8C5D1CDA5D6A00AB039A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AAD8C5C1CDA5D6A00AB039A /* Main.storyboard */; };
+		0AAD8C641CDA663000AB039A /* MonthCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C5E1CDA663000AB039A /* MonthCaloriesTableViewCell.swift */; };
+		0AAD8C651CDA663000AB039A /* WeekCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C5F1CDA663000AB039A /* WeekCaloriesTableViewCell.swift */; };
+		0AAD8C661CDA663000AB039A /* WeeklyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C601CDA663000AB039A /* WeeklyCaloriesViewController.swift */; };
+		0AAD8C671CDA663000AB039A /* MonthlyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C611CDA663000AB039A /* MonthlyCaloriesViewController.swift */; };
+		0AAD8C681CDA663000AB039A /* DailyCaloriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C621CDA663000AB039A /* DailyCaloriesViewController.swift */; };
+		0AAD8C691CDA663000AB039A /* DailyCaloriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C631CDA663000AB039A /* DailyCaloriesTableViewCell.swift */; };
+		0AAD8C6F1CDA665E00AB039A /* WeeklyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C6A1CDA665E00AB039A /* WeeklyStepsViewController.swift */; };
+		0AAD8C701CDA665E00AB039A /* MonthlyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C6B1CDA665E00AB039A /* MonthlyStepsViewController.swift */; };
+		0AAD8C711CDA665E00AB039A /* DailyStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C6C1CDA665E00AB039A /* DailyStepsViewController.swift */; };
+		0AAD8C721CDA665E00AB039A /* WeekStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C6D1CDA665E00AB039A /* WeekStepsTableViewCell.swift */; };
+		0AAD8C731CDA665E00AB039A /* MonthStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C6E1CDA665E00AB039A /* MonthStepsTableViewCell.swift */; };
+		0AAD8C7A1CDA666E00AB039A /* MonthMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C741CDA666E00AB039A /* MonthMilesViewController.swift */; };
+		0AAD8C7B1CDA666E00AB039A /* MonthMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C751CDA666E00AB039A /* MonthMilesTableViewCell.swift */; };
+		0AAD8C7C1CDA666E00AB039A /* WeeklyMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C761CDA666E00AB039A /* WeeklyMilesViewController.swift */; };
+		0AAD8C7D1CDA666E00AB039A /* WeekMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C771CDA666E00AB039A /* WeekMilesTableViewCell.swift */; };
+		0AAD8C7E1CDA666E00AB039A /* DailyMilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C781CDA666E00AB039A /* DailyMilesViewController.swift */; };
+		0AAD8C7F1CDA666E00AB039A /* DailyMilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAD8C791CDA666E00AB039A /* DailyMilesTableViewCell.swift */; };
 		0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */; };
 		0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */; };
 		0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */; };
@@ -181,11 +181,6 @@
 		0AA2E5571CB0955B005AA390 /* CaloricIntakeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloricIntakeTableViewCell.swift; sourceTree = "<group>"; };
 		0AA2E5591CB19BD7005AA390 /* UserAccountInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UserAccountInfo.plist; path = ../UserAccountInfo.plist; sourceTree = "<group>"; };
 		0AA2E55F1CB3172F005AA390 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		0AA53C031CCF0E7000382F4D /* DailyMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyMilesTableViewCell.swift; sourceTree = "<group>"; };
-		0AA53C051CCF0E8200382F4D /* WeeklyMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyMilesViewController.swift; sourceTree = "<group>"; };
-		0AA53C071CCF0E9000382F4D /* WeekMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekMilesTableViewCell.swift; sourceTree = "<group>"; };
-		0AA53C091CCF0E9D00382F4D /* MonthMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMilesViewController.swift; sourceTree = "<group>"; };
-		0AA53C0B1CCF0EA300382F4D /* MonthMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMilesTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8BFE1CCF1DB800AB039A /* BetterU-Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BetterU-Bridge-Header.h"; sourceTree = "<group>"; };
 		0AAD8C091CCF212000AB039A /* WeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightViewController.swift; sourceTree = "<group>"; };
 		0AAD8C0A1CCF212000AB039A /* WeeklyWeightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyWeightViewController.swift; sourceTree = "<group>"; };
@@ -193,19 +188,7 @@
 		0AAD8C0C1CCF212000AB039A /* WeeklyWeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyWeightTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8C0D1CCF212000AB039A /* MonthlyWeightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyWeightTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8C131CCF270500AB039A /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
-		0AAD8C151CCF2CCA00AB039A /* MonthCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthCaloriesTableViewCell.swift; sourceTree = "<group>"; };
-		0AAD8C161CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekCaloriesTableViewCell.swift; sourceTree = "<group>"; };
-		0AAD8C171CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCaloriesViewController.swift; sourceTree = "<group>"; };
-		0AAD8C181CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCaloriesViewController.swift; sourceTree = "<group>"; };
-		0AAD8C261CCFC40D00AB039A /* DailyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesViewController.swift; sourceTree = "<group>"; };
-		0AAD8C281CCFC41800AB039A /* DailyCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesTableViewCell.swift; sourceTree = "<group>"; };
 		0AAD8C2A1CCFC44500AB039A /* StepsTakenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepsTakenViewController.swift; sourceTree = "<group>"; };
-		0AAD8C2B1CCFC44500AB039A /* WeeklyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyStepsViewController.swift; sourceTree = "<group>"; };
-		0AAD8C2C1CCFC44500AB039A /* MonthlyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyStepsViewController.swift; sourceTree = "<group>"; };
-		0AAD8C2E1CCFC44500AB039A /* WeekStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekStepsTableViewCell.swift; sourceTree = "<group>"; };
-		0AAD8C2F1CCFC44500AB039A /* MonthStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthStepsTableViewCell.swift; sourceTree = "<group>"; };
-		0AAD8C361CCFC45C00AB039A /* DailyMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyMilesViewController.swift; sourceTree = "<group>"; };
-		0AAD8C381CCFD17100AB039A /* DailyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyStepsViewController.swift; sourceTree = "<group>"; };
 		0AAD8C3A1CCFDB8300AB039A /* ChallengesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengesViewController.swift; sourceTree = "<group>"; };
 		0AAD8C3F1CD06C9C00AB039A /* CustomAlertProgressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertProgressViewController.swift; sourceTree = "<group>"; };
 		0AAD8C411CD427B200AB039A /* Challenges.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Challenges.plist; sourceTree = "<group>"; };
@@ -219,6 +202,23 @@
 		0AAD8C541CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
 		0AAD8C551CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloricIntakeViewController.swift; sourceTree = "<group>"; };
 		0AAD8C5C1CDA5D6A00AB039A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0AAD8C5E1CDA663000AB039A /* MonthCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthCaloriesTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C5F1CDA663000AB039A /* WeekCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekCaloriesTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C601CDA663000AB039A /* WeeklyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyCaloriesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C611CDA663000AB039A /* MonthlyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCaloriesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C621CDA663000AB039A /* DailyCaloriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C631CDA663000AB039A /* DailyCaloriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCaloriesTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C6A1CDA665E00AB039A /* WeeklyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyStepsViewController.swift; sourceTree = "<group>"; };
+		0AAD8C6B1CDA665E00AB039A /* MonthlyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyStepsViewController.swift; sourceTree = "<group>"; };
+		0AAD8C6C1CDA665E00AB039A /* DailyStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyStepsViewController.swift; sourceTree = "<group>"; };
+		0AAD8C6D1CDA665E00AB039A /* WeekStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekStepsTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C6E1CDA665E00AB039A /* MonthStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthStepsTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C741CDA666E00AB039A /* MonthMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMilesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C751CDA666E00AB039A /* MonthMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthMilesTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C761CDA666E00AB039A /* WeeklyMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeeklyMilesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C771CDA666E00AB039A /* WeekMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekMilesTableViewCell.swift; sourceTree = "<group>"; };
+		0AAD8C781CDA666E00AB039A /* DailyMilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyMilesViewController.swift; sourceTree = "<group>"; };
+		0AAD8C791CDA666E00AB039A /* DailyMilesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyMilesTableViewCell.swift; sourceTree = "<group>"; };
 		0AD384D11CAE49060098E5B1 /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		0AD384D51CAE554A0098E5B1 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		0ADBAF851CB4197D008D4C72 /* MealPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealPlanViewController.swift; sourceTree = "<group>"; };
@@ -333,11 +333,11 @@
 			isa = PBXGroup;
 			children = (
 				0AAD8C2A1CCFC44500AB039A /* StepsTakenViewController.swift */,
-				0AAD8C2B1CCFC44500AB039A /* WeeklyStepsViewController.swift */,
-				0AAD8C2C1CCFC44500AB039A /* MonthlyStepsViewController.swift */,
-				0AAD8C2E1CCFC44500AB039A /* WeekStepsTableViewCell.swift */,
-				0AAD8C381CCFD17100AB039A /* DailyStepsViewController.swift */,
-				0AAD8C2F1CCFC44500AB039A /* MonthStepsTableViewCell.swift */,
+				0AAD8C6A1CDA665E00AB039A /* WeeklyStepsViewController.swift */,
+				0AAD8C6B1CDA665E00AB039A /* MonthlyStepsViewController.swift */,
+				0AAD8C6C1CDA665E00AB039A /* DailyStepsViewController.swift */,
+				0AAD8C6D1CDA665E00AB039A /* WeekStepsTableViewCell.swift */,
+				0AAD8C6E1CDA665E00AB039A /* MonthStepsTableViewCell.swift */,
 			);
 			name = "Steps View Controllers";
 			sourceTree = "<group>";
@@ -499,12 +499,12 @@
 		0AA53BF31CCF0CA000382F4D /* Calories View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0AAD8C151CCF2CCA00AB039A /* MonthCaloriesTableViewCell.swift */,
-				0AAD8C161CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift */,
-				0AAD8C171CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift */,
-				0AAD8C261CCFC40D00AB039A /* DailyCaloriesViewController.swift */,
-				0AAD8C281CCFC41800AB039A /* DailyCaloriesTableViewCell.swift */,
-				0AAD8C181CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift */,
+				0AAD8C5E1CDA663000AB039A /* MonthCaloriesTableViewCell.swift */,
+				0AAD8C5F1CDA663000AB039A /* WeekCaloriesTableViewCell.swift */,
+				0AAD8C601CDA663000AB039A /* WeeklyCaloriesViewController.swift */,
+				0AAD8C611CDA663000AB039A /* MonthlyCaloriesViewController.swift */,
+				0AAD8C621CDA663000AB039A /* DailyCaloriesViewController.swift */,
+				0AAD8C631CDA663000AB039A /* DailyCaloriesTableViewCell.swift */,
 			);
 			name = "Calories View Controller";
 			sourceTree = "<group>";
@@ -512,12 +512,12 @@
 		0AA53C001CCF0E2700382F4D /* Miles Walked View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0AAD8C361CCFC45C00AB039A /* DailyMilesViewController.swift */,
-				0AA53C031CCF0E7000382F4D /* DailyMilesTableViewCell.swift */,
-				0AA53C051CCF0E8200382F4D /* WeeklyMilesViewController.swift */,
-				0AA53C071CCF0E9000382F4D /* WeekMilesTableViewCell.swift */,
-				0AA53C091CCF0E9D00382F4D /* MonthMilesViewController.swift */,
-				0AA53C0B1CCF0EA300382F4D /* MonthMilesTableViewCell.swift */,
+				0AAD8C741CDA666E00AB039A /* MonthMilesViewController.swift */,
+				0AAD8C751CDA666E00AB039A /* MonthMilesTableViewCell.swift */,
+				0AAD8C761CDA666E00AB039A /* WeeklyMilesViewController.swift */,
+				0AAD8C771CDA666E00AB039A /* WeekMilesTableViewCell.swift */,
+				0AAD8C781CDA666E00AB039A /* DailyMilesViewController.swift */,
+				0AAD8C791CDA666E00AB039A /* DailyMilesTableViewCell.swift */,
 			);
 			name = "Miles Walked View Controllers";
 			sourceTree = "<group>";
@@ -807,14 +807,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AAD8C1D1CCF2CCA00AB039A /* WeeklyCaloriesViewController.swift in Sources */,
 				0A4A64A81CAEFC2500598EA0 /* HealthKitHelper.swift in Sources */,
 				0AEA2EEE1CB5A10B0058CCAD /* RecipeInfoViewController.swift in Sources */,
-				0AAD8C341CCFC44500AB039A /* WeekStepsTableViewCell.swift in Sources */,
 				0AAD8C481CD427FC00AB039A /* HeaderCell.swift in Sources */,
-				0AAD8C1E1CCF2CCA00AB039A /* MonthlyCaloriesViewController.swift in Sources */,
 				0A79C7A41CADCBD100DE9CD8 /* CustomTabBarController.swift in Sources */,
 				0A92EB0E1CC816B100A0275E /* ExerciseMuscleViewController.swift in Sources */,
+				0AAD8C691CDA663000AB039A /* DailyCaloriesTableViewCell.swift in Sources */,
 				0A92EAFC1CC483F400A0275E /* ExerciseViewController.swift in Sources */,
 				0A0A63151CB3644800694CFC /* AdvancedSettingsViewController.swift in Sources */,
 				0AAD8C571CDA5A6400AB039A /* CaloricIntakeViewController.swift in Sources */,
@@ -825,65 +823,67 @@
 				0A92EB021CC5864200A0275E /* MuscleGroupViewController.swift in Sources */,
 				0A5CF7F41CBC87B2005D1C4F /* LogCaloriesViewController.swift in Sources */,
 				0A0A63131CB341FD00694CFC /* EditProfileViewController.swift in Sources */,
+				0AAD8C7D1CDA666E00AB039A /* WeekMilesTableViewCell.swift in Sources */,
 				0AAD8C581CDA5A6400AB039A /* WeeklyCaloricIntakeViewController.swift in Sources */,
 				0ADBAF881CB43AFE008D4C72 /* RecommendMealViewController.swift in Sources */,
 				0A79C7741CADB85400DE9CD8 /* AppDelegate.swift in Sources */,
 				0AEA2EEA1CB483C60058CCAD /* ActivityIndicatorViewController.swift in Sources */,
-				0AA53C0A1CCF0E9D00382F4D /* MonthMilesViewController.swift in Sources */,
 				0AAD8C401CD06C9C00AB039A /* CustomAlertProgressViewController.swift in Sources */,
-				0AAD8C351CCFC44500AB039A /* MonthStepsTableViewCell.swift in Sources */,
-				0AAD8C1B1CCF2CCA00AB039A /* MonthCaloriesTableViewCell.swift in Sources */,
 				0AA2E5561CB0954D005AA390 /* WeightTableViewCell.swift in Sources */,
 				0A0A631A1CB38C0B00694CFC /* JournalViewController.swift in Sources */,
 				0AA2E5541CB09545005AA390 /* MilesTableViewCell.swift in Sources */,
 				0A5CF7D41CB849DD005D1C4F /* AgeGenderViewController.swift in Sources */,
+				0AAD8C7A1CDA666E00AB039A /* MonthMilesViewController.swift in Sources */,
 				0AA2E5581CB0955B005AA390 /* CaloricIntakeTableViewCell.swift in Sources */,
 				0A92EB211CCC7A7F00A0275E /* ChangeWeightFromCustomTabViewController.swift in Sources */,
 				0A92EB101CC86D7D00A0275E /* WaitForDataToBeFetchedViewController.swift in Sources */,
 				0A92EAF51CC3168E00A0275E /* FoodBarcodeReaderViewController.swift in Sources */,
+				0AAD8C681CDA663000AB039A /* DailyCaloriesViewController.swift in Sources */,
 				0AAD8C3B1CCFDB8300AB039A /* ChallengesViewController.swift in Sources */,
-				0AA53C041CCF0E7000382F4D /* DailyMilesTableViewCell.swift in Sources */,
+				0AAD8C701CDA665E00AB039A /* MonthlyStepsViewController.swift in Sources */,
 				0AAD8C4B1CD6797C00AB039A /* CurrentChallengesAlertViewController.swift in Sources */,
 				0AAD8C0E1CCF212000AB039A /* WeightViewController.swift in Sources */,
 				0A92EB181CC9FADB00A0275E /* CustomInputCaloriesAlertViewController.swift in Sources */,
-				0AAD8C391CCFD17100AB039A /* DailyStepsViewController.swift in Sources */,
+				0AAD8C661CDA663000AB039A /* WeeklyCaloriesViewController.swift in Sources */,
+				0AAD8C711CDA665E00AB039A /* DailyStepsViewController.swift in Sources */,
+				0AAD8C6F1CDA665E00AB039A /* WeeklyStepsViewController.swift in Sources */,
 				0AAD8C121CCF212000AB039A /* MonthlyWeightTableViewCell.swift in Sources */,
 				0AD384D21CAE49060098E5B1 /* HomeTableViewController.swift in Sources */,
+				0AAD8C651CDA663000AB039A /* WeekCaloriesTableViewCell.swift in Sources */,
 				0A5CF7D81CB84A0F005D1C4F /* ActivityLevelViewController.swift in Sources */,
-				0AA53C061CCF0E8200382F4D /* WeeklyMilesViewController.swift in Sources */,
 				0A92EB0C1CC816A300A0275E /* ExerciseImageViewController.swift in Sources */,
 				0AAD8C301CCFC44500AB039A /* StepsTakenViewController.swift in Sources */,
 				0A79C7AC1CADDC4F00DE9CD8 /* SignInViewController.swift in Sources */,
-				0AAD8C371CCFC45C00AB039A /* DailyMilesViewController.swift in Sources */,
-				0AAD8C311CCFC44500AB039A /* WeeklyStepsViewController.swift in Sources */,
+				0AAD8C731CDA665E00AB039A /* MonthStepsTableViewCell.swift in Sources */,
 				0AD384D61CAE554A0098E5B1 /* HomeTableViewCell.swift in Sources */,
 				0A92EB281CCC7B7B00A0275E /* InfiniteCollectionViewCell.swift in Sources */,
+				0AAD8C641CDA663000AB039A /* MonthCaloriesTableViewCell.swift in Sources */,
 				0AAD8C101CCF212000AB039A /* MonthlyWeightViewController.swift in Sources */,
 				0A92EAF31CC183B900A0275E /* FoodNutritionViewController.swift in Sources */,
-				0AAD8C1C1CCF2CCA00AB039A /* WeekCaloriesTableViewCell.swift in Sources */,
 				0A92EB2B1CCC7B8E00A0275E /* InfiniteCollectionView.swift in Sources */,
 				0A5CF7CD1CB70FA3005D1C4F /* RecipeInstructionsWebViewController.swift in Sources */,
-				0AA53C0C1CCF0EA300382F4D /* MonthMilesTableViewCell.swift in Sources */,
-				0AAD8C291CCFC41800AB039A /* DailyCaloriesTableViewCell.swift in Sources */,
 				0AAD8C591CDA5A6400AB039A /* MonthlyCaloricIntakeViewController.swift in Sources */,
 				0A92EB1E1CCC35C100A0275E /* LogExerciseFromCustomTabViewController.swift in Sources */,
-				0AAD8C321CCFC44500AB039A /* MonthlyStepsViewController.swift in Sources */,
-				0AAD8C271CCFC40D00AB039A /* DailyCaloriesViewController.swift in Sources */,
 				0ADBAF8A1CB43B52008D4C72 /* RecipeViewController.swift in Sources */,
 				0A92EAF91CC418A900A0275E /* NutritionDataFromBarcodeViewController.swift in Sources */,
 				0AAD8C471CD427FC00AB039A /* RegularChallengeCell.swift in Sources */,
 				0A92EB061CC5BA6300A0275E /* ExercisesFromMuscleGroupTableViewController.swift in Sources */,
 				0ADBAF861CB4197D008D4C72 /* MealPlanViewController.swift in Sources */,
-				0AA53C081CCF0E9000382F4D /* WeekMilesTableViewCell.swift in Sources */,
 				0AAD8C0F1CCF212000AB039A /* WeeklyWeightViewController.swift in Sources */,
 				0AAD8C5A1CDA5A6400AB039A /* DailyCaloricIntakeViewController.swift in Sources */,
+				0AAD8C7E1CDA666E00AB039A /* DailyMilesViewController.swift in Sources */,
 				0A5CF7DE1CB84CA8005D1C4F /* ValidationUtils.swift in Sources */,
+				0AAD8C721CDA665E00AB039A /* WeekStepsTableViewCell.swift in Sources */,
 				0AAD8C111CCF212000AB039A /* WeeklyWeightTableViewCell.swift in Sources */,
 				0AAD8C141CCF270500AB039A /* AccountDetailsViewController.swift in Sources */,
+				0AAD8C7B1CDA666E00AB039A /* MonthMilesTableViewCell.swift in Sources */,
 				0A5CF7D61CB84A00005D1C4F /* HeightWeightViewController.swift in Sources */,
 				0AAD8C461CD427FC00AB039A /* CurrentChallengeCell.swift in Sources */,
+				0AAD8C7F1CDA666E00AB039A /* DailyMilesTableViewCell.swift in Sources */,
+				0AAD8C671CDA663000AB039A /* MonthlyCaloriesViewController.swift in Sources */,
 				0A79C7A61CADCC6300DE9CD8 /* CustomAlertViewController.swift in Sources */,
 				0A5CF7E01CBA176E005D1C4F /* SeeRecipeFromScheduleViewController.swift in Sources */,
+				0AAD8C7C1CDA666E00AB039A /* WeeklyMilesViewController.swift in Sources */,
 				0A92EB0A1CC8169400A0275E /* DescriptionViewController.swift in Sources */,
 				0A5CF7E21CBB1B05005D1C4F /* SetActivityLevelViewController.swift in Sources */,
 				0A92EAFE1CC489D900A0275E /* LogExerciseViewController.swift in Sources */,

@@ -145,6 +145,8 @@ class CustomInputCaloriesAlertViewController: UIViewController, UITextFieldDeleg
         
         caloriesEntered = String(Int(caloriesEntered)! + caloriesIn)
         
+        print(epochTime)
+        
         //don't forget to import Alamofire and SwiftyJSON
         
         //endpoint to database you want to post to

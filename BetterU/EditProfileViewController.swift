@@ -10,18 +10,9 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-/* CURRENT BUG (Small): Picker option for height in feet and inches aren't resetting properly. If a user decides to change
-                        their height to something else and changed their mind, the system will still update their height
-                        to the new change. Ex: User's original height is 6' 0'', then they want to change it to 6' 2''
-                        but then decide to cancel it. The system will still read 6' 2'' even though the heightTextField
-                        has their correct original height as placeholder. */
-
-/* CURRENT BUG (Small): When canceling the pickerView, ageTextField and heightTextField are both resetting */
-
 class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate, UIPickerViewDelegate {
 
     // Initialize object references for specific items on the view
-    @IBOutlet var editPhotoButton: UIButton!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var ageTextField: UITextField!
@@ -32,6 +23,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     
     @IBOutlet var firstNameTextField: UITextField!
     @IBOutlet var lastNameTextField: UITextField!
+    @IBOutlet var userImageView: UIImageView!
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -46,7 +38,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     var gender = ""
     var heightFtCalculated = 0
     var heightInCalculated = 0
-    var points = 0
+    
     
     // Initialize variables that are NOT needed to update from textfields. These, however, are required
     // to post back the accurate data that was unchanged to the backend database
@@ -66,6 +58,10 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
     var recipeIdDinner = ""
     var recipeIdSnacks = ""
     var recipeIdLunch = ""
+    var targetCalories = 0
+    var goalType = 0
+    var points = 0
+    var photo = ""
     
     // Initialize picker views and picker options for age and height
     var pickerViewForAge = UIPickerView()
@@ -191,6 +187,22 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         // Sets the toolbar within the textfield
         heightTextField!.inputAccessoryView = toolBar
         ageTextField!.inputAccessoryView = toolBar
+        
+        //user image decode and set
+        if let photoValue = applicationDelegate.userAccountInfo["Photo"] as? String
+        {
+            if photoValue != ""
+            {
+                photo = photoValue
+                let photoCodeSeparated = photo.componentsSeparatedByString(",")
+                let decodedData = NSData(base64EncodedString: photoCodeSeparated[1], options: NSDataBase64DecodingOptions(rawValue: 0))
+                
+                let decodedImage = UIImage(data: decodedData!)
+                
+                userImageView.image = decodedImage! as UIImage
+                
+            }
+        }
    
     }
     
@@ -348,6 +360,8 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
                 recipeIdDinner = jsonDataDictInfo["dinner"] as! String
                 recipeIdLunch = jsonDataDictInfo["lunch"] as! String
                 points = jsonDataDictInfo["points"] as! Int
+                targetCalories = jsonDataDictInfo["targetCalories"] as! Int
+                goalType = jsonDataDictInfo["goalType"] as! Int
                 
             }catch let error as NSError
             {
@@ -448,7 +462,6 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
             genderSegmentedControl.selectedSegmentIndex = 0
         }
         
-        
         //don't forget to import Alamofire and SwiftyJSON
         
         //endpoint to database you want to post to
@@ -456,7 +469,7 @@ class EditProfileViewController: UIViewController, UIScrollViewDelegate, UITextF
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": points, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": ageToUse, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstNameToUse, "gender": gender, "goalType": goalType, "goalWeight": goalWeight, "height": heightToUse, "id": id, "lastName": lastNameToUse, "password": password, "points": points, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": targetCalories, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToUse, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "dinner": recipeIdDinner, "snack": recipeIdSnacks, "photo": photo]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)

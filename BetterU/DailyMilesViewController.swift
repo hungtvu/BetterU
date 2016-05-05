@@ -24,15 +24,27 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
     var selectedChart = 0
     
     var CoolBeans = [Float]()
+    var WeekTable = [Float]()
     override func viewWillAppear(animated: Bool) {
         dataOutputDay()
+        dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
         super.viewDidLoad()
-        
+        var today = WeekTable.removeLast()
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        today = (today)/Float(hour);
+        today = (0.57 * Float(self.weightInLbs))*(today/2112)
+        WeekTable.append(today)
+        for var i = 0; i<WeekTable.count-1; i++
+        {
+            WeekTable[i] = WeekTable[i]/Float(24)
+            WeekTable[i] = (0.57 * Float(self.weightInLbs))*(WeekTable[i]/2112)
+        }
+        super.viewDidLoad()
         // Draw the chart selected from the TableViewController
         
         // print(CoolBeans)
@@ -40,26 +52,32 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
         //print("LMAO1")
         for var i = CoolBeans.count-1; i>=0; i -= 1
         {// print(i)
-            CoolBeans[i] = (CoolBeans[i]/2112)
+            CoolBeans[i] = (0.57 * Float(self.weightInLbs))*(CoolBeans[i]/2112)
             //print(CoolBeans[i])
         }
         if CoolBeans.count != 0
         {
-        // Simple chart
-        let series = ChartSeries(CoolBeans)
-        series.color = ChartColors.greenColor()
-        series.area = true
-        chart.addSeries(series)
-        //  chart.xLabelsFormatter = "Day"
-        let labels: Array<Float> = [0,Float(CoolBeans.count-1)]
-        chart.xLabels = labels
-        //chart.labelFont = UIFont.systemFontOfSize(12)
-        //chart.xLabelsTextAlignment = .Center
-        //print(monthLabel())
-        let labelsAsString = ["12AM", "Now"]
-        chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
-            return labelsAsString[labelIndex]
-        }
+            // Simple chart
+            if CoolBeans.count == 1
+            {
+                CoolBeans.append(0)
+                CoolBeans = CoolBeans.reverse()
+                
+            }
+            let series = ChartSeries(CoolBeans)
+            series.color = ChartColors.greenColor()
+            series.area = true
+            chart.addSeries(series)
+            //  chart.xLabelsFormatter = "Day"
+            let labels: Array<Float> = [0,Float(CoolBeans.count-1)]
+            chart.xLabels = labels
+            //chart.labelFont = UIFont.systemFontOfSize(12)
+            //chart.xLabelsTextAlignment = .Center
+            //print(monthLabel())
+            let labelsAsString = ["12AM", "Now"]
+            chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
+                return labelsAsString[labelIndex]
+            }
         }
         else{
             let labels: Array<Float> = [0]
@@ -67,18 +85,37 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
             let labelsAsString = ["No Data!"]
             chart.xLabelsFormatter = { (labelIndex: Int, labelValue: Float) -> String in
                 return labelsAsString[labelIndex]
+            }
         }
-    }
     }
     override func viewDidLoad() {
         
         
         
     }
-    override func viewDidAppear(animated: Bool) {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // print(CoolBeans.count)
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Miles Walked Per Hour This Past 7 Days"
+        
         
     }
-    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: DailyMilesTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as! DailyMilesTableViewCell
+        
+        // let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let output = weekLabel()
+        // Fetch Fruit
+        let fruit = WeekTable[WeekTable.count - 1 - indexPath.row]
+        // Configure Cell
+        // cell.textLabel?.text = output[indexPath.row]
+        cell.dateLabel?.text = output[output.count - 1 - indexPath.row]
+        cell.stepsLabel?.text = String(format: "%.1f", Double(fruit)) + " Miles Walked Per Hour"
+        // cellLabel.text = String(fruit)
+        return cell
+    }
     func didTouchChart(chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
         for (seriesIndex, dataIndex) in indexes.enumerate() {
             if let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex) {
@@ -86,7 +123,7 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
                 let numberFormatter = NSNumberFormatter()
                 numberFormatter.minimumFractionDigits = 0
                 numberFormatter.maximumFractionDigits = 0
-                label.text = numberFormatter.stringFromNumber(Int(value))! + " Miles"
+                label.text = String(format: "%.1f", Double(value)) + " Miles Walked Per Hour"
                 
                 // Align the label to the touch left position, centered
                 var constant = labelLeadingMarginInitialConstant + left - (label.frame.width / 2)
@@ -152,11 +189,11 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
             //let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
             
             // Grabbing the necessary values and assigning it to a variable
-            self.CoolBeans = stepLog
+            self.WeekTable = stepLog
             //print(self.CoolBeans)
             
         }
-        return CoolBeans
+        return WeekTable
     }
     func dataOutputMonth()->[Float]
     {

@@ -49,6 +49,10 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
     var recipeIdSnacks = ""
     var recipeIdLunch = ""
     var bmr = 0
+    var targetCalories = 0
+    var goalType = 0
+    var points = 0
+    var photo = ""
     
     var isScrollingRight = false
     var scrolledOnce = false
@@ -107,6 +111,10 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
                 recipeIdDinner = (jsonDataDictInfo["dinner"] as? String)!
                 recipeIdSnacks = (jsonDataDictInfo["snack"] as? String)!
                 recipeIdLunch = (jsonDataDictInfo["lunch"] as? String)!
+                points = jsonDataDictInfo["points"] as! Int
+                targetCalories = jsonDataDictInfo["targetCalories"] as! Int
+                goalType = jsonDataDictInfo["goalType"] as! Int
+                photo = jsonDataDictInfo["photo"] as! String
                 
             }catch let error as NSError
             {
@@ -129,7 +137,7 @@ class ChangeWeightFromCustomTabViewController: UIViewController {
         
         //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
         //Format is = "Field": value
-        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstName, "gender": gender, "goalType": 0, "goalWeight": goalWeight, "height": height, "id": id, "lastName": lastName, "password": password, "points": 0, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": 0, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToPass, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "snack": recipeIdSnacks, "dinner": recipeIdDinner]
+        let newPost = ["DCSkipped": 0, "WCSkipped": 0, "activityGoal": activityGoal, "activityLevel": currentActivityLevel, "age": age, "bmr": bmr, "dailyChallengeIndex": 0, "email": email, "firstName": firstName, "gender": gender, "goalType": goalType, "goalWeight": goalWeight, "height": height, "id": id, "lastName": lastName, "password": password, "points": points, "securityAnswer": securityAnswer, "securityQuestion": securityQuestion, "targetCalories": targetCalories, "units": "I", "username": username, "weeklyChallengeIndex": 0, "weight": weightToPass, "lunch": recipeIdLunch, "breakfast": recipeIdBreakfast, "snack": recipeIdSnacks, "dinner": recipeIdDinner, "photo": photo]
         
         //Creating the request to post the newPost JSON var.
         Alamofire.request(.PUT, postsEndpoint, parameters: newPost as? [String : AnyObject], encoding: .JSON)

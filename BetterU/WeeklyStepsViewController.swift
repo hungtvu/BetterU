@@ -63,12 +63,14 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
     override func viewDidAppear(animated: Bool) {
         
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print(CoolBeans.count)
-        return CoolBeans.count
+        // print(CoolBeans.count)
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return "Steps This Past 7 Days"
+        
+        
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: WeekStepsTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier1") as! WeekStepsTableViewCell
@@ -76,11 +78,11 @@ class WeeklyStepsViewControler: UIViewController, ChartDelegate, UITableViewData
         // let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         let output = weekLabel()
         // Fetch FruitWeek
-        let fruit = CoolBeans[indexPath.row]
+        let fruit = CoolBeans[CoolBeans.count - 1 - indexPath.row]
         
         // Configure Cell
         // cell.textLabel?.text = output[indexPath.row]
-        cell.dateLabel?.text = output[indexPath.row]
+        cell.dateLabel?.text = output[CoolBeans.count - 1 - indexPath.row]
         cell.stepsLabel?.text = String(Int(fruit)) + " Steps"
         // cellLabel.text = String(fruit)
         return cell

@@ -43,7 +43,6 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
     
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    
     override func viewWillAppear(animated: Bool) {
         self.title = "Weight"
         username = applicationDelegate.userAccountInfo.valueForKey("Username") as! String
@@ -51,16 +50,17 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
         super.viewDidLoad()
+        currentWeight = Double(applicationDelegate.userAccountInfo.valueForKey("User Weight") as! NSNumber)
         parseJSONForGoalWeight()
         parseProgressTable()
-
+        
         computeCaloriesBurned()
         computeMonthlyWeight()
         
+        init_progress_bar()
+        
         postWeightToProgress()
         
-        
-        init_progress_bar()
         
         //init chart
         chart.delegate = self
@@ -203,9 +203,11 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
     
     func computeMonthlyWeight(){
         
-        for caloriesBurned in monthlyCaloriesBurned{
+        var i=0
+        var currentWeight: Double = self.currentWeight
+        while i < monthlyCaloriesBurned.count {
             
-            let calorieChange = Float(targetCalories!) - caloriesBurned
+            let calorieChange = Float(caloriesIn[i]) - monthlyCaloriesBurned[i]
             let poundChange = abs(calorieChange)/3500
             if calorieChange < 0 {
                 currentWeight = currentWeight - Double(poundChange)
@@ -213,8 +215,9 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                 currentWeight = currentWeight + Double(poundChange)
             }
             monthlyWeight.append(Float(currentWeight))
+            i+=1
         }
-        
+        //self.currentWeight = Double(monthlyWeight[monthlyWeight.count-1])
     }
     
     func computeCaloriesBurned(){
@@ -306,7 +309,6 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                         // Grabs data from the JSON and stores it into the appropriate variable
                         targetCalories = jsonDataDictInfo["targetCalories"] as? Int
                         goalWeight = jsonDataDictInfo["goalWeight"] as! Double
-                        currentWeight = jsonDataDictInfo["weight"] as! Double
                         userId = jsonDataDictInfo["id"] as! Int
                     }
                     
@@ -369,12 +371,16 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                 var jsonDataDictInfo: NSDictionary = NSDictionary()
                 
                 var i = 0
+                var j = 0
                 while (i < jsonDataArray.count)
                 {
                     jsonDataDictInfo = jsonDataArray[i] as! NSDictionary
                     
                     if userId == jsonDataDictInfo["userId"] as? Int
                     {
+                        if caloriesIn.count == 30 {
+                            break
+                        }
                         // Grabs data from the JSON and stores it into the appropriate variable
                         caloriesIn.append((jsonDataDictInfo["caloriesIn"] as? Int)!)
                         caloriesOut.append((jsonDataDictInfo["caloriesOut"] as? Int)!)
@@ -409,11 +415,11 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
         }
         
         if monthlyWeight.count >= logDate.count {
-        
+            
             var i = 0
             while(i < logDate.count)
             {
-            
+                
                 let temp = Double(monthlyWeight[i])
                 let tempRounded = round(100 * temp)/100
                 
@@ -442,8 +448,8 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                         }
                 }
                 
-            i += 1
-            
+                i += 1
+                
             }
         }
     }

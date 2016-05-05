@@ -153,8 +153,13 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         //   return currentWeight/goalWeight
         // }
         
-        var weeklySumCalories:Double = Double(sumCalories)
-   
+        let weeklySumCalories:Double = Double(sumCalories)
+        
+        if targetCalories == 0
+        {
+            targetCalories = 1800
+        }
+        
         return weeklySumCalories / (targetCalories * 7)
     }
     

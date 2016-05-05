@@ -24,15 +24,27 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
     var selectedChart = 0
     
     var CoolBeans = [Float]()
+    var WeekTable = [Float]()
     override func viewWillAppear(animated: Bool) {
         dataOutputDay()
+        dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
         super.viewDidLoad()
-        
+        var today = WeekTable.removeLast()
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        today = (today)/Float(hour);
+        today = (0.57 * Float(self.weightInLbs))*(today/2112)
+        WeekTable.append(today)
+        for var i = 0; i<WeekTable.count-1; i++
+        {
+            WeekTable[i] = WeekTable[i]/Float(24)
+            WeekTable[i] = (0.57 * Float(self.weightInLbs))*(WeekTable[i]/2112)
+        }
+        super.viewDidLoad()
         // Draw the chart selected from the TableViewController
         
         // print(CoolBeans)
@@ -46,6 +58,12 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
         if CoolBeans.count != 0
         {
         // Simple chart
+            if CoolBeans.count == 1
+            {
+                CoolBeans.append(0)
+                CoolBeans = CoolBeans.reverse()
+                
+            }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.yellowColor()
         series.area = true
@@ -75,10 +93,29 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
         
         
     }
-    override func viewDidAppear(animated: Bool) {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // print(CoolBeans.count)
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Calories Burned Per Hour This Past 7 Days"
+        
         
     }
-    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: WeekCaloriesTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as! WeekCaloriesTableViewCell
+        
+        // let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let output = weekLabel()
+        // Fetch Fruit
+        let fruit = WeekTable[WeekTable.count - 1 - indexPath.row]
+        // Configure Cell
+        // cell.textLabel?.text = output[indexPath.row]
+        cell.dateLabel?.text = output[output.count - 1 - indexPath.row]
+        cell.stepsLabel?.text = String(Int(fruit)) + " Calories Burned Per Hour"
+        // cellLabel.text = String(fruit)
+        return cell
+    }
     func didTouchChart(chart: Chart, indexes: Array<Int?>, x: Float, left: CGFloat) {
         for (seriesIndex, dataIndex) in indexes.enumerate() {
             if let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex) {
@@ -152,11 +189,11 @@ class DailyCaloriesViewController: UIViewController, ChartDelegate{
             //let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
             
             // Grabbing the necessary values and assigning it to a variable
-            self.CoolBeans = stepLog
+            self.WeekTable = stepLog
             //print(self.CoolBeans)
             
         }
-        return CoolBeans
+        return WeekTable
     }
     func dataOutputMonth()->[Float]
     {

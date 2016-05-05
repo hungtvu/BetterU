@@ -22,21 +22,20 @@ class WeeklyCaloriesViewController: UIViewController, ChartDelegate,  UITableVie
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     
-    //@IBOutlet var cellLabel: UILabel!
+    @IBOutlet var cellLabel: UILabel!
     var selectedChart = 0
     var weightInLbs: Int = 800
     var CoolBeans = [Float]()
     var TableStuff = [String]()
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
         dataOutputWeek()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
         // print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
-        //super.viewDidLoad()
+        super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
         
@@ -46,15 +45,11 @@ class WeeklyCaloriesViewController: UIViewController, ChartDelegate,  UITableVie
         
         // Simple chart
         print(CoolBeans.count)
-        
-        var i = CoolBeans.count - 1
-        //for var i = CoolBeans.count-1; i>=0; i -= 1
-        while(i >= 0)
+        for var i = CoolBeans.count-1; i>=0; i -= 1
         {
           //  print(i)
             CoolBeans[i] = ((0.57 * Float(self.weightInLbs))/2112)*(CoolBeans[i])
             print(CoolBeans[i])
-            i = i - 1
         }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.yellowColor()
@@ -77,12 +72,14 @@ class WeeklyCaloriesViewController: UIViewController, ChartDelegate,  UITableVie
     override func viewDidAppear(animated: Bool) {
         
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // print(CoolBeans.count)
-        return CoolBeans.count
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Calories Burned This Past 7 Days"
+        
+        
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: WeekCaloriesTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier") as! WeekCaloriesTableViewCell

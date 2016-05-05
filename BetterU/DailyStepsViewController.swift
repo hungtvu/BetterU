@@ -22,19 +22,28 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
     var selectedChart = 0
     
     var CoolBeans = [Float]()
+    var WeekSteps = [Float]()
+
     override func viewWillAppear(animated: Bool) {
     
                         
-          dataOutputDay()                        
-                        
-
-
+        dataOutputDay()
+        WeekSteps = dataOutputWeek()
+        
       //  dataOutputDay()
         //print(weekLabel())
         //  HealthKitHelper().weeklySteps1()
        //print("LMAO")
         labelLeadingMarginInitialConstant = labelLeadingMarginConstraint.constant
         NSThread.sleepForTimeInterval(0.05)
+        var today = WeekSteps.removeLast()
+        let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
+        today = (today)/Float(hour);
+        WeekSteps.append(today)
+        for var i = 0; i<WeekSteps.count-1; i++
+        {
+            WeekSteps[i] = WeekSteps[i]/Float(24)
+        }
         super.viewDidLoad()
         
         // Draw the chart selected from the TableViewController
@@ -42,6 +51,12 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
         // pporint(CoolBeans)
         if CoolBeans.count != 0
         {
+            if CoolBeans.count == 1
+            {
+                CoolBeans.append(0)
+                CoolBeans = CoolBeans.reverse()
+                
+            }
         chart.delegate = self
         //print("LMAO1")
         
@@ -109,7 +124,31 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
             }
         }
     }
-    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // print(CoolBeans.count)
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Steps Taken Per Hour Past 7 Days"
+        
+        
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: WeekStepsTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier1") as! WeekStepsTableViewCell
+        
+        // let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
+        let output = weekLabel()
+        // Fetch FruitWeek 
+       
+        let fruit = WeekSteps[WeekSteps.count - 1 - indexPath.row]
+        //print(String(hour) + "nasty")
+        // Configure Cell
+        // cell.textLabel?.text = output[indexPath.row]
+        cell.dateLabel?.text = output[WeekSteps.count - 1 - indexPath.row]
+        cell.stepsLabel?.text = String(Int(fruit)) + " Steps per Hour"
+        // cellLabel.text = String(fruit)
+        return cell
+    }
     func didFinishTouchingChart(chart: Chart) {
         label.text = ""
         labelLeadingMarginConstraint.constant = labelLeadingMarginInitialConstant
@@ -154,11 +193,12 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
             //let totalCaloriesBurnedFromSteps = steps * caloriesPerStep
             
             // Grabbing the necessary values and assigning it to a variable
-            self.CoolBeans = stepLog
+            self.WeekSteps = stepLog
             //print(self.CoolBeans)
             
         }
-        return CoolBeans
+        return WeekSteps
+        
     }
     func dataOutputMonth()->[Float]
     {

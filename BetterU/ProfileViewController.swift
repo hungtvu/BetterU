@@ -22,13 +22,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // Initializing buttons
     @IBOutlet var editProfileButton: UIButton!
-    @IBOutlet var addPhotoButton: UIButton!
     @IBOutlet var logoutButton: UIButton!
     
     // Initializing table
     @IBOutlet var settingsTableView: UITableView!
     
     var settingsTitleArray = [String]()
+    
+    
+    //User Image
+    @IBOutlet var userImageView: UIImageView!
     
     // Obtain object reference to the AppDelegate so that we may use the MyIngredients plist
     let applicationDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -39,6 +42,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var id = 0
     var points = 0
     var level = 0
+    var photo = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +58,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         lastNameLabel.text = lastName
         emailLabel.text = email
         levelLabel!.text = "Level \(level)"
+        
+        //user image decode and set
+        if let photoValue = applicationDelegate.userAccountInfo["Photo"] as? String
+        {
+            if !photoValue.isEmpty
+            {
+                photo = photoValue
+                let photoCodeSeparated = photo.componentsSeparatedByString(",")
+                let decodedData = NSData(base64EncodedString: photoCodeSeparated[1], options: NSDataBase64DecodingOptions(rawValue: 0))
+                
+                let decodedImage = UIImage(data: decodedData!)
+                
+                userImageView.image = decodedImage! as UIImage
+
+            }
+        }
         
         // Adding in rounded corners to the buttons
         editProfileButton.layer.cornerRadius = 8;

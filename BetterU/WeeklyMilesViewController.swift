@@ -45,13 +45,11 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
         
         // Simple chart
         print(CoolBeans.count)
-        var i = CoolBeans.count-1
-        //for var i = CoolBeans.count-1; i>=0; i -= 1
-        while(i >= 0)
+        for var i = CoolBeans.count-1; i>=0; i -= 1
         {
             //  print(i)
             CoolBeans[i] = (CoolBeans[i]/2112)
-            i = i - 1
+            print(CoolBeans[i])
         }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.greenColor()
@@ -74,12 +72,14 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
     override func viewDidAppear(animated: Bool) {
         
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // print(CoolBeans.count)
-        return CoolBeans.count
+        return 7
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Miles Walked This Past 7 Days"
+        
+        
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: WeekMilesTableViewCell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier1") as! WeekMilesTableViewCell
@@ -103,8 +103,8 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
                 //print("Touched series: \(seriesIndex): data index: \(dataIndex!); series value: \(value); x-axis value: \(x) (from left: \(left))")
                 let numberFormatter = NSNumberFormatter()
                 numberFormatter.minimumFractionDigits = 0
-                numberFormatter.maximumFractionDigits = 0
-                label.text = numberFormatter.stringFromNumber(Int(value))! + " Miles"
+                numberFormatter.maximumFractionDigits = 1
+                label.text = String(format: "%.1f", Double(value)) + " Miles"
                 
                 // Align the label to the touch left position, centered
                 var constant = labelLeadingMarginInitialConstant + left - (label.frame.width / 2)
@@ -152,12 +152,9 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
             //print(self.CoolBeans)
             
         }
-        var i = CoolBeans.count
-        //for var i = CoolBeans.count; i<0; i -= 1
-        while(i < 0)
+        for var i = CoolBeans.count; i<0; i -= 1
         {
-            CoolBeans[i] = (CoolBeans[i]/2112)
-            i = i - 1
+             CoolBeans[i] = (CoolBeans[i]/2112)
         }
         return CoolBeans
     }

@@ -94,8 +94,8 @@ class CustomAlertViewController: UIViewController, UITableViewDataSource, UITabl
         // Close and return to upstream control
         dismissViewControllerAnimated(true, completion: {
             
-            // Set the selection upstream and call "segueToDetailViewController"
-            if ((self.sender) != nil) {
+            // Set the selection upstream and call"segueToDetailViewController"
+            if ((self.sender2) != nil) {
             self.sender2.selection = self.selection
             self.sender2.popToScheduleViewController()
             }

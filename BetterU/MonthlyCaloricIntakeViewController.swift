@@ -155,7 +155,12 @@ class MonthlyCaloricIntakeViewController: UIViewController, ChartDelegate, UITab
         //   return currentWeight/goalWeight
         // }
         
-        var monthlySumCalories:Double = Double(sumCalories)
+        let monthlySumCalories:Double = Double(sumCalories)
+        
+        if targetCalories == 0
+        {
+            targetCalories = 1800
+        }
 
         return monthlySumCalories / (targetCalories * 30)
     }

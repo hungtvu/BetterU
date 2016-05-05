@@ -15,7 +15,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // Initializing and making object references to the UITextField class
     @IBOutlet var usernameTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
-
+    
     // Initializing and making object references to the UIButton class
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var checkBoxButton: UIButton!
@@ -44,6 +44,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var caloriesOut = 0
     var miles = 0
     var steps = 0
+    var photo = ""
     
     // Dictionary KV pairs for the JSON data variables
     var usernameAndPasswordDict = [String: String]()
@@ -61,6 +62,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var username_Dict_userId = [String: Int]()
     var username_Dict_securityQuestion = [String: Int]()
     var username_Dict_securityAnswer = [String: String]()
+    var username_Dict_photo = [String: String]()
     var userId_Dict_logDate = [Int: Int]()
     var userId_Dict_miles = [Int: Int]()
     var userId_Dict_steps = [Int: Int]()
@@ -86,12 +88,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // This method gets called first when the view is shown
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Adding in rounded corners to the buttons
         loginButton.layer.cornerRadius = 8
         signupButton.layer.cornerRadius = 8
         parseJSONForUserAccountAuthorization()
-
+        
         parseProgressJson()
         
         var date = calendar.startOfDayForDate(NSDate())
@@ -105,7 +107,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             date = calendar.dateByAddingUnit(.NSDayCalendarUnit, value: -1, toDate: date, options: [])!
         }
         
-
+        
     }
     
     override func viewWillAppear(animated: Bool)
@@ -187,7 +189,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         {
             print("Error in retrieving JSON data!")
         }
-
+        
     }
     
     // This method calls from BetterU's REST API and parses its JSON information.
@@ -279,6 +281,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     userId = jsonDataDictInfo["id"] as! Int
                     securityQuestion = jsonDataDictInfo["securityQuestion"] as! Int
                     securityAnswer = jsonDataDictInfo["securityAnswer"] as! String
+                    if let photoValue = jsonDataDictInfo["photo"] as? String
+                    {
+                        photo = photoValue
+                    }
                     
                     // Password is value, username is key
                     usernameAndPasswordDict[username] = password
@@ -300,11 +306,12 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     username_Dict_userId[username] = userId
                     username_Dict_securityAnswer[username] = securityAnswer
                     username_Dict_securityQuestion[username] = securityQuestion
+                    username_Dict_photo[username] = photo
                     
                     i += 1
                     
                 }
-
+                
             }catch let error as NSError
             {
                 print("Error in retrieving JSON data: \(error.localizedDescription)")
@@ -422,6 +429,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 {
                     securityAnswer = securityAnswerValue
                 }
+                if let photoValue = username_Dict_photo[usernameEntered]{
+                    photo = photoValue
+                }
                 
                 
                 // Create a entry onto the plist
@@ -441,6 +451,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 applicationDelegate.userAccountInfo.setObject(userId, forKey: "id")
                 applicationDelegate.userAccountInfo.setObject(securityQuestion, forKey: "Security Question")
                 applicationDelegate.userAccountInfo.setObject(securityAnswer, forKey: "Security Answer")
+                applicationDelegate.userAccountInfo.setObject(photo, forKey: "Photo")
                 
                 if let logDateValue = userId_Dict_logDate[userId]
                 {
@@ -513,48 +524,48 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 
-//                // Adds a new entry to the progress table everyday for that specific user
-//                if (doesProgressHaveId && logDate != epochArray[0])
-//                {
-//                    //endpoint to database you want to post to
-//                    let postToProgressEndPoints: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
-//                    
-//                    //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
-//                    //Format is = "Field": value
-//                    let existedPostForProgress = ["caloriesIn": caloriesIn, "caloriesOut": caloriesOut, "logDate": epochArray[0], "miles": miles, "steps": steps, "userId": userId, "weight": Double(weight)]
-//
-//                    //Creating the request to post the newPost JSON var.
-//                    Alamofire.request(.POST, postToProgressEndPoints, parameters: existedPostForProgress as? [String : AnyObject], encoding: .JSON)
-//                        .responseJSON { response in
-//                            guard response.result.error == nil else {
-//                                // got an error in getting the data, need to handle it
-//                                print("error calling GET on /posts/1")
-//                                print(response.result.error!)
-//                                return
-//                            }
-//                            
-//                            if let value: AnyObject = response.result.value {
-//                                // handle the results as JSON, without a bunch of nested if loops
-//                                // this might not return anything here, but check the DB just in case. It might post anyway
-//                                let post = JSON(value)
-//                                print("The post is: " + post.description)
-//                            }
-//                    }
-//                }
+                //                // Adds a new entry to the progress table everyday for that specific user
+                //                if (doesProgressHaveId && logDate != epochArray[0])
+                //                {
+                //                    //endpoint to database you want to post to
+                //                    let postToProgressEndPoints: String = "http://jupiter.cs.vt.edu/BetterUAPI/webresources/com.betteru.entitypackage.progress"
+                //
+                //                    //This is the JSON that is being submitted. Many placeholders currently here. Feel free to replace.
+                //                    //Format is = "Field": value
+                //                    let existedPostForProgress = ["caloriesIn": caloriesIn, "caloriesOut": caloriesOut, "logDate": epochArray[0], "miles": miles, "steps": steps, "userId": userId, "weight": Double(weight)]
+                //
+                //                    //Creating the request to post the newPost JSON var.
+                //                    Alamofire.request(.POST, postToProgressEndPoints, parameters: existedPostForProgress as? [String : AnyObject], encoding: .JSON)
+                //                        .responseJSON { response in
+                //                            guard response.result.error == nil else {
+                //                                // got an error in getting the data, need to handle it
+                //                                print("error calling GET on /posts/1")
+                //                                print(response.result.error!)
+                //                                return
+                //                            }
+                //
+                //                            if let value: AnyObject = response.result.value {
+                //                                // handle the results as JSON, without a bunch of nested if loops
+                //                                // this might not return anything here, but check the DB just in case. It might post anyway
+                //                                let post = JSON(value)
+                //                                print("The post is: " + post.description)
+                //                            }
+                //                    }
+                //                }
                 
                 isLoggedIn = true
                 self.performSegueWithIdentifier("homeView", sender: self);
             }
-            
-            // password is not entered in correctly.
+                
+                // password is not entered in correctly.
             else
             {
                 showAlertViewControllers("Sign in Failed!", errorMessage: "Password entered is incorrect.")
                 
             }
         }
-        
-        // Username is not entered in correctly.
+            
+            // Username is not entered in correctly.
         else
         {
             showAlertViewControllers("Sign in Failed!", errorMessage: "Username entered is incorrect.")
@@ -565,8 +576,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     /*
-        This method uses UIAlertController class to show a dialog box upon user interaction.
-    */
+     This method uses UIAlertController class to show a dialog box upon user interaction.
+     */
     func showAlertViewControllers(titleOfError: String, errorMessage: String)
     {
         /*
@@ -580,7 +591,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         // Present the alert controller by calling the presentViewController method
         self.presentViewController(alertController, animated: true, completion: nil)
-
+        
     }
     
     /*
@@ -627,5 +638,5 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
         super.touchesBegan(touches, withEvent:event)
     }
-
+    
 }
