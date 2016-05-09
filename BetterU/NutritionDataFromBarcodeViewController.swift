@@ -2,7 +2,7 @@
 //  NutritionDataFromBarcodeViewController.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/17/16.
+//  Created by Hung Vu, Corey McQuay on 4/17/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 

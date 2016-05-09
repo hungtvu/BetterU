@@ -40,9 +40,12 @@ class DailyStepsViewController: UIViewController, ChartDelegate{
         let hour = NSCalendar.currentCalendar().component(.Hour, fromDate: NSDate())
         today = (today)/Float(hour);
         WeekSteps.append(today)
-        for var i = 0; i<WeekSteps.count-1; i++
+        var i = 0
+        //for var i = 0; i<WeekSteps.count-1; i++
+        while(i < WeekSteps.count - 1)
         {
             WeekSteps[i] = WeekSteps[i]/Float(24)
+            i = i + 1
         }
         super.viewDidLoad()
         

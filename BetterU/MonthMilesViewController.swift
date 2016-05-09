@@ -61,11 +61,13 @@ class MonthMilesViewController: UIViewController, ChartDelegate,  UITableViewDat
         
         // Simple chart
         //print(CoolBeans.count)
-        for var i = CoolBeans.count-1; i>=0; i -= 1
+        var i = CoolBeans.count-1
+        //for var i = CoolBeans.count-1; i>=0; i -= 1
+        while(i >= 0)
         {
             //  print(i)
             CoolBeans[i] = (CoolBeans[i]/2112)
-            print(CoolBeans[i])
+            i = i - 1
         }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.greenColor()
@@ -333,9 +335,12 @@ class MonthMilesViewController: UIViewController, ChartDelegate,  UITableViewDat
             //print(self.CoolBeans)
             
         }
-        for var i = CoolBeans.count; i<0; i -= 1
+        var i = CoolBeans.count
+        //for var i = CoolBeans.count; i<0; i -= 1
+        while(i < 0)
         {
             CoolBeans[i] = (CoolBeans[i]/2112)
+            i = i - 1
         }
         return CoolBeans
     }
@@ -360,11 +365,13 @@ class MonthMilesViewController: UIViewController, ChartDelegate,  UITableViewDat
             // print(self.CoolBeans)
             
         }
-        for var i = CoolBeans.count-1; i>=0; i -= 1
+        var i = CoolBeans.count-1
+        //for var i = CoolBeans.count-1; i>=0; i -= 1
+        while(i >= 0)
         {
             //  print(i)
             CoolBeans[i] = ((0.57 * Float(self.weightInLbs))/2112)*(CoolBeans[i])
-            print(CoolBeans[i])
+            i = i - 1
         }
         
         return CoolBeans
@@ -391,10 +398,12 @@ class MonthMilesViewController: UIViewController, ChartDelegate,  UITableViewDat
             
             
         }
-        // print(CoolBeans)
-        for var i = CoolBeans.count; i<0; i -= 1
+        var i = CoolBeans.count
+        //for var i = CoolBeans.count; i<0; i -= 1
+        while(i < 0)
         {
             CoolBeans[i] = (0.57 * Float(self.weightInLbs))*(CoolBeans[i]/2112)
+            i = i - 1
         }
         // print(CoolBeans)
         return CoolBeans

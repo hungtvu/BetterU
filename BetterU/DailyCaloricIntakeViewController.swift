@@ -125,7 +125,7 @@ class DailyCaloricIntakeViewController: UIViewController, ChartDelegate, UITable
         progress.angle = 300
         
         let percentageCompleted = calculatePercentageCompleted() * 100
-        var dailySumCalories:Double = Double(sumCalories)
+        let dailySumCalories:Double = Double(sumCalories)
         percentShort.text = String(Int(dailySumCalories)) + " / " + String(Int(targetCalories))
         
         let calculatedAngle = (percentageCompleted/100) * 360
@@ -162,7 +162,7 @@ class DailyCaloricIntakeViewController: UIViewController, ChartDelegate, UITable
         //   return currentWeight/goalWeight
         // }
         
-        var dailySumCalories:Double = Double(sumCalories)
+        let dailySumCalories:Double = Double(sumCalories)
         
         return dailySumCalories / (targetCalories)
     }
@@ -320,7 +320,7 @@ class DailyCaloricIntakeViewController: UIViewController, ChartDelegate, UITable
                     // Grabs data from the JSON and stores it into the appropriate variable
                     if(userId == (jsonDataDictInfo["userId"] as! Int) ){
                         //startOfToday
-                        var dateIndex = (jsonDataDictInfo["logDate"] as! Double)
+                        let dateIndex = (jsonDataDictInfo["logDate"] as! Double)
                         var date = NSDate(timeIntervalSince1970: dateIndex)
                         
                         //print(dateFromString(date))

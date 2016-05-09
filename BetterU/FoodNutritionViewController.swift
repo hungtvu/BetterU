@@ -2,7 +2,7 @@
 //  FoodNutritionViewController.swift
 //  BetterU
 //
-//  Created by Hung Vu on 4/15/16.
+//  Created by Hung Vu, Corey McQuay on 4/15/16.
 //  Copyright © 2016 BetterU LLC. All rights reserved.
 //
 

@@ -119,7 +119,7 @@ class MonthlyCaloricIntakeViewController: UIViewController, ChartDelegate, UITab
         progress.angle = 300
         
         let percentageCompleted = calculatePercentageCompleted() * 100
-        var monthlySumCalories:Double = Double(sumCalories)
+        let monthlySumCalories:Double = Double(sumCalories)
         percentShort.text = String(Int(monthlySumCalories)) + " / " + String(Int(targetCalories * 30))
         
         let calculatedAngle = (percentageCompleted/100) * 360

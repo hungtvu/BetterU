@@ -371,7 +371,6 @@ class MonthlyWeightViewController: UIViewController, ChartDelegate, UITableViewD
                 var jsonDataDictInfo: NSDictionary = NSDictionary()
                 
                 var i = 0
-                var j = 0
                 while (i < jsonDataArray.count)
                 {
                     jsonDataDictInfo = jsonDataArray[i] as! NSDictionary

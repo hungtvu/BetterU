@@ -39,10 +39,13 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
         today = (today)/Float(hour);
         today = (0.57 * Float(self.weightInLbs))*(today/2112)
         WeekTable.append(today)
-        for var i = 0; i<WeekTable.count-1; i++
+        var i = 0
+        //for var i = 0; i<WeekTable.count-1; i++
+        while(i < WeekTable.count - 1)
         {
             WeekTable[i] = WeekTable[i]/Float(24)
             WeekTable[i] = (0.57 * Float(self.weightInLbs))*(WeekTable[i]/2112)
+            i = i + 1
         }
         super.viewDidLoad()
         // Draw the chart selected from the TableViewController
@@ -50,10 +53,12 @@ class DailyMilesViewController: UIViewController, ChartDelegate{
         // print(CoolBeans)
         chart.delegate = self
         //print("LMAO1")
-        for var i = CoolBeans.count-1; i>=0; i -= 1
+        var j = CoolBeans.count-1
+        //for var i = CoolBeans.count-1; i>=0; i -= 1
+        while(j >= 0)
         {// print(i)
-            CoolBeans[i] = (0.57 * Float(self.weightInLbs))*(CoolBeans[i]/2112)
-            //print(CoolBeans[i])
+            CoolBeans[j] = (0.57 * Float(self.weightInLbs))*(CoolBeans[j]/2112)
+            j = j - 1
         }
         if CoolBeans.count != 0
         {

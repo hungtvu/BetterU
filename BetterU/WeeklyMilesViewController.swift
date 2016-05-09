@@ -44,12 +44,13 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
         //print("LMAO1")
         
         // Simple chart
-        print(CoolBeans.count)
-        for var i = CoolBeans.count-1; i>=0; i -= 1
+        var i = CoolBeans.count-1
+        //for var i = CoolBeans.count-1; i>=0; i -= 1
+        while(i >= 0)
         {
             //  print(i)
             CoolBeans[i] = (CoolBeans[i]/2112)
-            print(CoolBeans[i])
+            i = i - 1
         }
         let series = ChartSeries(CoolBeans)
         series.color = ChartColors.greenColor()
@@ -152,9 +153,12 @@ class WeeklyMilesViewController: UIViewController, ChartDelegate,  UITableViewDa
             //print(self.CoolBeans)
             
         }
-        for var i = CoolBeans.count; i<0; i -= 1
+        var i = CoolBeans.count
+        //for var i = CoolBeans.count; i<0; i -= 1
+        while(i < 0)
         {
              CoolBeans[i] = (CoolBeans[i]/2112)
+             i = i - 1
         }
         return CoolBeans
     }

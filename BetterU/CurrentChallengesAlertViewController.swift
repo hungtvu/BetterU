@@ -165,7 +165,7 @@ class CurrentChallengesAlertViewController: UIViewController, UITableViewDelegat
                 // any info from inside of the JSON.
                 
                 /*                  */
-                let jsonData = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                let _ = try NSJSONSerialization.JSONObjectWithData(jsonDataFromApiURL, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
                 
                 
             }catch let error as NSError

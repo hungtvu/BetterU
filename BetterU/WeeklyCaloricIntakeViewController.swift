@@ -117,7 +117,7 @@ class WeeklyCaloricIntakeViewController: UIViewController, ChartDelegate, UITabl
         
 
         let percentageCompleted = calculatePercentageCompleted() * 100
-        var weeklySumCalories:Double = Double(sumCalories)
+        let weeklySumCalories:Double = Double(sumCalories)
         percentShort.text = String(Int(weeklySumCalories)) + " / " + String(Int(targetCalories * 7))
         
         let calculatedAngle = (percentageCompleted/100) * 360
